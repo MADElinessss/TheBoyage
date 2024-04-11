@@ -11,6 +11,7 @@ import UIKit
 class SignInViewController: BaseViewController {
 
     let mainView = SignInView()
+    let viewModel = SignInViewModel()
     
     override func loadView() {
         view = mainView
@@ -23,6 +24,17 @@ class SignInViewController: BaseViewController {
         view.backgroundColor = .white
         configureNavigationBar()
         configure()
+        bind()
+    }
+    
+    override func bind() {
+        let input = SignInViewModel.Input(
+            emailText: mainView.emailTextField.rx.text.orEmpty.asObservable(),
+            passwordText: mainView.passwordTextField.rx.text.orEmpty.asObservable(),
+            signInButtonTapped: mainView.signInButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
     }
     
     private func configure() {
@@ -48,7 +60,7 @@ class SignInViewController: BaseViewController {
     }
     
     private func configureNavigationBar() {
-        title = "LOGIN"
+        title = "MY PAGE"
         navigationController?.title = title
     }
 }

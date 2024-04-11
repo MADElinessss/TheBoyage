@@ -36,6 +36,7 @@
 		C1024AAA2BC81E010082EF13 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AA92BC81E010082EF13 /* SignInViewController.swift */; };
 		C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AAB2BC81E190082EF13 /* SignInView.swift */; };
 		C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AAE2BC81F840082EF13 /* PointButton.swift */; };
+		C1024AB32BC845A00082EF13 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AB22BC845A00082EF13 /* SignInViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		C1024AA92BC81E010082EF13 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C1024AAB2BC81E190082EF13 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		C1024AAE2BC81F840082EF13 /* PointButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
+		C1024AB22BC845A00082EF13 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,8 @@
 		C1024A992BC8040A0082EF13 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				C1024AB12BC8452E0082EF13 /* Like */,
+				C1024AB02BC845270082EF13 /* Main */,
 				C1024AA82BC81DF00082EF13 /* SignIn */,
 				C1024A9E2BC81D300082EF13 /* Base */,
 			);
@@ -174,6 +178,7 @@
 			children = (
 				C1024AA92BC81E010082EF13 /* SignInViewController.swift */,
 				C1024AAB2BC81E190082EF13 /* SignInView.swift */,
+				C1024AB22BC845A00082EF13 /* SignInViewModel.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -184,6 +189,20 @@
 				C1024AAE2BC81F840082EF13 /* PointButton.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		C1024AB02BC845270082EF13 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		C1024AB12BC8452E0082EF13 /* Like */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Like;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +295,7 @@
 				C1024AA02BC81D4D0082EF13 /* BaseViewController.swift in Sources */,
 				C1024A9D2BC804560082EF13 /* TargetType.swift in Sources */,
 				C1024A9B2BC8044B0082EF13 /* Router.swift in Sources */,
+				C1024AB32BC845A00082EF13 /* SignInViewModel.swift in Sources */,
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
 				C1024A7F2BC802BC0082EF13 /* HTTPHeader.swift in Sources */,
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,

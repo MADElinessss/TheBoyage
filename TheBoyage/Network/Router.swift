@@ -27,7 +27,7 @@ extension Router: TargetType {
     var path: String {
         switch self {
         case .login(let query):
-            return "users/login"
+            return "v1/users/login"
         }
     }
     
