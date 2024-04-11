@@ -14,6 +14,25 @@
 		C1024A6A2BC6BEE80082EF13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1024A692BC6BEE80082EF13 /* Assets.xcassets */; };
 		C1024A6D2BC6BEE80082EF13 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C1024A6C2BC6BEE80082EF13 /* Base */; };
 		C1024A752BC6BEF30082EF13 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = C1024A742BC6BEF30082EF13 /* .gitignore */; };
+		C1024A7B2BC797180082EF13 /* RefreshToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A7A2BC797180082EF13 /* RefreshToken.swift */; };
+		C1024A7D2BC797A60082EF13 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A7C2BC797A60082EF13 /* APIKey.swift */; };
+		C1024A7F2BC802BC0082EF13 /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A7E2BC802BC0082EF13 /* HTTPHeader.swift */; };
+		C1024A812BC802E30082EF13 /* LoginQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A802BC802E30082EF13 /* LoginQuery.swift */; };
+		C1024A832BC803060082EF13 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A822BC803060082EF13 /* LoginModel.swift */; };
+		C1024A862BC803230082EF13 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C1024A852BC803230082EF13 /* SnapKit */; };
+		C1024A892BC803380082EF13 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C1024A882BC803380082EF13 /* Alamofire */; };
+		C1024A8C2BC8034C0082EF13 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C1024A8B2BC8034C0082EF13 /* RxCocoa */; };
+		C1024A8E2BC8034C0082EF13 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = C1024A8D2BC8034C0082EF13 /* RxRelay */; };
+		C1024A902BC8034C0082EF13 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C1024A8F2BC8034C0082EF13 /* RxSwift */; };
+		C1024A932BC803550082EF13 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C1024A922BC803550082EF13 /* Kingfisher */; };
+		C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A952BC803B70082EF13 /* ProfileModel.swift */; };
+		C1024A982BC803DA0082EF13 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A972BC803DA0082EF13 /* NetworkManager.swift */; };
+		C1024A9B2BC8044B0082EF13 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A9A2BC8044B0082EF13 /* Router.swift */; };
+		C1024A9D2BC804560082EF13 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A9C2BC804560082EF13 /* TargetType.swift */; };
+		C1024AA02BC81D4D0082EF13 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024A9F2BC81D4D0082EF13 /* BaseViewController.swift */; };
+		C1024AA22BC81D630082EF13 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AA12BC81D630082EF13 /* BaseView.swift */; };
+		C1024AA42BC81D7B0082EF13 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AA32BC81D7B0082EF13 /* BaseTableViewCell.swift */; };
+		C1024AA72BC81DB00082EF13 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AA62BC81DB00082EF13 /* ViewModelType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +45,19 @@
 		C1024A6C2BC6BEE80082EF13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C1024A6E2BC6BEE80082EF13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1024A742BC6BEF30082EF13 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		C1024A7A2BC797180082EF13 /* RefreshToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshToken.swift; sourceTree = "<group>"; };
+		C1024A7C2BC797A60082EF13 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		C1024A7E2BC802BC0082EF13 /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
+		C1024A802BC802E30082EF13 /* LoginQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginQuery.swift; sourceTree = "<group>"; };
+		C1024A822BC803060082EF13 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		C1024A952BC803B70082EF13 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		C1024A972BC803DA0082EF13 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C1024A9A2BC8044B0082EF13 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		C1024A9C2BC804560082EF13 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		C1024A9F2BC81D4D0082EF13 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		C1024AA12BC81D630082EF13 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		C1024AA32BC81D7B0082EF13 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		C1024AA62BC81DB00082EF13 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +65,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1024A932BC803550082EF13 /* Kingfisher in Frameworks */,
+				C1024A8C2BC8034C0082EF13 /* RxCocoa in Frameworks */,
+				C1024A862BC803230082EF13 /* SnapKit in Frameworks */,
+				C1024A902BC8034C0082EF13 /* RxSwift in Frameworks */,
+				C1024A8E2BC8034C0082EF13 /* RxRelay in Frameworks */,
+				C1024A892BC803380082EF13 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +96,9 @@
 		C1024A5F2BC6BEE50082EF13 /* TheBoyage */ = {
 			isa = PBXGroup;
 			children = (
+				C1024AA52BC81D9F0082EF13 /* Protocol */,
+				C1024A992BC8040A0082EF13 /* Present */,
+				C1024A792BC7963C0082EF13 /* Network */,
 				C1024A602BC6BEE50082EF13 /* AppDelegate.swift */,
 				C1024A622BC6BEE50082EF13 /* SceneDelegate.swift */,
 				C1024A642BC6BEE50082EF13 /* ViewController.swift */,
@@ -68,6 +109,56 @@
 				C1024A742BC6BEF30082EF13 /* .gitignore */,
 			);
 			path = TheBoyage;
+			sourceTree = "<group>";
+		};
+		C1024A792BC7963C0082EF13 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C1024A942BC803800082EF13 /* Model */,
+				C1024A7C2BC797A60082EF13 /* APIKey.swift */,
+				C1024A7E2BC802BC0082EF13 /* HTTPHeader.swift */,
+				C1024A972BC803DA0082EF13 /* NetworkManager.swift */,
+				C1024A9A2BC8044B0082EF13 /* Router.swift */,
+				C1024A9C2BC804560082EF13 /* TargetType.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C1024A942BC803800082EF13 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1024A802BC802E30082EF13 /* LoginQuery.swift */,
+				C1024A822BC803060082EF13 /* LoginModel.swift */,
+				C1024A7A2BC797180082EF13 /* RefreshToken.swift */,
+				C1024A952BC803B70082EF13 /* ProfileModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C1024A992BC8040A0082EF13 /* Present */ = {
+			isa = PBXGroup;
+			children = (
+				C1024A9E2BC81D300082EF13 /* Base */,
+			);
+			path = Present;
+			sourceTree = "<group>";
+		};
+		C1024A9E2BC81D300082EF13 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				C1024A9F2BC81D4D0082EF13 /* BaseViewController.swift */,
+				C1024AA12BC81D630082EF13 /* BaseView.swift */,
+				C1024AA32BC81D7B0082EF13 /* BaseTableViewCell.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		C1024AA52BC81D9F0082EF13 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C1024AA62BC81DB00082EF13 /* ViewModelType.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +177,14 @@
 			dependencies = (
 			);
 			name = TheBoyage;
+			packageProductDependencies = (
+				C1024A852BC803230082EF13 /* SnapKit */,
+				C1024A882BC803380082EF13 /* Alamofire */,
+				C1024A8B2BC8034C0082EF13 /* RxCocoa */,
+				C1024A8D2BC8034C0082EF13 /* RxRelay */,
+				C1024A8F2BC8034C0082EF13 /* RxSwift */,
+				C1024A922BC803550082EF13 /* Kingfisher */,
+			);
 			productName = TheBoyage;
 			productReference = C1024A5D2BC6BEE50082EF13 /* TheBoyage.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +213,12 @@
 				Base,
 			);
 			mainGroup = C1024A542BC6BEE50082EF13;
+			packageReferences = (
+				C1024A842BC803230082EF13 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				C1024A872BC803380082EF13 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				C1024A8A2BC8034C0082EF13 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				C1024A912BC803550082EF13 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = C1024A5E2BC6BEE50082EF13 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -142,9 +247,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1024AA02BC81D4D0082EF13 /* BaseViewController.swift in Sources */,
+				C1024A9D2BC804560082EF13 /* TargetType.swift in Sources */,
+				C1024A9B2BC8044B0082EF13 /* Router.swift in Sources */,
+				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
+				C1024A7F2BC802BC0082EF13 /* HTTPHeader.swift in Sources */,
+				C1024A982BC803DA0082EF13 /* NetworkManager.swift in Sources */,
+				C1024A7B2BC797180082EF13 /* RefreshToken.swift in Sources */,
 				C1024A652BC6BEE50082EF13 /* ViewController.swift in Sources */,
 				C1024A612BC6BEE50082EF13 /* AppDelegate.swift in Sources */,
+				C1024A812BC802E30082EF13 /* LoginQuery.swift in Sources */,
+				C1024A832BC803060082EF13 /* LoginModel.swift in Sources */,
+				C1024AA22BC81D630082EF13 /* BaseView.swift in Sources */,
+				C1024AA72BC81DB00082EF13 /* ViewModelType.swift in Sources */,
 				C1024A632BC6BEE50082EF13 /* SceneDelegate.swift in Sources */,
+				C1024AA42BC81D7B0082EF13 /* BaseTableViewCell.swift in Sources */,
+				C1024A7D2BC797A60082EF13 /* APIKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +485,74 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C1024A842BC803230082EF13 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		C1024A872BC803380082EF13 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		C1024A8A2BC8034C0082EF13 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
+		C1024A912BC803550082EF13 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C1024A852BC803230082EF13 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1024A842BC803230082EF13 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		C1024A882BC803380082EF13 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1024A872BC803380082EF13 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		C1024A8B2BC8034C0082EF13 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1024A8A2BC8034C0082EF13 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		C1024A8D2BC8034C0082EF13 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1024A8A2BC8034C0082EF13 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		C1024A8F2BC8034C0082EF13 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1024A8A2BC8034C0082EF13 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		C1024A922BC803550082EF13 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1024A912BC803550082EF13 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C1024A552BC6BEE50082EF13 /* Project object */;
 }
