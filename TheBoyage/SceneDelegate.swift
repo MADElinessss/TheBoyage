@@ -16,7 +16,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let scene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: scene)
+        
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.backgroundColor = .systemGray6
+        tabBarController.tabBar.tintColor = .point
+        tabBarController.tabBar.unselectedItemTintColor = .lightGray
+        
+        let vc1 = ViewController()
+        let vc2 = ViewController()
+        let vc3 = SignInViewController()
+    
+        vc1.tabBarItem = UITabBarItem(title: "HOME", image: UIImage(systemName: "doc.text.image"), selectedImage: UIImage(named: "doc.text.image.fill"))
+        vc1.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        vc1.tabBarItem.tag = 0
+        
+        vc2.tabBarItem = UITabBarItem(title: "LIKE", image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
+        vc2.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        vc2.tabBarItem.tag = 1
+        
+        vc3.tabBarItem = UITabBarItem(title: "앱", image: UIImage(systemName: "person.fill"), selectedImage: UIImage(systemName: "person.fill"))
+        vc3.tabBarItem.tag = 2
+
+        
+        tabBarController.viewControllers = [vc1, vc2, vc3].map { UINavigationController(rootViewController: $0) }
+        
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
