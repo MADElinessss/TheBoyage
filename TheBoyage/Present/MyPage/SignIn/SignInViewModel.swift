@@ -50,7 +50,7 @@ class SignInViewModel: ViewModelType {
         input.signInButtonTapped
             .withLatestFrom(signInObservable)
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .flatMapLatest { loginQuery in  // flatMap 대신 flatMapLatest 사용
+            .flatMapLatest { loginQuery in
                 return NetworkManager.createLogin(query: loginQuery)
                     .asDriver(onErrorJustReturn: LoginModel(accessToken: "", refreshToken: ""))
             }

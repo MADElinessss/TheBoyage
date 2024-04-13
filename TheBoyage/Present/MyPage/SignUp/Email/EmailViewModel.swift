@@ -22,8 +22,11 @@ class EmailViewModel: ViewModelType {
     struct Output {
         let email: Driver<String>
         let emailValidation: Driver<Bool>
-        let nextTransition: Driver<Bool>
+        let nextTransition: Observable<Bool>
+        let errorMessage: Driver<String?>
     }
+    
+    private let errorMessageSubject = PublishSubject<String?>()
     
     func transform(_ input: Input) -> Output {
         
@@ -34,10 +37,23 @@ class EmailViewModel: ViewModelType {
             .asDriver(onErrorJustReturn: false)
         
         let nextTransition = input.nextButtonTapped
-            .withLatestFrom(emailValidation)
-            .filter { $0 == true }
-            .asDriver(onErrorJustReturn: false)
+            .withLatestFrom(input.emailText.orEmpty)
+            .filter { $0.count >= 5 && $0.contains("@") }
+            .flatMapLatest { email in
+                NetworkManager.emailValidation(query: EmailQuery(email: email))
+                    .do(onSuccess: { response in
+                        if response.message != "사용 가능한 이메일입니다." {
+                            self.errorMessageSubject.onNext(response.message)
+                        }
+                    }, onError: { _ in
+                        self.errorMessageSubject.onNext("네트워크 오류가 발생했습니다.")
+                    })
+                    .map { response -> Bool in
+                        response.message == "사용 가능한 이메일입니다."
+                    }
+                    .asDriver(onErrorJustReturn: false)
+            }
         
-        return Output(email: email, emailValidation: emailValidation, nextTransition: nextTransition)
+        return Output(email: email, emailValidation: emailValidation, nextTransition: nextTransition, errorMessage: errorMessageSubject.asDriver(onErrorJustReturn: nil))
     }
 }

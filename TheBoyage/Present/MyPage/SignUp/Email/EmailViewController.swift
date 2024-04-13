@@ -41,6 +41,7 @@ class EmailViewController: BaseViewController {
         let input = EmailViewModel.Input(emailText: emailTextField.rx.text, nextButtonTapped: nextButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input)
+        
         output.emailValidation
             .drive(with: self) { owner, isValid in
                 owner.nextButton.isEnabled = isValid
@@ -51,9 +52,12 @@ class EmailViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.nextTransition
-            .drive(with: self) { owner, isNext in
+            .bind(with: self) { owner, isNext in
                 if isNext {
                     owner.goToNextPage()
+                } else {
+                    owner.descriptionLabel.text = "중복된 이메일입니다."
+                    owner.descriptionLabel.isHidden = false
                 }
             }
             .disposed(by: disposeBag)

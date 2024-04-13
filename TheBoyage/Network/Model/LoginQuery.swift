@@ -12,3 +12,7 @@ struct LoginQuery: Encodable {
     let email: String
     let password: String
 }
+
+struct EmailQuery: Encodable {
+    let email: String
+}

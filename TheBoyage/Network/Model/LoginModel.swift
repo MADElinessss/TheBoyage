@@ -13,3 +13,6 @@ struct LoginModel: Decodable {
     let refreshToken: String
 }
 
+struct EmailValidationModel: Decodable {
+    let message: String
+}
