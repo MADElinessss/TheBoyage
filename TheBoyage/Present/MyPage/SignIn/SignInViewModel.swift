@@ -12,17 +12,19 @@ import RxSwift
 
 class SignInViewModel: ViewModelType {
     
-    var disposeBag = DisposeBag()
+     var disposeBag = DisposeBag()
     
     struct Input {
         let emailText: Observable<String>
         let passwordText: Observable<String>
         let signInButtonTapped: Observable<Void>
+        let signUpButtonTapped: Observable<Void>
     }
     
     struct Output {
         let signInValidation: Driver<Bool>
         let loginSuccessTrigger: Driver<Void>
+        let signUpButtonTapped: Observable<Void>
     }
     
     func transform(_ input: Input) -> Output {
@@ -34,6 +36,7 @@ class SignInViewModel: ViewModelType {
             .map { email, password in
                 return LoginQuery(email: email, password: password)
             }
+           
         signInObservable
             .bind(with: self) { owner, login in
                 if login.email.contains("@") && login.password.count > 5 {
@@ -45,10 +48,11 @@ class SignInViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         input.signInButtonTapped
-            .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .withLatestFrom(signInObservable)
-            .flatMap { loginQuery in
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .flatMapLatest { loginQuery in  // flatMap 대신 flatMapLatest 사용
                 return NetworkManager.createLogin(query: loginQuery)
+                    .asDriver(onErrorJustReturn: LoginModel(accessToken: "", refreshToken: ""))
             }
             .subscribe(with: self) { owner, loginModel in
                 signInSuccess.accept(())
@@ -59,7 +63,15 @@ class SignInViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(signInValidation: signInValid.asDriver(), loginSuccessTrigger: signInSuccess.asDriver(onErrorJustReturn: ()))
+        input.signUpButtonTapped
+            .subscribe(with: self) { owner, _ in
+                
+            } onError: { owner, error in
+                print("삐용", error)
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(signInValidation: signInValid.asDriver(), loginSuccessTrigger: signInSuccess.asDriver(onErrorJustReturn: ()), signUpButtonTapped: input.signUpButtonTapped.asObservable())
     }
     
 }

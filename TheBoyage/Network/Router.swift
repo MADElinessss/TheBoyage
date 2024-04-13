@@ -8,6 +8,7 @@
 import Alamofire
 import Foundation
 
+// TODO: Router도 종류별로 분리해서 쓰기
 enum Router {
     case login(query: LoginQuery)
 }

@@ -37,6 +37,16 @@
 		C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AAB2BC81E190082EF13 /* SignInView.swift */; };
 		C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AAE2BC81F840082EF13 /* PointButton.swift */; };
 		C1024AB32BC845A00082EF13 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AB22BC845A00082EF13 /* SignInViewModel.swift */; };
+		C1024AB62BC853020082EF13 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AB52BC853020082EF13 /* SignUpViewController.swift */; };
+		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
+		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
+		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
+		C178A8C12BCA64A4007F1E3F /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8C02BCA64A4007F1E3F /* ProgressView.swift */; };
+		C178A8C32BCA653C007F1E3F /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8C22BCA653C007F1E3F /* EmailViewController.swift */; };
+		C178A8C52BCA6544007F1E3F /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8C42BCA6544007F1E3F /* PasswordViewController.swift */; };
+		C178A8C72BCA654D007F1E3F /* EtcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8C62BCA654D007F1E3F /* EtcViewController.swift */; };
+		C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8C82BCAAE7B007F1E3F /* PasswordViewModel.swift */; };
+		C178A8CB2BCAAE99007F1E3F /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8CA2BCAAE99007F1E3F /* NicknameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +76,16 @@
 		C1024AAB2BC81E190082EF13 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		C1024AAE2BC81F840082EF13 /* PointButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
 		C1024AB22BC845A00082EF13 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		C1024AB52BC853020082EF13 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
+		C178A8C02BCA64A4007F1E3F /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		C178A8C22BCA653C007F1E3F /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		C178A8C42BCA6544007F1E3F /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		C178A8C62BCA654D007F1E3F /* EtcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtcViewController.swift; sourceTree = "<group>"; };
+		C178A8C82BCAAE7B007F1E3F /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
+		C178A8CA2BCAAE99007F1E3F /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,9 +167,9 @@
 		C1024A992BC8040A0082EF13 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				C178A8B92BCA47F7007F1E3F /* MyPage */,
 				C1024AB12BC8452E0082EF13 /* Like */,
 				C1024AB02BC845270082EF13 /* Main */,
-				C1024AA82BC81DF00082EF13 /* SignIn */,
 				C1024A9E2BC81D300082EF13 /* Base */,
 			);
 			path = Present;
@@ -194,6 +214,7 @@
 		C1024AB02BC845270082EF13 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C178A8BA2BCA4821007F1E3F /* MainViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -203,6 +224,55 @@
 			children = (
 			);
 			path = Like;
+			sourceTree = "<group>";
+		};
+		C1024AB42BC8529A0082EF13 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				C178A8C02BCA64A4007F1E3F /* ProgressView.swift */,
+				C178A8CE2BCAAF00007F1E3F /* Etc */,
+				C178A8CD2BCAAED7007F1E3F /* Password */,
+				C178A8CC2BCAAEB9007F1E3F /* Email */,
+				C1024AB52BC853020082EF13 /* SignUpViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		C178A8B92BCA47F7007F1E3F /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				C1024AB42BC8529A0082EF13 /* SignUp */,
+				C1024AA82BC81DF00082EF13 /* SignIn */,
+				C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		C178A8CC2BCAAEB9007F1E3F /* Email */ = {
+			isa = PBXGroup;
+			children = (
+				C178A8C22BCA653C007F1E3F /* EmailViewController.swift */,
+				C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */,
+			);
+			path = Email;
+			sourceTree = "<group>";
+		};
+		C178A8CD2BCAAED7007F1E3F /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				C178A8C82BCAAE7B007F1E3F /* PasswordViewModel.swift */,
+				C178A8C42BCA6544007F1E3F /* PasswordViewController.swift */,
+			);
+			path = Password;
+			sourceTree = "<group>";
+		};
+		C178A8CE2BCAAF00007F1E3F /* Etc */ = {
+			isa = PBXGroup;
+			children = (
+				C178A8C62BCA654D007F1E3F /* EtcViewController.swift */,
+				C178A8CA2BCAAE99007F1E3F /* NicknameViewModel.swift */,
+			);
+			path = Etc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,6 +362,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
+				C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */,
+				C178A8CB2BCAAE99007F1E3F /* NicknameViewModel.swift in Sources */,
 				C1024AA02BC81D4D0082EF13 /* BaseViewController.swift in Sources */,
 				C1024A9D2BC804560082EF13 /* TargetType.swift in Sources */,
 				C1024A9B2BC8044B0082EF13 /* Router.swift in Sources */,
@@ -299,16 +371,24 @@
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
 				C1024A7F2BC802BC0082EF13 /* HTTPHeader.swift in Sources */,
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,
+				C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */,
 				C1024A982BC803DA0082EF13 /* NetworkManager.swift in Sources */,
+				C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */,
 				C1024A7B2BC797180082EF13 /* RefreshToken.swift in Sources */,
+				C178A8C12BCA64A4007F1E3F /* ProgressView.swift in Sources */,
 				C1024AAA2BC81E010082EF13 /* SignInViewController.swift in Sources */,
 				C1024A652BC6BEE50082EF13 /* ViewController.swift in Sources */,
+				C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */,
 				C1024A612BC6BEE50082EF13 /* AppDelegate.swift in Sources */,
+				C178A8C52BCA6544007F1E3F /* PasswordViewController.swift in Sources */,
 				C1024A812BC802E30082EF13 /* LoginQuery.swift in Sources */,
 				C1024A832BC803060082EF13 /* LoginModel.swift in Sources */,
+				C178A8C32BCA653C007F1E3F /* EmailViewController.swift in Sources */,
+				C1024AB62BC853020082EF13 /* SignUpViewController.swift in Sources */,
 				C1024AA22BC81D630082EF13 /* BaseView.swift in Sources */,
 				C1024AA72BC81DB00082EF13 /* ViewModelType.swift in Sources */,
 				C1024A632BC6BEE50082EF13 /* SceneDelegate.swift in Sources */,
+				C178A8C72BCA654D007F1E3F /* EtcViewController.swift in Sources */,
 				C1024AA42BC81D7B0082EF13 /* BaseTableViewCell.swift in Sources */,
 				C1024A7D2BC797A60082EF13 /* APIKey.swift in Sources */,
 			);

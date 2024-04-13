@@ -14,7 +14,7 @@ class PointButton: UIButton {
         
         setTitle(title, for: .normal)
         setTitleColor(.white, for: .normal)
-        backgroundColor = .black
+        backgroundColor = .point
         layer.cornerRadius = 10
     }
     
