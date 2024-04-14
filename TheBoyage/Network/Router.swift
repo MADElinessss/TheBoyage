@@ -12,6 +12,7 @@ import Foundation
 enum Router {
     case login(query: LoginQuery)
     case emailValidate(query: EmailQuery)
+    case signUp(query: SignUpQuery)
 }
 
 extension Router: TargetType {
@@ -25,6 +26,8 @@ extension Router: TargetType {
                 .post
         case .emailValidate(query: _):
                 .post
+        case .signUp(query: _):
+                .post
         }
     }
     
@@ -34,6 +37,8 @@ extension Router: TargetType {
             return "v1/users/login"
         case .emailValidate(query: _):
             return "v1/validation/email"
+        case .signUp(query: _):
+            return "v1/users/join"
         }
     }
     
@@ -49,6 +54,11 @@ extension Router: TargetType {
                 HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
             ]
+        case .signUp(query: _):
+            return [
+                HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
+                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
+            ]
         }
     }
     
@@ -56,7 +66,9 @@ extension Router: TargetType {
         switch self {
         case .login(_):
             return nil
-        case .emailValidate(query: let query):
+        case .emailValidate(query: _):
+            return nil
+        case .signUp(query: let query):
             return nil
         }
     }
@@ -66,6 +78,8 @@ extension Router: TargetType {
         case .login(_):
             return nil
         case .emailValidate(query: _):
+            return nil
+        case .signUp(query: let query):
             return nil
         }
     }
@@ -77,6 +91,10 @@ extension Router: TargetType {
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         case .emailValidate(query: let query):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            return try? encoder.encode(query)
+        case .signUp(query: let query):
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)

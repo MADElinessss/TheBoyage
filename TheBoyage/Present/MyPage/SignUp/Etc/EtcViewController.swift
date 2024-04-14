@@ -12,7 +12,6 @@ import UIKit
 class EtcViewController: BaseViewController {
     
     let titleLabel = UILabel()
-
     let nicknameTextField = {
         let view = UITextField()
         view.placeholder = " 닉네임"
@@ -23,7 +22,6 @@ class EtcViewController: BaseViewController {
         view.tintColor = .lightGray
         return view
     }()
-    
     let phoneTextField = {
         let view = UITextField()
         view.placeholder = " 휴대폰 번호"
@@ -35,7 +33,6 @@ class EtcViewController: BaseViewController {
         view.keyboardType = .numberPad
         return view
     }()
-    
     let birthdatTitle = {
         let view = UILabel()
         view.text = "생일을 입력해주세요."
@@ -43,7 +40,6 @@ class EtcViewController: BaseViewController {
         view.textColor = .black
         return view
     }()
-    
     let birthdayPicker = {
         let view = UIDatePicker()
         view.tintColor = .point
@@ -52,14 +48,25 @@ class EtcViewController: BaseViewController {
         view.locale = Locale(identifier: "ko_KR")
         return view
     }()
-    
     let descriptionLabel = UILabel()
     let nextButton = {
         let view = PointButton(title: "다음")
         view.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         return view
     }()
-    let viewModel = NicknameViewModel()
+    
+    private let progressView = ProgressView(numberOfSteps: 3)
+
+    var viewModel: NicknameViewModel!
+    
+    init(centralViewModel: SignUpViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = NicknameViewModel(centralViewModel: centralViewModel)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,9 +77,10 @@ class EtcViewController: BaseViewController {
     }
     
     override func bind() {
-        let input = NicknameViewModel.Input(nicknameText: nicknameTextField.rx.text, nextButtonTapped: nextButton.rx.tap.asObservable())
+        let input = NicknameViewModel.Input(nicknameText: nicknameTextField.rx.text, phoneNumberText: phoneTextField.rx.text, birthday: birthdayPicker.rx.date, nextButtonTapped: nextButton.rx.tap.asObservable())
         
         let output = viewModel.transform(input)
+        
         output.nicknameValidation
             .drive(with: self) { owner, isValid in
                 self.nextButton.isEnabled = isValid
@@ -80,15 +88,14 @@ class EtcViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        output.nextTransition
-            .drive(with: self) { owner, isNext in
+        output.signUpSuccess
+            .subscribe(with: self, onNext: { owner, isNext in
                 let vc = MyPageViewController()
                 owner.navigationController?.pushViewController(vc, animated: true)
-            }
+            })
             .disposed(by: disposeBag)
     }
-    
-    
+
     private func configure() {
         view.addSubview(titleLabel)
         view.addSubview(nicknameTextField)
@@ -97,14 +104,23 @@ class EtcViewController: BaseViewController {
         view.addSubview(birthdatTitle)
         view.addSubview(nextButton)
         view.addSubview(descriptionLabel)
+        view.addSubview(progressView)
         
         titleLabel.text = "닉네임, 휴대폰 번호, 생일을 입력해주세요."
         titleLabel.numberOfLines = 2
         titleLabel.font = .systemFont(ofSize: 16, weight: .regular)
         
+        updateProgress(currentStep: 3)
+        
+        progressView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(8)
+            make.left.right.equalTo(view)
+            make.height.equalTo(4)
+        }
+        
         titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(progressView.snp.bottom).offset(16)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(24)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(48)
         }
         
@@ -143,6 +159,10 @@ class EtcViewController: BaseViewController {
     private func configureNavigationBar() {
         title = "회원 가입"
         navigationController?.title = title
+    }
+    
+    func updateProgress(currentStep: Int) {
+        progressView.updateProgress(currentStep: currentStep)
     }
 
 }

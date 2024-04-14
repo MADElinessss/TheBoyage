@@ -58,4 +58,27 @@ struct NetworkManager {
             return Disposables.create()
         }
     }
+    
+    // MARK: 회원 가입
+    static func signUp(query: SignUpQuery) -> Single<SignUpModel> {
+        return Single<SignUpModel>.create { single in
+            do {
+                let urlRequest = try Router.signUp(query: query).asURLRequest()
+                
+                AF.request(urlRequest)
+                    .responseDecodable(of: SignUpModel.self) { response in
+                        switch response.result {
+                        case .success(let success):
+                            single(.success(success))
+                        case .failure(let failure):
+                            single(.failure(failure))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
 }

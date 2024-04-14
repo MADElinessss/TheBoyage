@@ -16,3 +16,9 @@ struct LoginModel: Decodable {
 struct EmailValidationModel: Decodable {
     let message: String
 }
+
+struct SignUpModel: Decodable {
+    let user_id: String
+    let email: String
+    let nick: String
+}

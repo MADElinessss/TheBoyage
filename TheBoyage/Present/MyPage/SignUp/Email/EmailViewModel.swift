@@ -12,7 +12,12 @@ import RxSwift
 
 class EmailViewModel: ViewModelType {
     
+    var centralViewModel: SignUpViewModel
     var disposeBag = DisposeBag()
+    
+    init(centralViewModel: SignUpViewModel) {
+        self.centralViewModel = centralViewModel
+    }
     
     struct Input {
         let emailText: ControlProperty<String?>
@@ -39,6 +44,10 @@ class EmailViewModel: ViewModelType {
         let nextTransition = input.nextButtonTapped
             .withLatestFrom(input.emailText.orEmpty)
             .filter { $0.count >= 5 && $0.contains("@") }
+            .do(onNext: { [weak self] email in
+                self?.centralViewModel.email.onNext(email)
+                print("EmailViewModel Email: \(email)")
+            })
             .flatMapLatest { email in
                 NetworkManager.emailValidation(query: EmailQuery(email: email))
                     .do(onSuccess: { response in

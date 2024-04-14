@@ -27,7 +27,18 @@ class PasswordViewController: BaseViewController {
         return view
     }()
     
-    let viewModel = PasswordViewModel()
+    private let progressView = ProgressView(numberOfSteps: 3)
+    
+    var viewModel: PasswordViewModel!
+    
+    init(centralViewModel: SignUpViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = PasswordViewModel(centralViewModel: centralViewModel)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +75,8 @@ class PasswordViewController: BaseViewController {
         view.addSubview(passwordTextField)
         view.addSubview(nextButton)
         view.addSubview(descriptionLabel)
-        
+        view.addSubview(progressView)
+    
         titleLabel.text = "비밀번호를 입력해주세요."
         titleLabel.numberOfLines = 2
         titleLabel.font = .systemFont(ofSize: 16, weight: .regular)
@@ -73,9 +85,17 @@ class PasswordViewController: BaseViewController {
         descriptionLabel.textColor = .red
         descriptionLabel.isHidden = true
         
+        updateProgress(currentStep: 2)
+        
+        progressView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(8)
+            make.left.right.equalTo(view)
+            make.height.equalTo(4)
+        }
+        
         titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(progressView.snp.bottom).offset(16)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(24)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(48)
         }
         
@@ -96,5 +116,8 @@ class PasswordViewController: BaseViewController {
             make.height.equalTo(44)
         }
     }
-
+    
+    func updateProgress(currentStep: Int) {
+        progressView.updateProgress(currentStep: currentStep)
+    }
 }

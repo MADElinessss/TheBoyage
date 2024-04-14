@@ -11,12 +11,14 @@ import UIKit
 
 class SignUpViewController: BaseViewController {
     var currentPage: Int = 0
-    let pages: [UIViewController] = [EmailViewController(), PasswordViewController(), EtcViewController()]
-    let progressView = ProgressView(numberOfSteps: 3)
+    let centralViewModel = SignUpViewModel()
+    var pages: [UIViewController] = []
+        let progressView = ProgressView(numberOfSteps: 3)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupPages()
         setupProgressView()
         
         let containerView = UIView()
@@ -29,7 +31,16 @@ class SignUpViewController: BaseViewController {
         pages[0].view.frame = containerView.bounds
         pages[0].didMove(toParent: self)
     }
-
+    
+    private func setupPages() {
+        // 각 페이지에 ViewModel 전달
+        pages = [
+            EmailViewController(centralViewModel: centralViewModel),
+            PasswordViewController(centralViewModel: centralViewModel),
+            EtcViewController(centralViewModel: centralViewModel)
+        ]
+    }
+    
     func setupProgressView() {
         view.addSubview(progressView)
         progressView.snp.makeConstraints { make in
@@ -47,9 +58,6 @@ class SignUpViewController: BaseViewController {
 
         let currentVC = pages[currentIndex]
         let nextVC = pages[nextIndex]
-
-//        currentVC.willMove(toParent: nil)
-//        addChild(nextVC)
         
         addChild(nextVC)
         nextVC.view.frame = view.bounds

@@ -16,3 +16,11 @@ struct LoginQuery: Encodable {
 struct EmailQuery: Encodable {
     let email: String
 }
+
+struct SignUpQuery: Encodable {
+    let email: String
+    let password: String
+    let nick: String
+    let birthDay: String
+    let phoneNum: String
+}
