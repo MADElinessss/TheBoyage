@@ -40,7 +40,6 @@ class SignInViewController: BaseViewController {
         
         output.loginSuccessTrigger
             .drive(with: self) { owner, _ in
-                print("👩🏻‍🚒 view - lst")
                 let vc = MyPageViewController()
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
@@ -73,6 +72,11 @@ class SignInViewController: BaseViewController {
             make.top.equalTo(mainView.passwordTextField.snp.bottom).offset(24)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(24)
             make.height.equalTo(44)
+        }
+        
+        mainView.guidanceLabel.snp.makeConstraints { make in
+            make.top.equalTo(mainView.signInButton.snp.bottom).offset(28)
+            make.centerX.equalTo(view)
         }
         
         mainView.signUpButton.snp.makeConstraints { make in

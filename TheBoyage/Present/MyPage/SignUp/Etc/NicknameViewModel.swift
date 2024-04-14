@@ -75,7 +75,6 @@ class NicknameViewModel: ViewModelType {
             .filter { $0 }
             .do(onNext: { [unowned self] _ in
                 self.centralViewModel.signUp()
-                print("👩🏻‍🚒 nextbuttontapped")
             })
         
         let errorMessage = Observable<String>.never()

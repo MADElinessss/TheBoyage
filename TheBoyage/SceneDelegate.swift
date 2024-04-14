@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let vc1 = ViewController()
         let vc2 = ViewController()
-        let vc3 = SignInViewController()
+        let vc3 = determineInitialViewController()
     
         vc1.tabBarItem = UITabBarItem(title: "HOME", image: UIImage(systemName: "doc.text.image"), selectedImage: UIImage(named: "doc.text.image.fill"))
         vc1.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
@@ -46,7 +46,45 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
-
+    
+    private func determineInitialViewController() -> UIViewController {
+        if isUserLoggedIn() {
+            validateToken { isValid in
+                DispatchQueue.main.async { // 비동기 처리에서 UI 업데이트를 위해 메인 스레드 사용
+                    if let tabBarController = self.window?.rootViewController as? UITabBarController,
+                       let viewControllers = tabBarController.viewControllers,
+                       viewControllers.count > 2 {
+                        let vc3 = isValid ? MyPageViewController() : SignInViewController()
+                        let navController = UINavigationController(rootViewController: vc3)
+                        tabBarController.viewControllers?[2] = navController
+                    }
+                }
+            }
+            return SignInViewController()
+        } else {
+            return SignInViewController()
+        }
+    }
+    
+    private func validateToken(completion: @escaping (Bool) -> Void) {
+        NetworkManager.refreshToken().subscribe { event in
+            switch event {
+            case .success(let refreshToken):
+                UserDefaults.standard.set(refreshToken.accessToken, forKey: "AccessToken")
+                completion(true)
+            case .failure:
+                completion(false)
+            }
+        }
+    }
+    
+    private func isUserLoggedIn() -> Bool {
+        if let accessToken = UserDefaults.standard.string(forKey: "AccessToken"), !accessToken.isEmpty {
+            return true
+        }
+        return false
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

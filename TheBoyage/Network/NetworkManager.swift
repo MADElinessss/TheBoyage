@@ -23,9 +23,19 @@ struct NetworkManager {
                         switch response.result {
                         case .success(let loginModel):
                             print("success!\(loginModel)")
-                            single(.success(loginModel))//성공하면 받는 데이터: at, rt
+                            UserDefaults.standard.set(loginModel.accessToken, forKey: "AccessToken")
+                            UserDefaults.standard.set(loginModel.refreshToken, forKey: "RefreshToken")
+                            
+                            single(.success(loginModel)) //성공하면 받는 데이터: at, rt
                         case .failure(let error):
                             single(.failure(error))
+//                            if let code = response.response?.statusCode {
+//                                if code == 419 {
+//                                    tokenRefresh {
+//                                        //self.profileButtonClicked()
+//                                    }
+//                                }
+//                            }
                         }
                     }
             } catch {
@@ -35,6 +45,29 @@ struct NetworkManager {
             return Disposables.create()
         }
     }
+    
+    static func refreshToken() -> Single<RefreshToken> {
+        return Single<RefreshToken>.create { single in
+            do {
+                let urlRequest = try Router.refresh.asURLRequest()
+                AF.request(urlRequest)
+                    .responseDecodable(of: RefreshToken.self) { response in
+                        switch response.result {
+                        case .success(let success):
+                            UserDefaults.standard.set(success.accessToken, forKey: "AccessToken")
+                        case .failure(_):
+                            // 응답코드 418 -> 로그인하세요
+                            print("error")
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+   
     
     // MARK: 이메일 유효성 검사
     static func emailValidation(query: EmailQuery) -> Single<EmailValidationModel> {

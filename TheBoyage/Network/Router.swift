@@ -13,6 +13,7 @@ enum Router {
     case login(query: LoginQuery)
     case emailValidate(query: EmailQuery)
     case signUp(query: SignUpQuery)
+    case refresh
 }
 
 extension Router: TargetType {
@@ -28,6 +29,8 @@ extension Router: TargetType {
                 .post
         case .signUp(query: _):
                 .post
+        case .refresh:
+                .get
         }
     }
     
@@ -39,9 +42,11 @@ extension Router: TargetType {
             return "v1/validation/email"
         case .signUp(query: _):
             return "v1/users/join"
+        case .refresh:
+            return "v1/auth/refresh"
         }
     }
-    
+
     var header: [String : String] {
         switch self {
         case .login(_):
@@ -59,6 +64,12 @@ extension Router: TargetType {
                 HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
             ]
+        case .refresh:
+            return [
+                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue,
+                HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
+                HTTPHeader.refresh.rawValue : UserDefaults.standard.string(forKey: "RefreshToken") ?? ""
+            ]
         }
     }
     
@@ -68,7 +79,9 @@ extension Router: TargetType {
             return nil
         case .emailValidate(query: _):
             return nil
-        case .signUp(query: let query):
+        case .signUp(query: _):
+            return nil
+        case .refresh:
             return nil
         }
     }
@@ -79,7 +92,9 @@ extension Router: TargetType {
             return nil
         case .emailValidate(query: _):
             return nil
-        case .signUp(query: let query):
+        case .signUp(query: _):
+            return nil
+        case .refresh:
             return nil
         }
     }
@@ -98,6 +113,8 @@ extension Router: TargetType {
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
+        case .refresh:
+            return nil
         }
     }
 }

@@ -55,7 +55,10 @@ class SignInViewModel: ViewModelType {
                     .asDriver(onErrorJustReturn: LoginModel(accessToken: "", refreshToken: ""))
             }
             .subscribe(with: self) { owner, loginModel in
-                signInSuccess.accept(())
+                if !loginModel.accessToken.isEmpty {
+                    signInSuccess.accept(())
+                }
+                // signInSuccess.accept(())
             } onError: { owner, error in
                 print("삐용", error)
             } onCompleted: { owner in

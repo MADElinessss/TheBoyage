@@ -38,6 +38,15 @@ class SignInView: BaseView {
         return view
     }()
     
+    let guidanceLabel = {
+        let view = UILabel()
+        view.font = .systemFont(ofSize: 12, weight: .regular)
+        view.textColor = .lightGray
+        view.text = "회원 가입하고 더 많은 기능을 써보세요!"
+        view.textColor = .point
+        return view
+    }()
+    
     let signUpButton = {
         let view = PointButton(title: "간편 회원가입하기")
         view.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
@@ -56,6 +65,7 @@ class SignInView: BaseView {
         addSubview(passwordTextField)
         addSubview(signInButton)
         addSubview(signUpButton)
+        addSubview(guidanceLabel)
     }
     
     override func configureHierarchy() {
