@@ -13,7 +13,7 @@ class SignUpViewController: BaseViewController {
     var currentPage: Int = 0
     let centralViewModel = SignUpViewModel()
     var pages: [UIViewController] = []
-        let progressView = ProgressView(numberOfSteps: 3)
+    let progressView = ProgressView(numberOfSteps: 3)
 
     override func viewDidLoad() {
         super.viewDidLoad()

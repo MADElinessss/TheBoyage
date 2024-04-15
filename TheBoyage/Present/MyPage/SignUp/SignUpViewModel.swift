@@ -42,13 +42,14 @@ class SignUpViewModel {
             NetworkManager.signUp(query: signUpQuery)
                 .subscribe(onSuccess: { signup in
                     print("회원가입 성공: \(signup.user_id), \(signup.email), \(signup.nick)")
-                }, onError: { error in
+                }, onFailure: { error in
                     print("회원가입 실패: \(error.localizedDescription)")
                 })
                 .disposed(by: self?.disposeBag ?? DisposeBag())
         })
         .disposed(by: disposeBag)
     }
+    
     private func logValues(email: String?, password: String?, nickname: String?, phoneNumber: String?, birthday: String?) {
         print("🔍 Current Values:")
         print("Email: \(email ?? "nil")")

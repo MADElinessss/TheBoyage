@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         vc1.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         vc1.tabBarItem.tag = 0
         
-        vc2.tabBarItem = UITabBarItem(title: "LIKE", image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
+        vc2.tabBarItem = UITabBarItem(title: "POST", image: UIImage(systemName: "plus.circle.fill"), selectedImage: UIImage(systemName: "plus.circle.fill"))
         vc2.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         vc2.tabBarItem.tag = 1
         

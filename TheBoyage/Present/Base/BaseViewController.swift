@@ -22,4 +22,18 @@ class BaseViewController: UIViewController {
     }
     
     func bind() { }
+    
+    func configureNavigationBar(title: String, rightBarButton: UIBarButtonItem? = nil) {
+        self.navigationItem.title = title
+        
+        if let rightButton = rightBarButton {
+            self.navigationItem.rightBarButtonItem = rightButton
+        }
+    }
+    
+    func createBarButtonItem(imageName: String, action: Selector) -> UIBarButtonItem {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: imageName), style: .plain, target: self, action: action)
+        barButtonItem.tintColor = .point
+        return barButtonItem
+    }
 }

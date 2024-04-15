@@ -38,6 +38,14 @@
 		C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AAE2BC81F840082EF13 /* PointButton.swift */; };
 		C1024AB32BC845A00082EF13 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AB22BC845A00082EF13 /* SignInViewModel.swift */; };
 		C1024AB62BC853020082EF13 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1024AB52BC853020082EF13 /* SignUpViewController.swift */; };
+		C113D5342BCD25B30067094A /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113D5332BCD25B30067094A /* MyPageView.swift */; };
+		C1754B7E2BCD593000728142 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B7D2BCD593000728142 /* AddContentViewController.swift */; };
+		C1754B802BCD599100728142 /* AddContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B7F2BCD599100728142 /* AddContentView.swift */; };
+		C1754B832BCD612100728142 /* Extension+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B822BCD612100728142 /* Extension+UINavigationController.swift */; };
+		C1754B852BCD61D200728142 /* AddContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B842BCD61D200728142 /* AddContentTableViewCell.swift */; };
+		C1754B882BCD621400728142 /* FormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B872BCD621400728142 /* FormatterManager.swift */; };
+		C1754B8A2BCD655400728142 /* AddTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B892BCD655400728142 /* AddTitleTableViewCell.swift */; };
+		C1754B8C2BCD67A400728142 /* AddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B8B2BCD67A400728142 /* AddImageTableViewCell.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
 		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
 		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
@@ -78,6 +86,14 @@
 		C1024AAE2BC81F840082EF13 /* PointButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
 		C1024AB22BC845A00082EF13 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		C1024AB52BC853020082EF13 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		C113D5332BCD25B30067094A /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		C1754B7D2BCD593000728142 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
+		C1754B7F2BCD599100728142 /* AddContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentView.swift; sourceTree = "<group>"; };
+		C1754B822BCD612100728142 /* Extension+UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UINavigationController.swift"; sourceTree = "<group>"; };
+		C1754B842BCD61D200728142 /* AddContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentTableViewCell.swift; sourceTree = "<group>"; };
+		C1754B872BCD621400728142 /* FormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterManager.swift; sourceTree = "<group>"; };
+		C1754B892BCD655400728142 /* AddTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTitleTableViewCell.swift; sourceTree = "<group>"; };
+		C1754B8B2BCD67A400728142 /* AddImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageTableViewCell.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
@@ -126,6 +142,8 @@
 		C1024A5F2BC6BEE50082EF13 /* TheBoyage */ = {
 			isa = PBXGroup;
 			children = (
+				C1754B862BCD620A00728142 /* Manager */,
+				C1754B812BCD611300728142 /* Extension */,
 				C1024AA52BC81D9F0082EF13 /* Protocol */,
 				C1024A792BC7963C0082EF13 /* Network */,
 				C1024AAD2BC81F790082EF13 /* DesignSystem */,
@@ -170,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				C178A8B92BCA47F7007F1E3F /* MyPage */,
-				C1024AB12BC8452E0082EF13 /* Like */,
+				C1024AB12BC8452E0082EF13 /* Add */,
 				C1024AB02BC845270082EF13 /* Main */,
 				C1024A9E2BC81D300082EF13 /* Base */,
 			);
@@ -221,11 +239,16 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		C1024AB12BC8452E0082EF13 /* Like */ = {
+		C1024AB12BC8452E0082EF13 /* Add */ = {
 			isa = PBXGroup;
 			children = (
+				C1754B7D2BCD593000728142 /* AddContentViewController.swift */,
+				C1754B7F2BCD599100728142 /* AddContentView.swift */,
+				C1754B842BCD61D200728142 /* AddContentTableViewCell.swift */,
+				C1754B892BCD655400728142 /* AddTitleTableViewCell.swift */,
+				C1754B8B2BCD67A400728142 /* AddImageTableViewCell.swift */,
 			);
-			path = Like;
+			path = Add;
 			sourceTree = "<group>";
 		};
 		C1024AB42BC8529A0082EF13 /* SignUp */ = {
@@ -241,12 +264,29 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
+		C1754B812BCD611300728142 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C1754B822BCD612100728142 /* Extension+UINavigationController.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C1754B862BCD620A00728142 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				C1754B872BCD621400728142 /* FormatterManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		C178A8B92BCA47F7007F1E3F /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
 				C1024AB42BC8529A0082EF13 /* SignUp */,
 				C1024AA82BC81DF00082EF13 /* SignIn */,
 				C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */,
+				C113D5332BCD25B30067094A /* MyPageView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -367,25 +407,33 @@
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
 				C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */,
 				C178A8CB2BCAAE99007F1E3F /* NicknameViewModel.swift in Sources */,
+				C1754B7E2BCD593000728142 /* AddContentViewController.swift in Sources */,
 				C1024AA02BC81D4D0082EF13 /* BaseViewController.swift in Sources */,
 				C1024A9D2BC804560082EF13 /* TargetType.swift in Sources */,
 				C1024A9B2BC8044B0082EF13 /* Router.swift in Sources */,
 				C1024AB32BC845A00082EF13 /* SignInViewModel.swift in Sources */,
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
 				C178A8D02BCBE849007F1E3F /* SignUpViewModel.swift in Sources */,
+				C1754B882BCD621400728142 /* FormatterManager.swift in Sources */,
+				C113D5342BCD25B30067094A /* MyPageView.swift in Sources */,
 				C1024A7F2BC802BC0082EF13 /* HTTPHeader.swift in Sources */,
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,
 				C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */,
 				C1024A982BC803DA0082EF13 /* NetworkManager.swift in Sources */,
+				C1754B8A2BCD655400728142 /* AddTitleTableViewCell.swift in Sources */,
+				C1754B852BCD61D200728142 /* AddContentTableViewCell.swift in Sources */,
 				C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */,
 				C1024A7B2BC797180082EF13 /* RefreshToken.swift in Sources */,
 				C178A8C12BCA64A4007F1E3F /* ProgressView.swift in Sources */,
+				C1754B8C2BCD67A400728142 /* AddImageTableViewCell.swift in Sources */,
+				C1754B802BCD599100728142 /* AddContentView.swift in Sources */,
 				C1024AAA2BC81E010082EF13 /* SignInViewController.swift in Sources */,
 				C1024A652BC6BEE50082EF13 /* ViewController.swift in Sources */,
 				C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */,
 				C1024A612BC6BEE50082EF13 /* AppDelegate.swift in Sources */,
 				C178A8C52BCA6544007F1E3F /* PasswordViewController.swift in Sources */,
 				C1024A812BC802E30082EF13 /* LoginQuery.swift in Sources */,
+				C1754B832BCD612100728142 /* Extension+UINavigationController.swift in Sources */,
 				C1024A832BC803060082EF13 /* LoginModel.swift in Sources */,
 				C178A8C32BCA653C007F1E3F /* EmailViewController.swift in Sources */,
 				C1024AB62BC853020082EF13 /* SignUpViewController.swift in Sources */,

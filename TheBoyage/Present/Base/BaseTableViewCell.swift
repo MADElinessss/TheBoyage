@@ -15,7 +15,8 @@ class BaseTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        clipsToBounds = true
+        layer.cornerRadius = 15
         backgroundColor = .clear
         selectionStyle = .none
     }
