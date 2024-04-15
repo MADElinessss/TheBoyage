@@ -11,9 +11,10 @@ import UIKit
 final class AddImageTableViewCell: BaseTableViewCell {
     let selectedImageView = {
         let view = UIImageView()
-        
-        
-        
+        view.image = UIImage(systemName: "photo")
+        view.tintColor = .lightGray
+        view.contentMode = .scaleAspectFit
+        view.layer.cornerRadius = 15
         return view
     }()
     
@@ -27,9 +28,6 @@ final class AddImageTableViewCell: BaseTableViewCell {
     private func configureView() {
         
         addSubview(selectedImageView)
-        
-        selectedImageView.image = UIImage(systemName: "photo")
-        selectedImageView.layer.cornerRadius = 15
         
         selectedImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

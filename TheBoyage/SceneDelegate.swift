@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.unselectedItemTintColor = .lightGray
         
         let vc1 = ViewController()
-        let vc2 = ViewController()
+        let vc2 = AddContentViewController()
         let vc3 = determineInitialViewController()
     
         vc1.tabBarItem = UITabBarItem(title: "HOME", image: UIImage(systemName: "doc.text.image"), selectedImage: UIImage(named: "doc.text.image.fill"))

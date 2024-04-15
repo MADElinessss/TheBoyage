@@ -14,7 +14,7 @@ final class AddContentTableViewCell: BaseTableViewCell {
     
     lazy var textView: UITextView = {
         let view = UITextView()
-        view.font = .systemFont(ofSize: 18)
+        view.font = .systemFont(ofSize: 16)
         view.text = textViewPlaceHolder
         view.textColor = .lightGray
         view.delegate = self

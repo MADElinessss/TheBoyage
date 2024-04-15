@@ -9,11 +9,12 @@ import SnapKit
 import UIKit
 
 final class AddTitleTableViewCell: BaseTableViewCell {
+    
     let textViewPlaceHolder = "당신의 여행에 제목을 붙여주세요."
     
     lazy var textView: UITextView = {
         let view = UITextView()
-        view.font = .systemFont(ofSize: 18)
+        view.font = .systemFont(ofSize: 16)
         view.text = textViewPlaceHolder
         view.textColor = .lightGray
         view.delegate = self
@@ -59,9 +60,10 @@ final class AddTitleTableViewCell: BaseTableViewCell {
         }
         
         titleLabel.font = .systemFont(ofSize: 14, weight: .semibold)
+        titleLabel.text = "제목"
         titleLabel.textColor = .black
        
-        remainCountLabel.text = "0/500"
+        remainCountLabel.text = "0/50"
         remainCountLabel.font = .systemFont(ofSize: 14)
         remainCountLabel.textColor = .lightGray
         
@@ -69,9 +71,9 @@ final class AddTitleTableViewCell: BaseTableViewCell {
     
     private func updateCountLabel(characterCount: Int) {
         if textView.textColor == .lightGray {
-            remainCountLabel.text = "0/500"
+            remainCountLabel.text = "0/50"
         } else {
-            remainCountLabel.text = "\(characterCount)/500"
+            remainCountLabel.text = "\(characterCount)/50"
         }
     }
     
@@ -92,7 +94,7 @@ extension AddTitleTableViewCell: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = .lightGray
-            remainCountLabel.text = "0/500"
+            remainCountLabel.text = "0/50"
         }
     }
     
@@ -106,7 +108,7 @@ extension AddTitleTableViewCell: UITextViewDelegate {
         let newString = oldString.replacingCharacters(in: newRange, with: inputString).trimmingCharacters(in: .whitespacesAndNewlines)
         
         let characterCount = newString.count
-        guard characterCount <= 500 else { return false }
+        guard characterCount <= 50 else { return false }
         updateCountLabel(characterCount: characterCount)
         
         return true

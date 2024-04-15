@@ -24,6 +24,10 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     private func setupTableView() {
+        
+//        view.backgroundColor = .lightGray
+//        tableView.backgroundColor = .lightGray
+
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
@@ -34,11 +38,14 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.separatorStyle = .none
+        //tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.register(AddContentTableViewCell.self, forCellReuseIdentifier: "AddContentTableViewCell")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AddLottoTableViewCell")
+        tableView.register(AddTitleTableViewCell.self, forCellReuseIdentifier: "AddTitleTableViewCell")
+        tableView.register(AddImageTableViewCell.self, forCellReuseIdentifier: "AddImageTableViewCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "tagCell")
         
     }
     
@@ -54,7 +61,7 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         rightButton.tintColor = .lightGray
         rightButton.isEnabled = false
         
-        configureNavigationBar(title: "일기 작성", rightBarButton: rightButton)
+        configureNavigationBar(title: "여행기 작성", rightBarButton: rightButton)
     }
     
     @objc func dismissKeyboard() {
@@ -75,27 +82,44 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
 
 extension AddContentViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: AddImageTableViewCell.identifier, for: indexPath) as! AddImageTableViewCell
             
             return cell
-        } else if indexPath.section == 1 {
+        } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: AddTitleTableViewCell.identifier, for: indexPath) as! AddTitleTableViewCell
             
             return cell
-        } else {
+        } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: AddContentTableViewCell.identifier, for: indexPath) as! AddContentTableViewCell
             
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "tagCell", for: indexPath)
+            cell.textLabel?.text = "관련 주제 태그하기"
+            cell.layer.cornerRadius = 15
+            cell.selectionStyle = .none
             return cell
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 200
+        } else if indexPath.row == 1 {
+            return 100
+        } else if indexPath.row == 2 {
+            return 300
+        } else {
+            return 44
+        }
+    }
 }

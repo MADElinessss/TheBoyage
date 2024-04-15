@@ -17,7 +17,7 @@ class BaseTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         clipsToBounds = true
         layer.cornerRadius = 15
-        backgroundColor = .clear
+        backgroundColor = .white
         selectionStyle = .none
     }
     
