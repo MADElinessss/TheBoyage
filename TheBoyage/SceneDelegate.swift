@@ -67,7 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func validateToken(completion: @escaping (Bool) -> Void) {
-        NetworkManager.refreshToken().subscribe { event in
+        LoginNetworkManager.refreshToken().subscribe { event in
             switch event {
             case .success(let refreshToken):
                 UserDefaults.standard.set(refreshToken.accessToken, forKey: "AccessToken")

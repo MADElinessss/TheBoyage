@@ -9,8 +9,7 @@ import Alamofire
 import Foundation
 import RxSwift
 
-
-struct NetworkManager {
+struct LoginNetworkManager {
     // MARK: 로그인
     static func createLogin(query: LoginQuery) -> Single<LoginModel> {
         return Single<LoginModel>.create { single in

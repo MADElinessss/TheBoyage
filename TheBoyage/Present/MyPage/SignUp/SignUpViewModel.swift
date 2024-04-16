@@ -39,7 +39,7 @@ class SignUpViewModel {
             
             let signUpQuery = SignUpQuery(email: email, password: password, nick: nickname, birthDay: birthday, phoneNum: phoneNumber)
             
-            NetworkManager.signUp(query: signUpQuery)
+            LoginNetworkManager.signUp(query: signUpQuery)
                 .subscribe(onSuccess: { signup in
                     print("회원가입 성공: \(signup.user_id), \(signup.email), \(signup.nick)")
                 }, onFailure: { error in

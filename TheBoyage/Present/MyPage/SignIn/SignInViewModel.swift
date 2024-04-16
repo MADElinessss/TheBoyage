@@ -51,7 +51,7 @@ class SignInViewModel: ViewModelType {
             .withLatestFrom(signInObservable)
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .flatMapLatest { loginQuery in
-                return NetworkManager.createLogin(query: loginQuery)
+                return LoginNetworkManager.createLogin(query: loginQuery)
                     .asDriver(onErrorJustReturn: LoginModel(accessToken: "", refreshToken: ""))
             }
             .subscribe(with: self) { owner, loginModel in

@@ -49,7 +49,7 @@ class EmailViewModel: ViewModelType {
                 print("EmailViewModel Email: \(email)")
             })
             .flatMapLatest { email in
-                NetworkManager.emailValidation(query: EmailQuery(email: email))
+                LoginNetworkManager.emailValidation(query: EmailQuery(email: email))
                     .do(onSuccess: { response in
                         if response.message != "사용 가능한 이메일입니다." {
                             self.errorMessageSubject.onNext(response.message)
