@@ -5,6 +5,7 @@
 //  Created by Madeline on 4/15/24.
 //
 
+import PhotosUI
 import RxCocoa
 import RxSwift
 import SnapKit
@@ -14,6 +15,20 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
 
     let tableView = UITableView()
     var rightButton = UIBarButtonItem()
+    var imageArray : [UIImage] = []
+    
+    private var itemProviders: [NSItemProvider] = []
+    private var iterator: IndexingIterator<[NSItemProvider]>?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 5
+        configuration.filter = .images
+        let phPicker = PHPickerViewController(configuration: configuration)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,3 +138,50 @@ extension AddContentViewController {
         }
     }
 }
+
+extension AddContentViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        // 이미지 선택 로직
+        itemProviders = results.map(\.itemProvider)
+        for item in itemProviders {
+            if item.canLoadObject(ofClass: UIImage.self) {
+                item.loadObject(ofClass: UIImage.self) { image, error in
+                    DispatchQueue.main.async {
+                        guard let image = image as? UIImage else { return }
+                        self.imageArray.append(image)
+                    }
+                }
+            }
+        }
+        
+        
+        
+        picker.dismiss(animated: true)
+    }
+    
+    
+    
+    
+}
+
+
+//extension AddContentViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//    
+//    // 36일차
+//    
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        // 취소했을 때의 로직
+//    }
+//    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        // 이미지 선택 로직
+//        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+//            // TODO: image tableviewcell에 전달
+//            // photoImageView.image = pickedImage
+//            // TODO: 이미지 업로드
+//        }
+//        dismiss(animated: true)
+//    }
+//    
+//}

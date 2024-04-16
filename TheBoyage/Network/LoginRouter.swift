@@ -9,14 +9,14 @@ import Alamofire
 import Foundation
 
 // TODO: Router도 종류별로 분리해서 쓰기
-enum Router {
+enum LoginRouter {
     case login(query: LoginQuery)
     case emailValidate(query: EmailQuery)
     case signUp(query: SignUpQuery)
     case refresh
 }
 
-extension Router: TargetType {
+extension LoginRouter: TargetType {
     var baseURL: String {
         return APIKey.baseURL.rawValue
     }

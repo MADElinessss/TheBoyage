@@ -15,7 +15,7 @@ struct NetworkManager {
     static func createLogin(query: LoginQuery) -> Single<LoginModel> {
         return Single<LoginModel>.create { single in
             do {
-                let urlRequest = try Router.login(query: query).asURLRequest()
+                let urlRequest = try LoginRouter.login(query: query).asURLRequest()
                 
                 AF.request(urlRequest)
                     .validate(statusCode: 200..<300)
@@ -49,7 +49,7 @@ struct NetworkManager {
     static func refreshToken() -> Single<RefreshToken> {
         return Single<RefreshToken>.create { single in
             do {
-                let urlRequest = try Router.refresh.asURLRequest()
+                let urlRequest = try LoginRouter.refresh.asURLRequest()
                 AF.request(urlRequest)
                     .responseDecodable(of: RefreshToken.self) { response in
                         switch response.result {
@@ -73,7 +73,7 @@ struct NetworkManager {
     static func emailValidation(query: EmailQuery) -> Single<EmailValidationModel> {
         return Single<EmailValidationModel>.create { single in
             do {
-                let urlRequest = try Router.emailValidate(query: query).asURLRequest()
+                let urlRequest = try LoginRouter.emailValidate(query: query).asURLRequest()
                 
                 AF.request(urlRequest)
                     .responseDecodable(of: EmailValidationModel.self) { response in
@@ -96,7 +96,7 @@ struct NetworkManager {
     static func signUp(query: SignUpQuery) -> Single<SignUpModel> {
         return Single<SignUpModel>.create { single in
             do {
-                let urlRequest = try Router.signUp(query: query).asURLRequest()
+                let urlRequest = try LoginRouter.signUp(query: query).asURLRequest()
                 
                 AF.request(urlRequest)
                     .responseDecodable(of: SignUpModel.self) { response in
