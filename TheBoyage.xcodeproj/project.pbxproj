@@ -48,7 +48,7 @@
 		C1754B8C2BCD67A400728142 /* AddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B8B2BCD67A400728142 /* AddImageTableViewCell.swift */; };
 		C1754B8F2BCD87F100728142 /* AddContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754B8E2BCD87F100728142 /* AddContentViewModel.swift */; };
 		C1754BC72BCE655000728142 /* PostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BC62BCE655000728142 /* PostRouter.swift */; };
-		C1754BC92BCE657D00728142 /* ImageUploadQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BC82BCE657D00728142 /* ImageUploadQuery.swift */; };
+		C1754BC92BCE657D00728142 /* PostQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BC82BCE657D00728142 /* PostQuery.swift */; };
 		C1754BCB2BCE672500728142 /* PostNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BCA2BCE672500728142 /* PostNetworkManager.swift */; };
 		C1754BCF2BCE677D00728142 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BCE2BCE677D00728142 /* PostModel.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
@@ -101,7 +101,7 @@
 		C1754B8B2BCD67A400728142 /* AddImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageTableViewCell.swift; sourceTree = "<group>"; };
 		C1754B8E2BCD87F100728142 /* AddContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewModel.swift; sourceTree = "<group>"; };
 		C1754BC62BCE655000728142 /* PostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRouter.swift; sourceTree = "<group>"; };
-		C1754BC82BCE657D00728142 /* ImageUploadQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadQuery.swift; sourceTree = "<group>"; };
+		C1754BC82BCE657D00728142 /* PostQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuery.swift; sourceTree = "<group>"; };
 		C1754BCA2BCE672500728142 /* PostNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNetworkManager.swift; sourceTree = "<group>"; };
 		C1754BCE2BCE677D00728142 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -305,7 +305,7 @@
 		C1754BCC2BCE675C00728142 /* Query */ = {
 			isa = PBXGroup;
 			children = (
-				C1754BC82BCE657D00728142 /* ImageUploadQuery.swift */,
+				C1754BC82BCE657D00728142 /* PostQuery.swift */,
 				C1024A802BC802E30082EF13 /* LoginQuery.swift */,
 			);
 			path = Query;
@@ -448,7 +448,7 @@
 				C1754B882BCD621400728142 /* FormatterManager.swift in Sources */,
 				C113D5342BCD25B30067094A /* MyPageView.swift in Sources */,
 				C1024A7F2BC802BC0082EF13 /* HTTPHeader.swift in Sources */,
-				C1754BC92BCE657D00728142 /* ImageUploadQuery.swift in Sources */,
+				C1754BC92BCE657D00728142 /* PostQuery.swift in Sources */,
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,
 				C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */,
 				C1754BC72BCE655000728142 /* PostRouter.swift in Sources */,

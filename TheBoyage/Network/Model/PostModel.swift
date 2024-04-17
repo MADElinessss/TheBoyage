@@ -7,15 +7,19 @@
 
 import Foundation
 
-struct PostModel: Decodable {
+struct ImageUploadModel: Decodable {
     let files: [String]?
-    
-    enum CodingKeys: CodingKey {
-        case files
-    }
-    
-    init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.files = try container.decodeIfPresent([String].self, forKey: .files)
-    }
+}
+
+struct PostModel: Decodable {
+    let post_id: String
+    let product_id: String
+    let title: String
+    let content: String
+    let content1: String
+    let files: [String]
+    let likes: [String]
+    let likes2: [String]
+    let hashTags: [String]
+    let comments: [String]
 }

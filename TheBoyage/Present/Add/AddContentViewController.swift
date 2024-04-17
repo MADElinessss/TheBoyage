@@ -5,6 +5,7 @@
 //  Created by Madeline on 4/15/24.
 //
 
+import Alamofire
 import PhotosUI
 import RxCocoa
 import RxSwift
@@ -12,10 +13,10 @@ import SnapKit
 import UIKit
 
 class AddContentViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource  {
-
+    
     let tableView = UITableView()
     var rightButton = UIBarButtonItem()
-    var imageArray : [UIImage] = []
+    var imageArray : [Data] = []
     
     private var itemProviders: [NSItemProvider] = []
     private var iterator: IndexingIterator<[NSItemProvider]>?
@@ -27,12 +28,14 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         configuration.selectionLimit = 5
         configuration.filter = .images
         let phPicker = PHPickerViewController(configuration: configuration)
+        phPicker.delegate = self
+        present(phPicker, animated: true)
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupTableView()
         configureView()
         
@@ -40,9 +43,9 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
     
     private func setupTableView() {
         
-//        view.backgroundColor = .lightGray
-//        tableView.backgroundColor = .lightGray
-
+        //        view.backgroundColor = .lightGray
+        //        tableView.backgroundColor = .lightGray
+        
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
@@ -91,8 +94,8 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         // TODO: 글 POST
         navigationController?.popViewController(animated: true)
     }
-
-   
+    
+    
 }
 
 extension AddContentViewController {
@@ -142,46 +145,58 @@ extension AddContentViewController {
 extension AddContentViewController: PHPickerViewControllerDelegate {
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        // 이미지 선택 로직
         itemProviders = results.map(\.itemProvider)
+        var loadedImages = 0
+        var imageUrls: [String] = []
+        
         for item in itemProviders {
             if item.canLoadObject(ofClass: UIImage.self) {
-                item.loadObject(ofClass: UIImage.self) { image, error in
+                item.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                     DispatchQueue.main.async {
-                        guard let image = image as? UIImage else { return }
-                        self.imageArray.append(image)
+                        guard let self = self else { return }
+                        if let error = error {
+                            print("Error loading image: \(error)")
+                            return
+                        }
+                        guard let image = image as? UIImage, let imageData = image.jpegData(compressionQuality: 0.8) else {
+                            print("Failed to convert image to JPEG")
+                            return
+                        }
+                        let imageQuery = ImageUploadQuery(files: imageData)
+                        print("44", imageQuery)
+                        PostNetworkManager.imageUpload(query: imageQuery)
+                            .asObservable()
+                            .subscribe(with: self) { owner, image in
+                                if let image = image.files {
+                                    self.postContent(files: image)
+                                } else {
+                                    // TODO: 이미지 불러오는데 실패함 알럿
+                                    print("view - 실팬가?")
+                                }
+                            }
+                            .disposed(by: self.disposeBag)
                     }
                 }
             }
         }
-        
-        
-        
         picker.dismiss(animated: true)
+    }
+    
+    private func showAlertWithMessage(_ message: String) {
+        let alert = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        self.present(alert, animated: true)
     }
     
     
     
-    
+    func postContent(files: [String]) {
+        let query = PostQuery(title: "Test", content: "Content", content1: "Content1", product_id: "lslp", files: files)
+        PostNetworkManager.postContent(query: query)
+            .asObservable()
+            .subscribe(with: self) { owner, response in
+                print(response)
+            }
+            .disposed(by: disposeBag)
+    }
 }
-
-
-//extension AddContentViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    
-//    // 36일차
-//    
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        // 취소했을 때의 로직
-//    }
-//    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        // 이미지 선택 로직
-//        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-//            // TODO: image tableviewcell에 전달
-//            // photoImageView.image = pickedImage
-//            // TODO: 이미지 업로드
-//        }
-//        dismiss(animated: true)
-//    }
-//    
-//}

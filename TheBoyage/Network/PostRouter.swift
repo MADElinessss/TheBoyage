@@ -10,6 +10,7 @@ import Foundation
 
 enum PostRouter {
     case imageUpload(query: ImageUploadQuery)
+    case postContent(query: PostQuery)
 }
 
 extension PostRouter: TargetType {
@@ -19,24 +20,34 @@ extension PostRouter: TargetType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .imageUpload(let query):
+        case .imageUpload(_):
+                .post
+        case .postContent(query: _):
                 .post
         }
     }
     
     var path: String {
         switch self {
-        case .imageUpload(let query):
-            return "v1posts/files"
+        case .imageUpload(_):
+            return "v1/posts/files"
+        case .postContent(query: _):
+            return "v1/posts"
         }
     }
     
     var header: [String : String] {
         switch self {
-        case .imageUpload(let query):
+        case .imageUpload(_):
             return [
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                 HTTPHeader.contentType.rawValue : HTTPHeader.multipart.rawValue,
+                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
+            ]
+        case .postContent(query: _):
+            return [
+                HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
+                HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
             ]
         }
@@ -44,14 +55,18 @@ extension PostRouter: TargetType {
     
     var parameter: String? {
         switch self {
-        case .imageUpload(let query):
+        case .imageUpload(_):
+            return nil
+        case .postContent(query: _):
             return nil
         }
     }
     
     var queryItem: [URLQueryItem]? {
         switch self {
-        case .imageUpload(let query):
+        case .imageUpload(_):
+            return nil
+        case .postContent(query: _):
             return nil
         }
     }
@@ -59,6 +74,10 @@ extension PostRouter: TargetType {
     var body: Data? {
         switch self {
         case .imageUpload(let query):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            return try? encoder.encode(query)
+        case .postContent(query: let query):
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
