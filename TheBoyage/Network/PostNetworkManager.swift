@@ -19,13 +19,11 @@ struct PostNetworkManager {
         ]
         return Single<ImageUploadModel>.create { single in
             do {
-                let urlRequest = try PostRouter.imageUpload(query: query).asURLRequest()
                 AF.upload(multipartFormData: { multipartFormData in
                     multipartFormData
-                        .append(query.files, withName: "files", fileName: "shark.jpeg", mimeType: "image/jpeg")
+                        .append(query.files, withName: "files", fileName: "postImage.jpeg", mimeType: "image/jpeg")
                 }, to: url, headers: headers)
                 .responseDecodable(of: ImageUploadModel.self) { response in
-                    print("code = ",response.response?.statusCode)
                     switch response.result {
                     case .success(let success):
                         single(.success(success))
@@ -46,7 +44,6 @@ struct PostNetworkManager {
                 let urlRequest = try PostRouter.postContent(query: query).asURLRequest()
                 AF.request(urlRequest)
                     .responseDecodable(of: PostModel.self) { response in
-                        print("Response String: \(response.response?.statusCode)")
                         switch response.result {
                         case .success(let success):
                             single(.success(success))

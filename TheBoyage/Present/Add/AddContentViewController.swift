@@ -163,15 +163,13 @@ extension AddContentViewController: PHPickerViewControllerDelegate {
                             return
                         }
                         let imageQuery = ImageUploadQuery(files: imageData)
-                        print("44", imageQuery)
                         PostNetworkManager.imageUpload(query: imageQuery)
                             .asObservable()
                             .subscribe(with: self) { owner, image in
                                 if let image = image.files {
                                     self.postContent(files: image)
                                 } else {
-                                    // TODO: 이미지 불러오는데 실패함 알럿
-                                    print("view - 실팬가?")
+                                    AlertManager.shared.showOkayAlert(on: self, title: "이미지 업로드 실패", message: "이미지를 불러오는 데 실패했습니다. 다시 시도해주세요.")
                                 }
                             }
                             .disposed(by: self.disposeBag)
@@ -181,17 +179,9 @@ extension AddContentViewController: PHPickerViewControllerDelegate {
         }
         picker.dismiss(animated: true)
     }
-    
-    private func showAlertWithMessage(_ message: String) {
-        let alert = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default))
-        self.present(alert, animated: true)
-    }
-    
-    
-    
+
     func postContent(files: [String]) {
-        let query = PostQuery(title: "Test", content: "Content", content1: "Content1", product_id: "lslp", files: files)
+        let query = PostQuery(title: "스파게티 먹으러 이탈리아 왔어요", content: "이탈리아로의 여행은 마치 한 편의 영화처럼 꿈같은 시간이었다. 로마의 고대 유적지를 탐험하고, 베네치아의 운하를 따라 조용히 흘러가는 곤돌라를 타며, 피렌체의 미술관에서 세계적인 예술작품들을 감상했다. 하지만 이 모든 경험 중에서도 가장 기억에 남는 순간은 바로 스파게티를 맛본 그 순간이었다.", content1: "#맛집", product_id: "boyage_general", files: files)
         PostNetworkManager.postContent(query: query)
             .asObservable()
             .subscribe(with: self) { owner, response in

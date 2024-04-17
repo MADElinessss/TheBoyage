@@ -51,6 +51,7 @@
 		C1754BC92BCE657D00728142 /* PostQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BC82BCE657D00728142 /* PostQuery.swift */; };
 		C1754BCB2BCE672500728142 /* PostNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BCA2BCE672500728142 /* PostNetworkManager.swift */; };
 		C1754BCF2BCE677D00728142 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BCE2BCE677D00728142 /* PostModel.swift */; };
+		C1754BD92BCFA10D00728142 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BD82BCFA10D00728142 /* AlertManager.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
 		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
 		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
@@ -104,6 +105,7 @@
 		C1754BC82BCE657D00728142 /* PostQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuery.swift; sourceTree = "<group>"; };
 		C1754BCA2BCE672500728142 /* PostNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNetworkManager.swift; sourceTree = "<group>"; };
 		C1754BCE2BCE677D00728142 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		C1754BD82BCFA10D00728142 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				C1754B872BCD621400728142 /* FormatterManager.swift */,
+				C1754BD82BCFA10D00728142 /* AlertManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,
 				C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */,
 				C1754BC72BCE655000728142 /* PostRouter.swift in Sources */,
+				C1754BD92BCFA10D00728142 /* AlertManager.swift in Sources */,
 				C1024A982BC803DA0082EF13 /* LoginNetworkManager.swift in Sources */,
 				C1754B8A2BCD655400728142 /* AddTitleTableViewCell.swift in Sources */,
 				C1754B852BCD61D200728142 /* AddContentTableViewCell.swift in Sources */,
