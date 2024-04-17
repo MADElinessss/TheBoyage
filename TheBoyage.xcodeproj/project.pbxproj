@@ -52,6 +52,11 @@
 		C1754BCB2BCE672500728142 /* PostNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BCA2BCE672500728142 /* PostNetworkManager.swift */; };
 		C1754BCF2BCE677D00728142 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BCE2BCE677D00728142 /* PostModel.swift */; };
 		C1754BD92BCFA10D00728142 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BD82BCFA10D00728142 /* AlertManager.swift */; };
+		C1754BDB2BCFAFE300728142 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BDA2BCFAFE200728142 /* MainView.swift */; };
+		C1754BDE2BCFB2F600728142 /* MagazineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BDD2BCFB2F600728142 /* MagazineView.swift */; };
+		C1754BE12BCFB35000728142 /* CollectionViewPagingLayout in Frameworks */ = {isa = PBXBuildFile; productRef = C1754BE02BCFB35000728142 /* CollectionViewPagingLayout */; };
+		C1754BE52BCFC1BE00728142 /* MagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BE42BCFC1BE00728142 /* MagazineCollectionViewCell.swift */; };
+		C1754BE72BCFC3BA00728142 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BE62BCFC3BA00728142 /* FeedView.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
 		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
 		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
@@ -106,6 +111,10 @@
 		C1754BCA2BCE672500728142 /* PostNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNetworkManager.swift; sourceTree = "<group>"; };
 		C1754BCE2BCE677D00728142 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		C1754BD82BCFA10D00728142 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		C1754BDA2BCFAFE200728142 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C1754BDD2BCFB2F600728142 /* MagazineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineView.swift; sourceTree = "<group>"; };
+		C1754BE42BCFC1BE00728142 /* MagazineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCollectionViewCell.swift; sourceTree = "<group>"; };
+		C1754BE62BCFC3BA00728142 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
@@ -128,6 +137,7 @@
 				C1024A862BC803230082EF13 /* SnapKit in Frameworks */,
 				C1024A902BC8034C0082EF13 /* RxSwift in Frameworks */,
 				C1024A8E2BC8034C0082EF13 /* RxRelay in Frameworks */,
+				C1754BE12BCFB35000728142 /* CollectionViewPagingLayout in Frameworks */,
 				C1024A892BC803380082EF13 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,7 +259,9 @@
 		C1024AB02BC845270082EF13 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C1754BDC2BCFB2E300728142 /* Cell */,
 				C178A8BA2BCA4821007F1E3F /* MainViewController.swift */,
+				C1754BDA2BCFAFE200728142 /* MainView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -314,6 +326,16 @@
 			path = Query;
 			sourceTree = "<group>";
 		};
+		C1754BDC2BCFB2E300728142 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C1754BDD2BCFB2F600728142 /* MagazineView.swift */,
+				C1754BE42BCFC1BE00728142 /* MagazineCollectionViewCell.swift */,
+				C1754BE62BCFC3BA00728142 /* FeedView.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		C178A8B92BCA47F7007F1E3F /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +397,7 @@
 				C1024A8D2BC8034C0082EF13 /* RxRelay */,
 				C1024A8F2BC8034C0082EF13 /* RxSwift */,
 				C1024A922BC803550082EF13 /* Kingfisher */,
+				C1754BE02BCFB35000728142 /* CollectionViewPagingLayout */,
 			);
 			productName = TheBoyage;
 			productReference = C1024A5D2BC6BEE50082EF13 /* TheBoyage.app */;
@@ -409,6 +432,7 @@
 				C1024A872BC803380082EF13 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				C1024A8A2BC8034C0082EF13 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				C1024A912BC803550082EF13 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				C1754BDF2BCFB35000728142 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */,
 			);
 			productRefGroup = C1024A5E2BC6BEE50082EF13 /* Products */;
 			projectDirPath = "";
@@ -438,6 +462,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1754BE72BCFC3BA00728142 /* FeedView.swift in Sources */,
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
 				C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */,
 				C178A8CB2BCAAE99007F1E3F /* NicknameViewModel.swift in Sources */,
@@ -450,6 +475,7 @@
 				C178A8D02BCBE849007F1E3F /* SignUpViewModel.swift in Sources */,
 				C1754B882BCD621400728142 /* FormatterManager.swift in Sources */,
 				C113D5342BCD25B30067094A /* MyPageView.swift in Sources */,
+				C1754BE52BCFC1BE00728142 /* MagazineCollectionViewCell.swift in Sources */,
 				C1024A7F2BC802BC0082EF13 /* HTTPHeader.swift in Sources */,
 				C1754BC92BCE657D00728142 /* PostQuery.swift in Sources */,
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,
@@ -457,6 +483,7 @@
 				C1754BC72BCE655000728142 /* PostRouter.swift in Sources */,
 				C1754BD92BCFA10D00728142 /* AlertManager.swift in Sources */,
 				C1024A982BC803DA0082EF13 /* LoginNetworkManager.swift in Sources */,
+				C1754BDB2BCFAFE300728142 /* MainView.swift in Sources */,
 				C1754B8A2BCD655400728142 /* AddTitleTableViewCell.swift in Sources */,
 				C1754B852BCD61D200728142 /* AddContentTableViewCell.swift in Sources */,
 				C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */,
@@ -477,6 +504,7 @@
 				C178A8C32BCA653C007F1E3F /* EmailViewController.swift in Sources */,
 				C1754BCB2BCE672500728142 /* PostNetworkManager.swift in Sources */,
 				C1024AB62BC853020082EF13 /* SignUpViewController.swift in Sources */,
+				C1754BDE2BCFB2F600728142 /* MagazineView.swift in Sources */,
 				C1024AA22BC81D630082EF13 /* BaseView.swift in Sources */,
 				C1024AA72BC81DB00082EF13 /* ViewModelType.swift in Sources */,
 				C1024A632BC6BEE50082EF13 /* SceneDelegate.swift in Sources */,
@@ -741,6 +769,14 @@
 				minimumVersion = 7.11.0;
 			};
 		};
+		C1754BDF2BCFB35000728142 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amirdew/CollectionViewPagingLayout.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -773,6 +809,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C1024A912BC803550082EF13 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		C1754BE02BCFB35000728142 /* CollectionViewPagingLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1754BDF2BCFB35000728142 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */;
+			productName = CollectionViewPagingLayout;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.tintColor = .point
         tabBarController.tabBar.unselectedItemTintColor = .lightGray
         
-        let vc1 = ViewController()
+        let vc1 = MainViewController()
         let vc2 = AddContentViewController()
         let vc3 = determineInitialViewController()
     
