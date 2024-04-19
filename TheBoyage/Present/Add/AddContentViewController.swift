@@ -185,7 +185,7 @@ extension AddContentViewController: PHPickerViewControllerDelegate {
     }
 
     func postContent(files: [String]) {
-        let query = PostQuery(title: "스파게티 먹으러 이탈리아 왔어요", content: "이탈리아로의 여행은 마치 한 편의 영화처럼 꿈같은 시간이었다. 로마의 고대 유적지를 탐험하고, 베네치아의 운하를 따라 조용히 흘러가는 곤돌라를 타며, 피렌체의 미술관에서 세계적인 예술작품들을 감상했다. 하지만 이 모든 경험 중에서도 가장 기억에 남는 순간은 바로 스파게티를 맛본 그 순간이었다.", content1: "#맛집", product_id: "boyage_general", files: files)
+        let query = PostQuery(title: "이것은 운영자의 글", content: "운영자다", content1: "#manager", product_id: "boyage_general", files: files)
         PostNetworkManager.postContent(query: query)
             .asObservable()
             .subscribe(with: self) { owner, response in

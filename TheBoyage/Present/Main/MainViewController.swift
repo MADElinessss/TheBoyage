@@ -11,6 +11,7 @@ import SnapKit
 class MainViewController: BaseViewController {
     // TODO: Scrollview로 리팩토링
     let mainView = MainView()
+    let viewModel = MainViewModel()
     
     override func loadView() {
         view = mainView
@@ -25,7 +26,7 @@ class MainViewController: BaseViewController {
     }
     
     private func configureView() {
-        
+        viewModel.fetchMagazine()
     }
     
     private func configureTableView() {

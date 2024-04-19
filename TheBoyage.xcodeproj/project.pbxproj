@@ -57,6 +57,11 @@
 		C1754BE12BCFB35000728142 /* CollectionViewPagingLayout in Frameworks */ = {isa = PBXBuildFile; productRef = C1754BE02BCFB35000728142 /* CollectionViewPagingLayout */; };
 		C1754BE52BCFC1BE00728142 /* MagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BE42BCFC1BE00728142 /* MagazineCollectionViewCell.swift */; };
 		C1754BE72BCFC3BA00728142 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754BE62BCFC3BA00728142 /* FeedView.swift */; };
+		C1754C1D2BD2375200728142 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C1C2BD2375200728142 /* MainViewModel.swift */; };
+		C1754C202BD237A600728142 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C1F2BD237A600728142 /* MainRouter.swift */; };
+		C1754C222BD2381A00728142 /* MainQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C212BD2381A00728142 /* MainQuery.swift */; };
+		C1754C242BD23A5300728142 /* FetchPostsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C232BD23A5300728142 /* FetchPostsNetworkManager.swift */; };
+		C1754C262BD23A8E00728142 /* FetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C252BD23A8E00728142 /* FetchModel.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
 		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
 		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
@@ -115,6 +120,11 @@
 		C1754BDD2BCFB2F600728142 /* MagazineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineView.swift; sourceTree = "<group>"; };
 		C1754BE42BCFC1BE00728142 /* MagazineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCollectionViewCell.swift; sourceTree = "<group>"; };
 		C1754BE62BCFC3BA00728142 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		C1754C1C2BD2375200728142 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		C1754C1F2BD237A600728142 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
+		C1754C212BD2381A00728142 /* MainQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQuery.swift; sourceTree = "<group>"; };
+		C1754C232BD23A5300728142 /* FetchPostsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPostsNetworkManager.swift; sourceTree = "<group>"; };
+		C1754C252BD23A8E00728142 /* FetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchModel.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
@@ -185,14 +195,14 @@
 		C1024A792BC7963C0082EF13 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C1754C1E2BD2378500728142 /* Router */,
 				C1024A942BC803800082EF13 /* Model */,
 				C1024A7C2BC797A60082EF13 /* APIKey.swift */,
 				C1024A7E2BC802BC0082EF13 /* HTTPHeader.swift */,
 				C1024A972BC803DA0082EF13 /* LoginNetworkManager.swift */,
-				C1024A9A2BC8044B0082EF13 /* LoginRouter.swift */,
 				C1024A9C2BC804560082EF13 /* TargetType.swift */,
-				C1754BC62BCE655000728142 /* PostRouter.swift */,
 				C1754BCA2BCE672500728142 /* PostNetworkManager.swift */,
+				C1754C232BD23A5300728142 /* FetchPostsNetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -205,6 +215,7 @@
 				C1024A7A2BC797180082EF13 /* RefreshToken.swift */,
 				C1024A952BC803B70082EF13 /* ProfileModel.swift */,
 				C1754BCE2BCE677D00728142 /* PostModel.swift */,
+				C1754C252BD23A8E00728142 /* FetchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -262,6 +273,7 @@
 				C1754BDC2BCFB2E300728142 /* Cell */,
 				C178A8BA2BCA4821007F1E3F /* MainViewController.swift */,
 				C1754BDA2BCFAFE200728142 /* MainView.swift */,
+				C1754C1C2BD2375200728142 /* MainViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -322,6 +334,7 @@
 			children = (
 				C1754BC82BCE657D00728142 /* PostQuery.swift */,
 				C1024A802BC802E30082EF13 /* LoginQuery.swift */,
+				C1754C212BD2381A00728142 /* MainQuery.swift */,
 			);
 			path = Query;
 			sourceTree = "<group>";
@@ -334,6 +347,16 @@
 				C1754BE62BCFC3BA00728142 /* FeedView.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		C1754C1E2BD2378500728142 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				C1024A9A2BC8044B0082EF13 /* LoginRouter.swift */,
+				C1754BC62BCE655000728142 /* PostRouter.swift */,
+				C1754C1F2BD237A600728142 /* MainRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		C178A8B92BCA47F7007F1E3F /* MyPage */ = {
@@ -464,14 +487,18 @@
 			files = (
 				C1754BE72BCFC3BA00728142 /* FeedView.swift in Sources */,
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
+				C1754C262BD23A8E00728142 /* FetchModel.swift in Sources */,
 				C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */,
 				C178A8CB2BCAAE99007F1E3F /* NicknameViewModel.swift in Sources */,
 				C1754B7E2BCD593000728142 /* AddContentViewController.swift in Sources */,
+				C1754C1D2BD2375200728142 /* MainViewModel.swift in Sources */,
 				C1024AA02BC81D4D0082EF13 /* BaseViewController.swift in Sources */,
 				C1024A9D2BC804560082EF13 /* TargetType.swift in Sources */,
 				C1024A9B2BC8044B0082EF13 /* LoginRouter.swift in Sources */,
 				C1024AB32BC845A00082EF13 /* SignInViewModel.swift in Sources */,
+				C1754C222BD2381A00728142 /* MainQuery.swift in Sources */,
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
+				C1754C242BD23A5300728142 /* FetchPostsNetworkManager.swift in Sources */,
 				C178A8D02BCBE849007F1E3F /* SignUpViewModel.swift in Sources */,
 				C1754B882BCD621400728142 /* FormatterManager.swift in Sources */,
 				C113D5342BCD25B30067094A /* MyPageView.swift in Sources */,
@@ -481,6 +508,7 @@
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,
 				C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */,
 				C1754BC72BCE655000728142 /* PostRouter.swift in Sources */,
+				C1754C202BD237A600728142 /* MainRouter.swift in Sources */,
 				C1754BD92BCFA10D00728142 /* AlertManager.swift in Sources */,
 				C1024A982BC803DA0082EF13 /* LoginNetworkManager.swift in Sources */,
 				C1754BDB2BCFAFE300728142 /* MainView.swift in Sources */,

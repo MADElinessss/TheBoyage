@@ -33,7 +33,6 @@ class MagazineView: BaseView, UICollectionViewDataSource, UICollectionViewDelega
             make.edges.equalToSuperview()
         }
     }
-    
 }
 
 extension MagazineView {
