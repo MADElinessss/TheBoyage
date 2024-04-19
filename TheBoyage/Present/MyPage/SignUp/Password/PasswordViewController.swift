@@ -18,6 +18,8 @@ class PasswordViewController: BaseViewController {
         view.backgroundColor = .white
         view.layer.borderWidth = 0.3
         view.tintColor = .lightGray
+        view.isSecureTextEntry = true
+        view.textContentType = .password
         return view
     }()
     let descriptionLabel = UILabel()

@@ -29,6 +29,8 @@ class SignInView: BaseView {
         view.backgroundColor = .white
         view.layer.borderWidth = 0.3
         view.tintColor = .lightGray
+        view.isSecureTextEntry = true
+        view.textContentType = .password
         return view
     }()
     
