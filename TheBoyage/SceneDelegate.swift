@@ -41,7 +41,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         vc3.tabBarItem.tag = 2
 
         
-        tabBarController.viewControllers = [vc1, vc2, vc3].map { UINavigationController(rootViewController: $0) }
+        let nav1 = UINavigationController(rootViewController: vc1)
+        let nav2 = UINavigationController(rootViewController: vc2)
+        let nav3 = UINavigationController(rootViewController: vc3)
+        
+        tabBarController.viewControllers = [nav1, nav2, nav3]
+        
+        
+        //tabBarController.viewControllers = [vc1, vc2, vc3].map { UINavigationController(rootViewController: $0) }
         
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()

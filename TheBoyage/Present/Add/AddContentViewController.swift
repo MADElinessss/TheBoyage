@@ -29,7 +29,11 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         configuration.filter = .images
         let phPicker = PHPickerViewController(configuration: configuration)
         phPicker.delegate = self
-        present(phPicker, animated: true)
+        if let navigationController = self.navigationController {
+            navigationController.present(phPicker, animated: true)
+        } else {
+            present(phPicker, animated: true)
+        }
         
     }
     
