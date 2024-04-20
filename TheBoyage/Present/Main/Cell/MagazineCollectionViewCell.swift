@@ -6,6 +6,7 @@
 //
 
 import CollectionViewPagingLayout
+import Kingfisher
 import SnapKit
 import UIKit
 
@@ -21,15 +22,46 @@ class MagazineCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
+        configureView()
     }
     
-    func configure() {
+    func configure(with post: Posts) {
+        titleLabel.text = post.title
+        if let imageName = post.files.first {
+            let urlString = APIKey.baseURL.rawValue + "/v1/" + imageName
+            
+            let url = URL(string: urlString)
+
+            let header = AnyModifier { request in
+                var request = request
+                request.setValue(UserDefaults.standard.string(forKey: "AccessToken") ?? "", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+                request.setValue(APIKey.sesacKey.rawValue, forHTTPHeaderField: HTTPHeader.sesacKey.rawValue)
+                return request
+            }
+            
+            imageView.kf.setImage(
+                with: url,
+                placeholder: UIImage(systemName: "airplane.departure"),
+                options: [.requestModifier(header)],
+                completionHandler: { result in
+                    switch result {
+                    case .success(let value):
+                        print("Image loaded successfully: \(value.source.url?.absoluteString ?? "")")
+                    case .failure(let error):
+                        print("Error loading image: \(error.localizedDescription)")
+                    }
+                }
+            )
+
+        }
+    }
+
+    func configureView() {
         
         let cardFrame = CGRect(
             x: 50,

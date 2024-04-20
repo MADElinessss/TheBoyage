@@ -19,21 +19,18 @@ class MainViewModel: ViewModelType {
     }
     
     struct Output {
-        
+        let posts: Observable<FetchModel>
     }
     
     func transform(_ input: Input) -> Output {
-        return Output()
+        let post = fetchMagazine().asObservable()
+        return Output(posts: post)
     }
     
-    func fetchMagazine() {
+    func fetchMagazine() -> Observable<FetchModel>{
+        
         let managerQuery = ManagerQuery(limit: "7", product_id: "")
-        FetchPostsNetworkManager.fetchManagers(id: "662203c7e8473868acf6ebff", query: managerQuery)
+        return FetchPostsNetworkManager.fetchManagers(id: "662203c7e8473868acf6ebff", query: managerQuery)
             .asObservable()
-            .subscribe(with: self) { owner, posts in
-                print("viewmodel result = ",posts)
-                print("title=", posts.title)
-            }
-            .disposed(by: disposeBag)
     }
 }

@@ -7,6 +7,7 @@
 
 import CollectionViewPagingLayout
 import UIKit
+import RxSwift
 
 class MagazineView: BaseView, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -15,6 +16,12 @@ class MagazineView: BaseView, UICollectionViewDataSource, UICollectionViewDelega
     }
 
     var collectionView: UICollectionView!
+    
+    var viewModel = MainViewModel()
+    
+    var posts: [Posts] = []
+    
+    var disposeBag = DisposeBag()
 
     override func configureView() {
     
@@ -26,6 +33,20 @@ class MagazineView: BaseView, UICollectionViewDataSource, UICollectionViewDelega
         collectionView.delegate = self
         
         addSubview(collectionView)
+        
+        bind()
+    }
+    
+    private func bind() {
+        let input = MainViewModel.Input()
+        let output = viewModel.transform(input)
+        output.posts
+            .map { $0.data }
+            .subscribe(with: self) { owner, posts in
+                self.posts = posts
+                self.collectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
@@ -37,12 +58,14 @@ class MagazineView: BaseView, UICollectionViewDataSource, UICollectionViewDelega
 
 extension MagazineView {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MagazineCollectionViewCell.identifier, for: indexPath) as! MagazineCollectionViewCell
         
+        let post = posts[indexPath.row]
+        cell.configure(with: post)
         
         return cell
     }

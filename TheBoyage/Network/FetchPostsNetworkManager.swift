@@ -13,8 +13,6 @@ struct FetchPostsNetworkManager {
     static func fetchManagers(id: String, query: ManagerQuery) -> Single<FetchModel> {
         return Single<FetchModel>.create { single in
             do {
-                // let urlRequest = try MainRouter.managerPost(id: id, query: query).asURLRequest()
-
                 let url = URL(string: APIKey.baseURL.rawValue + "/v1/posts/users/\(id)?limit=1&product_id=boyage_general")!
                 print(url)
                 let parameters = [
@@ -25,9 +23,10 @@ struct FetchPostsNetworkManager {
                     HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                     HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
                 ]
-                AF.request(url, method: .get, parameters: parameters, headers: headers)
+                AF.request(url, method: .get, headers: headers)
                     .responseDecodable(of: FetchModel.self) { response in
                         print("🐣 manager Fetch = ", response.response?.statusCode)
+                        print("🐣 = ", response)
                         switch response.result {
                         case .success(let success):
                             print("success = ", success)
