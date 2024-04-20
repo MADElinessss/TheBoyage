@@ -10,8 +10,6 @@ import UIKit
 
 final class AddImageTableViewCell: BaseTableViewCell {
     
-//    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-    
     let selectedImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "photo")
@@ -27,27 +25,7 @@ final class AddImageTableViewCell: BaseTableViewCell {
         configureView()
         
     }
-    
-//    private func createLayout() -> UICollectionViewLayout {
-//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(350))
-//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        
-//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(350))
-//        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-//
-//        let section = NSCollectionLayoutSection(group: group)
-//        section.interGroupSpacing = 5
-//        
-//        let layout = UICollectionViewCompositionalLayout(section: section)
-//        
-//        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-//        configuration.interSectionSpacing = 20
-//        
-//        layout.configuration = configuration
-//        
-//        return layout
-//    }
-//    
+  
     private func configureView() {
         
         addSubview(selectedImageView)
