@@ -9,6 +9,7 @@ import CollectionViewPagingLayout
 import Kingfisher
 import SnapKit
 import UIKit
+import RxSwift
 
 class MagazineCollectionViewCell: UICollectionViewCell {
     
@@ -19,6 +20,8 @@ class MagazineCollectionViewCell: UICollectionViewCell {
     var card: UIView!
     let titleLabel = UILabel()
     let imageView = UIImageView()
+    var viewModel: MagazineCellViewModel?
+    private var disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,35 +33,24 @@ class MagazineCollectionViewCell: UICollectionViewCell {
         configureView()
     }
     
-    func configure(with post: Posts) {
-        titleLabel.text = post.title
-        if let imageName = post.files.first {
-            let urlString = APIKey.baseURL.rawValue + "/v1/" + imageName
-            
-            let url = URL(string: urlString)
-
-            let header = AnyModifier { request in
-                var request = request
-                request.setValue(UserDefaults.standard.string(forKey: "AccessToken") ?? "", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
-                request.setValue(APIKey.sesacKey.rawValue, forHTTPHeaderField: HTTPHeader.sesacKey.rawValue)
-                return request
-            }
-            
-            imageView.kf.setImage(
-                with: url,
-                placeholder: UIImage(systemName: "airplane.departure"),
-                options: [.requestModifier(header)],
-                completionHandler: { result in
-                    switch result {
-                    case .success(let value):
-                        print("Image loaded successfully: \(value.source.url?.absoluteString ?? "")")
-                    case .failure(let error):
-                        print("Error loading image: \(error.localizedDescription)")
-                    }
-                }
-            )
-
-        }
+    func configure(with viewModel: MagazineCellViewModel, post: Posts) {
+        self.viewModel = viewModel
+        bind(post: post)
+    }
+    
+    private func bind(post: Posts) {
+        let input = MagazineCellViewModel.Input(post: post)
+        guard let output = viewModel?.transform(input) else { return }
+        
+        output.title
+            .asDriver(onErrorJustReturn: "")
+            .drive(titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.image
+            .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
+            .drive(imageView.rx.image)
+            .disposed(by: disposeBag)
     }
 
     func configureView() {
@@ -74,23 +66,26 @@ class MagazineCollectionViewCell: UICollectionViewCell {
         card.layer.cornerRadius = 20
         
         contentView.addSubview(card)
-        card.addSubview(titleLabel)
         card.addSubview(imageView)
+        card.addSubview(titleLabel)
         
         titleLabel.text = "오늘의 행운은?"
         titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
         titleLabel.textColor = .white
+        titleLabel.shadowColor = .black
+        titleLabel.shadowOffset = CGSize(width: 1, height: 1)
         imageView.image = UIImage(named: "shark")
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 50
-        
-        titleLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(card)
-            make.top.equalTo(card).inset(44)
-        }
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 20
         
         imageView.snp.makeConstraints { make in
             make.edges.equalTo(card)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(card)
+            make.bottom.equalTo(card).inset(44)
         }
     }
 }

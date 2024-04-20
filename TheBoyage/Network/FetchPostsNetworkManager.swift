@@ -13,10 +13,9 @@ struct FetchPostsNetworkManager {
     static func fetchManagers(id: String, query: ManagerQuery) -> Single<FetchModel> {
         return Single<FetchModel>.create { single in
             do {
-                let url = URL(string: APIKey.baseURL.rawValue + "/v1/posts/users/\(id)?limit=1&product_id=boyage_general")!
-                print(url)
+                let url = URL(string: APIKey.baseURL.rawValue + "/v1/posts/users/\(id)?limit=7&product_id=boyage_general")!
                 let parameters = [
-                    "limit" : 1,
+                    "limit" : 7,
                     "product_id" : "boyage_general"
                 ]
                 let headers: HTTPHeaders = [
@@ -25,11 +24,9 @@ struct FetchPostsNetworkManager {
                 ]
                 AF.request(url, method: .get, headers: headers)
                     .responseDecodable(of: FetchModel.self) { response in
-                        print("🐣 manager Fetch = ", response.response?.statusCode)
                         print("🐣 = ", response)
                         switch response.result {
                         case .success(let success):
-                            print("success = ", success)
                             single(.success(success))
                         case .failure(let failure):
                             single(.failure(failure))

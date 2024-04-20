@@ -44,6 +44,7 @@ class MagazineView: BaseView, UICollectionViewDataSource, UICollectionViewDelega
             .map { $0.data }
             .subscribe(with: self) { owner, posts in
                 self.posts = posts
+                print(posts)
                 self.collectionView.reloadData()
             }
             .disposed(by: disposeBag)
@@ -65,8 +66,7 @@ extension MagazineView {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MagazineCollectionViewCell.identifier, for: indexPath) as! MagazineCollectionViewCell
         
         let post = posts[indexPath.row]
-        cell.configure(with: post)
-        
+        cell.configure(with: MagazineCellViewModel(), post: post)
         return cell
     }
 }

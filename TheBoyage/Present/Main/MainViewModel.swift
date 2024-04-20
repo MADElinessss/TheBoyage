@@ -32,5 +32,10 @@ class MainViewModel: ViewModelType {
         let managerQuery = ManagerQuery(limit: "7", product_id: "")
         return FetchPostsNetworkManager.fetchManagers(id: "662203c7e8473868acf6ebff", query: managerQuery)
             .asObservable()
+            .do(onNext: { response in
+                print("Received response: \(response)")
+            }, onError: { error in
+                print("Error: \(error.localizedDescription)")
+            })
     }
 }
