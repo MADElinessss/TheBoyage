@@ -28,6 +28,13 @@ class MagazineCollectionViewCell: UICollectionViewCell {
         configureView()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        titleLabel.text = nil
+        disposeBag = DisposeBag()
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureView()
