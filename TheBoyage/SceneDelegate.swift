@@ -5,12 +5,13 @@
 //  Created by Madeline on 4/10/24.
 //
 
+import Alamofire
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    let session = Session(interceptor: NetworkInterceptor())
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -19,27 +20,61 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
+        determineInitialViewController()
+    }
+    
+    private func determineInitialViewController() {
+        showLoadingScreen()
+        if isUserLoggedIn() {
+            validateToken { isValid in
+                DispatchQueue.main.async {
+                    self.setupTabBarController(isLoggedIn: isValid)
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.setupTabBarController(isLoggedIn: false)
+            }
+        }
+    }
+    
+    private func showLoadingScreen() {
+        let loadingViewController = UIViewController()
+        loadingViewController.view.backgroundColor = UIColor.systemBackground
+        window?.rootViewController = loadingViewController
+        window?.makeKeyAndVisible()
+    }
+    
+    private func checkLoginAndSetupUI() {
+        showLoadingScreen()
         
+        if isUserLoggedIn() {
+            validateToken { isValid in
+                DispatchQueue.main.async {
+                    self.setupTabBarController(isLoggedIn: isValid)
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.setupTabBarController(isLoggedIn: false)
+            }
+        }
+    }
+    
+    private func setupTabBarController(isLoggedIn: Bool) {
         let tabBarController = UITabBarController()
         tabBarController.tabBar.backgroundColor = .systemGray6
         tabBarController.tabBar.tintColor = .point
         tabBarController.tabBar.unselectedItemTintColor = .lightGray
         
         let vc1 = MainViewController()
+        vc1.tabBarItem = UITabBarItem(title: "HOME", image: UIImage(systemName: "house"), tag: 0)
+        
         let vc2 = AddContentViewController()
-        let vc3 = determineInitialViewController()
-    
-        vc1.tabBarItem = UITabBarItem(title: "HOME", image: UIImage(systemName: "doc.text.image"), selectedImage: UIImage(named: "doc.text.image.fill"))
-        vc1.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-        vc1.tabBarItem.tag = 0
+        vc2.tabBarItem = UITabBarItem(title: "POST", image: UIImage(systemName: "plus.app"), tag: 1)
         
-        vc2.tabBarItem = UITabBarItem(title: "POST", image: UIImage(systemName: "plus.circle.fill"), selectedImage: UIImage(systemName: "plus.circle.fill"))
-        vc2.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-        vc2.tabBarItem.tag = 1
-        
-        vc3.tabBarItem = UITabBarItem(title: "MY PAGE", image: UIImage(systemName: "person.fill"), selectedImage: UIImage(systemName: "person.fill"))
-        vc3.tabBarItem.tag = 2
-
+        let vc3 = isLoggedIn ? MyPageViewController() : SignInViewController()
+        vc3.tabBarItem = UITabBarItem(title: "MY PAGE", image: UIImage(systemName: "person.circle"), tag: 2)
         
         let nav1 = UINavigationController(rootViewController: vc1)
         let nav2 = UINavigationController(rootViewController: vc2)
@@ -47,39 +82,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         tabBarController.viewControllers = [nav1, nav2, nav3]
         
-        
-        //tabBarController.viewControllers = [vc1, vc2, vc3].map { UINavigationController(rootViewController: $0) }
-        
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
-    
-    private func determineInitialViewController() -> UIViewController {
-        if isUserLoggedIn() {
-            validateToken { isValid in
-                DispatchQueue.main.async { // 비동기 처리에서 UI 업데이트를 위해 메인 스레드 사용
-                    if let tabBarController = self.window?.rootViewController as? UITabBarController,
-                       let viewControllers = tabBarController.viewControllers,
-                       viewControllers.count > 2 {
-                        let vc3 = isValid ? MyPageViewController() : SignInViewController()
-                        let navController = UINavigationController(rootViewController: vc3)
-                        tabBarController.viewControllers?[2] = navController
-                    }
-                }
-            }
-            return SignInViewController()
-        } else {
-            return SignInViewController()
-        }
-    }
-    
+
     private func validateToken(completion: @escaping (Bool) -> Void) {
-        LoginNetworkManager.refreshToken().subscribe { event in
-            switch event {
-            case .success(let refreshToken):
-                UserDefaults.standard.set(refreshToken.accessToken, forKey: "AccessToken")
+        session.request(APIKey.baseURL.rawValue + "/v1/auth/refresh").validate().response { response in
+            switch response.result {
+            case .success:
+                // 토큰 유효성 검증 성공
                 completion(true)
-            case .failure:
+            case .failure(let error):
+                // 토큰 유효성 검증 실패
                 completion(false)
             }
         }

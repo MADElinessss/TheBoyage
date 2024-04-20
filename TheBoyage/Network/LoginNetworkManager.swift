@@ -28,13 +28,6 @@ struct LoginNetworkManager {
                             single(.success(loginModel)) //성공하면 받는 데이터: at, rt
                         case .failure(let error):
                             single(.failure(error))
-//                            if let code = response.response?.statusCode {
-//                                if code == 419 {
-//                                    tokenRefresh {
-//                                        //self.profileButtonClicked()
-//                                    }
-//                                }
-//                            }
                         }
                     }
             } catch {
@@ -54,9 +47,10 @@ struct LoginNetworkManager {
                         switch response.result {
                         case .success(let success):
                             UserDefaults.standard.set(success.accessToken, forKey: "AccessToken")
-                        case .failure(_):
+                            single(.success(success))
+                        case .failure(let error):
                             // 응답코드 418 -> 로그인하세요
-                            print("error")
+                            single(.failure(error))
                         }
                     }
             } catch {
