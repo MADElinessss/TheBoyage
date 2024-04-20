@@ -26,7 +26,7 @@ class MainViewController: BaseViewController {
     }
     
     private func configureView() {
-        viewModel.fetchMagazine()
+        
     }
     
     private func configureTableView() {

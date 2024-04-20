@@ -64,6 +64,9 @@
 		C1754C262BD23A8E00728142 /* FetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C252BD23A8E00728142 /* FetchModel.swift */; };
 		C1754C282BD3E41E00728142 /* MagazineCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C272BD3E41E00728142 /* MagazineCellViewModel.swift */; };
 		C1754C2A2BD412FF00728142 /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C292BD412FF00728142 /* NetworkInterceptor.swift */; };
+		C1754C2F2BD420C300728142 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C2E2BD420C300728142 /* ProfileView.swift */; };
+		C1754C312BD420C900728142 /* MyFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C302BD420C900728142 /* MyFeedView.swift */; };
+		C1754C332BD4214A00728142 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C322BD4214A00728142 /* MyPageViewModel.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
 		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
 		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
@@ -129,6 +132,9 @@
 		C1754C252BD23A8E00728142 /* FetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchModel.swift; sourceTree = "<group>"; };
 		C1754C272BD3E41E00728142 /* MagazineCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCellViewModel.swift; sourceTree = "<group>"; };
 		C1754C292BD412FF00728142 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
+		C1754C2E2BD420C300728142 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C1754C302BD420C900728142 /* MyFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeedView.swift; sourceTree = "<group>"; };
+		C1754C322BD4214A00728142 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
@@ -228,6 +234,7 @@
 		C1024A992BC8040A0082EF13 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				C1754C2B2BD4209800728142 /* SignRelated */,
 				C178A8B92BCA47F7007F1E3F /* MyPage */,
 				C1024AB12BC8452E0082EF13 /* Add */,
 				C1024AB02BC845270082EF13 /* Main */,
@@ -365,13 +372,39 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		C1754C2B2BD4209800728142 /* SignRelated */ = {
+			isa = PBXGroup;
+			children = (
+				C1024AA82BC81DF00082EF13 /* SignIn */,
+				C1024AB42BC8529A0082EF13 /* SignUp */,
+			);
+			path = SignRelated;
+			sourceTree = "<group>";
+		};
+		C1754C2C2BD420B100728142 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C1754C2E2BD420C300728142 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C1754C2D2BD420B900728142 /* MyFeed */ = {
+			isa = PBXGroup;
+			children = (
+				C1754C302BD420C900728142 /* MyFeedView.swift */,
+			);
+			path = MyFeed;
+			sourceTree = "<group>";
+		};
 		C178A8B92BCA47F7007F1E3F /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				C1024AB42BC8529A0082EF13 /* SignUp */,
-				C1024AA82BC81DF00082EF13 /* SignIn */,
+				C1754C2D2BD420B900728142 /* MyFeed */,
+				C1754C2C2BD420B100728142 /* Profile */,
 				C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */,
 				C113D5332BCD25B30067094A /* MyPageView.swift */,
+				C1754C322BD4214A00728142 /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -502,11 +535,13 @@
 				C1024A9D2BC804560082EF13 /* TargetType.swift in Sources */,
 				C1024A9B2BC8044B0082EF13 /* LoginRouter.swift in Sources */,
 				C1754C282BD3E41E00728142 /* MagazineCellViewModel.swift in Sources */,
+				C1754C332BD4214A00728142 /* MyPageViewModel.swift in Sources */,
 				C1024AB32BC845A00082EF13 /* SignInViewModel.swift in Sources */,
 				C1754C2A2BD412FF00728142 /* NetworkInterceptor.swift in Sources */,
 				C1754C222BD2381A00728142 /* MainQuery.swift in Sources */,
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
 				C1754C242BD23A5300728142 /* FetchPostsNetworkManager.swift in Sources */,
+				C1754C2F2BD420C300728142 /* ProfileView.swift in Sources */,
 				C178A8D02BCBE849007F1E3F /* SignUpViewModel.swift in Sources */,
 				C1754B882BCD621400728142 /* FormatterManager.swift in Sources */,
 				C113D5342BCD25B30067094A /* MyPageView.swift in Sources */,
@@ -516,6 +551,7 @@
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,
 				C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */,
 				C1754BC72BCE655000728142 /* PostRouter.swift in Sources */,
+				C1754C312BD420C900728142 /* MyFeedView.swift in Sources */,
 				C1754C202BD237A600728142 /* MainRouter.swift in Sources */,
 				C1754BD92BCFA10D00728142 /* AlertManager.swift in Sources */,
 				C1024A982BC803DA0082EF13 /* LoginNetworkManager.swift in Sources */,

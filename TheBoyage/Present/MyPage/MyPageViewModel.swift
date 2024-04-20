@@ -1,0 +1,30 @@
+//
+//  MyPageViewModel.swift
+//  TheBoyage
+//
+//  Created by Madeline on 4/21/24.
+//
+
+import Alamofire
+import Foundation
+import RxCocoa
+import RxSwift
+
+class MyPageViewModel: ViewModelType {
+    
+    var disposeBag = DisposeBag()
+    
+    struct Input {
+        
+    }
+    
+    struct Output {
+        
+    }
+    
+    func transform(_ input: Input) -> Output {
+       return Output()
+    }
+    
+    
+}

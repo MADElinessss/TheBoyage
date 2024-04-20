@@ -32,12 +32,8 @@ class MainView: BaseView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(magazine)
-        // category
+        // TODO: category 추가
         contentView.addSubview(feed)
-        
-        contentView.backgroundColor = .green
-        magazine.backgroundColor = .blue
-        feed.backgroundColor = .red
     }
     
     override func configureHierarchy() {
