@@ -67,6 +67,9 @@
 		C1754C2F2BD420C300728142 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C2E2BD420C300728142 /* ProfileView.swift */; };
 		C1754C312BD420C900728142 /* MyFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C302BD420C900728142 /* MyFeedView.swift */; };
 		C1754C332BD4214A00728142 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C322BD4214A00728142 /* MyPageViewModel.swift */; };
+		C1754C352BD4EA6700728142 /* MyPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C342BD4EA6700728142 /* MyPageRouter.swift */; };
+		C1754C372BD4EC4100728142 /* MyProfileNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */; };
+		C1754C392BD4EC9900728142 /* MyProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C382BD4EC9900728142 /* MyProfileModel.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
 		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
 		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
@@ -135,6 +138,9 @@
 		C1754C2E2BD420C300728142 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C1754C302BD420C900728142 /* MyFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeedView.swift; sourceTree = "<group>"; };
 		C1754C322BD4214A00728142 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		C1754C342BD4EA6700728142 /* MyPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRouter.swift; sourceTree = "<group>"; };
+		C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileNetworkManager.swift; sourceTree = "<group>"; };
+		C1754C382BD4EC9900728142 /* MyProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileModel.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 				C1754BCA2BCE672500728142 /* PostNetworkManager.swift */,
 				C1754C232BD23A5300728142 /* FetchPostsNetworkManager.swift */,
 				C1754C292BD412FF00728142 /* NetworkInterceptor.swift */,
+				C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -227,6 +234,7 @@
 				C1024A952BC803B70082EF13 /* ProfileModel.swift */,
 				C1754BCE2BCE677D00728142 /* PostModel.swift */,
 				C1754C252BD23A8E00728142 /* FetchModel.swift */,
+				C1754C382BD4EC9900728142 /* MyProfileModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -368,6 +376,7 @@
 				C1024A9A2BC8044B0082EF13 /* LoginRouter.swift */,
 				C1754BC62BCE655000728142 /* PostRouter.swift */,
 				C1754C1F2BD237A600728142 /* MainRouter.swift */,
+				C1754C342BD4EA6700728142 /* MyPageRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -537,6 +546,7 @@
 				C1754C282BD3E41E00728142 /* MagazineCellViewModel.swift in Sources */,
 				C1754C332BD4214A00728142 /* MyPageViewModel.swift in Sources */,
 				C1024AB32BC845A00082EF13 /* SignInViewModel.swift in Sources */,
+				C1754C392BD4EC9900728142 /* MyProfileModel.swift in Sources */,
 				C1754C2A2BD412FF00728142 /* NetworkInterceptor.swift in Sources */,
 				C1754C222BD2381A00728142 /* MainQuery.swift in Sources */,
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
@@ -549,6 +559,7 @@
 				C1024A7F2BC802BC0082EF13 /* HTTPHeader.swift in Sources */,
 				C1754BC92BCE657D00728142 /* PostQuery.swift in Sources */,
 				C1024AAF2BC81F840082EF13 /* PointButton.swift in Sources */,
+				C1754C372BD4EC4100728142 /* MyProfileNetworkManager.swift in Sources */,
 				C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */,
 				C1754BC72BCE655000728142 /* PostRouter.swift in Sources */,
 				C1754C312BD420C900728142 /* MyFeedView.swift in Sources */,
@@ -577,6 +588,7 @@
 				C1754BCB2BCE672500728142 /* PostNetworkManager.swift in Sources */,
 				C1024AB62BC853020082EF13 /* SignUpViewController.swift in Sources */,
 				C1754BDE2BCFB2F600728142 /* MagazineView.swift in Sources */,
+				C1754C352BD4EA6700728142 /* MyPageRouter.swift in Sources */,
 				C1024AA22BC81D630082EF13 /* BaseView.swift in Sources */,
 				C1024AA72BC81DB00082EF13 /* ViewModelType.swift in Sources */,
 				C1024A632BC6BEE50082EF13 /* SceneDelegate.swift in Sources */,

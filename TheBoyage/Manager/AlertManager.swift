@@ -16,14 +16,17 @@ class AlertManager {
     func showOkayAlert(
         on viewController: UIViewController,
         title: String,
-        message: String
+        message: String,
+        completion: (() -> Void)? = nil
     ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "확인", style: .default)
+        let ok = UIAlertAction(title: "확인", style: .default) { _ in
+            completion?()
+        }
         alert.addAction(ok)
         
         DispatchQueue.main.async {
-            viewController.present(viewController, animated: true)
+            viewController.present(alert, animated: true)
         }
     }
 }

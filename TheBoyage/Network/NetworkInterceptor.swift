@@ -20,13 +20,17 @@ class NetworkInterceptor: RequestInterceptor {
     }
 
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-        guard let statusCode = request.response?.statusCode, statusCode == 401 else {
+        guard let statusCode = request.response?.statusCode else {
             completion(.doNotRetry)
             return
         }
-
-        refreshToken { isSuccess in
-            isSuccess ? completion(.retry) : completion(.doNotRetryWithError(error))
+        
+        if statusCode == 401 || statusCode == 419 {
+            refreshToken { isSuccess in
+                isSuccess ? completion(.retry) : completion(.doNotRetryWithError(error))
+            }
+        } else {
+            completion(.doNotRetry)
         }
     }
     
@@ -36,6 +40,7 @@ class NetworkInterceptor: RequestInterceptor {
             switch event {
             case .success(let refreshToken):
                 UserDefaults.standard.set(refreshToken.accessToken, forKey: "AccessToken")
+                print("인터셉터 - 로그인 refresh 함수 하고나서 성공")
                 completion(true)
             case .failure:
                 UserDefaults.standard.removeObject(forKey: "AccessToken")

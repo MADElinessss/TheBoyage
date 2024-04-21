@@ -27,15 +27,16 @@ class MainViewModel: ViewModelType {
         return Output(posts: post)
     }
     
-    func fetchMagazine() -> Observable<FetchModel>{
+    func fetchMagazine() -> Observable<FetchModel> {
         
         let managerQuery = ManagerQuery(limit: "7", product_id: "")
         return FetchPostsNetworkManager.fetchManagers(id: "662203c7e8473868acf6ebff", query: managerQuery)
             .asObservable()
             .do(onNext: { response in
-                print("Received response: \(response)")
+                // print("response: \(response)")
             }, onError: { error in
-                print("Error: \(error.localizedDescription)")
+                print("Error \(error)")
             })
     }
+    
 }

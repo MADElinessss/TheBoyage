@@ -60,4 +60,10 @@ class ProfileView: BaseView {
             make.leading.equalTo(profileImageView.snp.trailing).offset(16)
         }
     }
+    
+    func configure(profile: MyProfileModel) {
+        nameLabel.text = profile.nick
+        
+    }
+    
 }

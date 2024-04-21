@@ -27,11 +27,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         showLoadingScreen()
         if isUserLoggedIn() {
             validateToken { isValid in
+                print("validate Token: \(isValid)")
                 DispatchQueue.main.async {
                     self.setupTabBarController(isLoggedIn: isValid)
                 }
             }
         } else {
+            print("유저 디폴트에도 없음")
             DispatchQueue.main.async {
                 self.setupTabBarController(isLoggedIn: false)
             }
@@ -87,13 +89,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func validateToken(completion: @escaping (Bool) -> Void) {
-        session.request(APIKey.baseURL.rawValue + "/v1/auth/refresh").validate().response { response in
+        session.request(APIKey.baseURL.rawValue + "/v1/auth/refresh").validate()
+            .response { response in
             switch response.result {
             case .success:
                 // 토큰 유효성 검증 성공
+                print("validateToken = success")
                 completion(true)
             case .failure(let error):
-                // 토큰 유효성 검증 실패
+                if let statusCode = response.response?.statusCode, statusCode == 418 || statusCode == 419 {
+                    UserDefaults.standard.removeObject(forKey: "AccessToken")
+                }
                 completion(false)
             }
         }

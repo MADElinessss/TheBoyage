@@ -40,7 +40,7 @@ class SignInViewController: BaseViewController {
         
         output.loginSuccessTrigger
             .drive(with: self) { owner, _ in
-                let vc = MyPageViewController()
+                let vc = MainViewController()
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)

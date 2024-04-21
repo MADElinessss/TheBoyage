@@ -60,5 +60,4 @@ class MainView: BaseView {
         }
         
     }
-    
 }

@@ -24,12 +24,17 @@ struct FetchPostsNetworkManager {
                 ]
                 AF.request(url, method: .get, headers: headers)
                     .responseDecodable(of: FetchModel.self) { response in
-                        print("🐣 = ", response)
-                        switch response.result {
-                        case .success(let success):
-                            single(.success(success))
-                        case .failure(let failure):
-                            single(.failure(failure))
+                        print("🐣 = ", response.response?.statusCode)
+                        if let statusCode = response.response?.statusCode, statusCode == 419 {
+                            single(.failure(URLError(.cancelled)))
+                            // 419 상태 코드를 URLError.cancelled로 매핑
+                        } else {
+                            switch response.result {
+                            case .success(let success):
+                                single(.success(success))
+                            case .failure(let failure):
+                                single(.failure(failure))
+                            }
                         }
                     }
             } catch {

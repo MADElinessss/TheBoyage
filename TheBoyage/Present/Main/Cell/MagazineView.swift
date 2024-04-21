@@ -33,21 +33,6 @@ class MagazineView: BaseView, UICollectionViewDataSource, UICollectionViewDelega
         collectionView.delegate = self
         
         addSubview(collectionView)
-        
-        bind()
-    }
-    
-    private func bind() {
-        let input = MainViewModel.Input()
-        let output = viewModel.transform(input)
-        output.posts
-            .map { $0.data }
-            .subscribe(with: self) { owner, posts in
-                self.posts = posts
-                print(posts)
-                self.collectionView.reloadData()
-            }
-            .disposed(by: disposeBag)
     }
     
     override func configureHierarchy() {
