@@ -31,4 +31,24 @@ struct MyProfileNetworkManager {
             return Disposables.create()
         }
     }
+    
+    static func editMyProfile(query: EditProfileQuery) -> Single<EditProfileModel> {
+        return Single<EditProfileModel>.create { single in
+            do {
+                let urlRequest = try MyPageRouter.editProfile(query: query).asURLRequest()
+                AF.request(urlRequest)
+                    .responseDecodable(of: EditProfileModel.self) { response in
+                        switch response.result {
+                        case .success(let success):
+                            single(.success(success))
+                        case .failure(let error):
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            return Disposables.create()
+        }
+    }
 }

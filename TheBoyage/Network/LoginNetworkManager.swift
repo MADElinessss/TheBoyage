@@ -60,6 +60,27 @@ struct LoginNetworkManager {
             return Disposables.create()
         }
     }
+    
+    static func withdraw() -> Single<WithdrawModel> {
+        return Single<WithdrawModel>.create { single in
+            do {
+                let urlRequest = try LoginRouter.withdraw.asURLRequest()
+                AF.request(urlRequest)
+                    .responseDecodable(of: WithdrawModel.self) { response in
+                        print(response.response?.statusCode)
+                        switch response.result {
+                        case .success(let success):
+                            single(.success(success))
+                        case .failure(let error):
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            return Disposables.create()
+        }
+    }
    
     
     // MARK: 이메일 유효성 검사

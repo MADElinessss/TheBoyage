@@ -55,13 +55,7 @@ class SettingViewController: BaseViewController {
     }
     
     private func configureNavigation() {
-        let rightButton = createBarButtonItem(imageName: "xmark", action: #selector(rightBarButtonTapped))
-        
-        configureNavigationBar(title: "SETTINGS", leftBarButton: nil, rightBarButton: rightButton)
-    }
-    
-    @objc func rightBarButtonTapped() {
-        dismiss(animated: true)
+        configureNavigationBar(title: "SETTINGS", leftBarButton: nil, rightBarButton: nil)
     }
 }
 

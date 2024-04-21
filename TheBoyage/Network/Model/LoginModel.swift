@@ -22,3 +22,9 @@ struct SignUpModel: Decodable {
     let email: String
     let nick: String
 }
+
+struct WithdrawModel: Decodable {
+    let user_id: String
+    let email: String
+    let nick: String
+}

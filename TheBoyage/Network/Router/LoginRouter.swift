@@ -14,6 +14,7 @@ enum LoginRouter {
     case emailValidate(query: EmailQuery)
     case signUp(query: SignUpQuery)
     case refresh
+    case withdraw
 }
 
 extension LoginRouter: TargetType {
@@ -31,6 +32,8 @@ extension LoginRouter: TargetType {
                 .post
         case .refresh:
                 .get
+        case .withdraw:
+                .get
         }
     }
     
@@ -44,6 +47,8 @@ extension LoginRouter: TargetType {
             return "v1/users/join"
         case .refresh:
             return "v1/auth/refresh"
+        case .withdraw:
+            return "v1/users/withdraw"
         }
     }
 
@@ -70,33 +75,20 @@ extension LoginRouter: TargetType {
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                 HTTPHeader.refresh.rawValue : UserDefaults.standard.string(forKey: "RefreshToken") ?? ""
             ]
+        case .withdraw:
+            return [
+                HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
+                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
+            ]
         }
     }
     
     var parameter: String? {
-        switch self {
-        case .login(_):
-            return nil
-        case .emailValidate(query: _):
-            return nil
-        case .signUp(query: _):
-            return nil
-        case .refresh:
-            return nil
-        }
+        return nil
     }
     
     var queryItem: [URLQueryItem]? {
-        switch self {
-        case .login(_):
-            return nil
-        case .emailValidate(query: _):
-            return nil
-        case .signUp(query: _):
-            return nil
-        case .refresh:
-            return nil
-        }
+        return nil
     }
     
     var body: Data? {
@@ -114,6 +106,8 @@ extension LoginRouter: TargetType {
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         case .refresh:
+            return nil
+        case .withdraw:
             return nil
         }
     }

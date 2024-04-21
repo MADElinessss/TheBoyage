@@ -11,6 +11,7 @@ import Foundation
 enum MyPageRouter {
     case profile
     case myFeed(id: String)
+    case editProfile(query: EditProfileQuery)
 }
 
 extension MyPageRouter: TargetType {
@@ -19,7 +20,14 @@ extension MyPageRouter: TargetType {
     }
     
     var method: Alamofire.HTTPMethod {
-        return .get
+        switch self {
+        case .profile:
+                .get
+        case .myFeed(let id):
+                .get
+        case .editProfile(let query):
+                .put
+        }
     }
     
     var path: String {
@@ -28,6 +36,8 @@ extension MyPageRouter: TargetType {
             return "v1/users/me/profile"
         case .myFeed(let id):
             return "v1/posts/users/\(id)"
+        case .editProfile(query: let query):
+            return "v1/users/me/profile"
         }
     }
     
@@ -40,6 +50,12 @@ extension MyPageRouter: TargetType {
             ]
         case .myFeed(let id):
             return [:]
+        case .editProfile(query: let query):
+            return [
+                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue,
+                HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
+                HTTPHeader.contentType.rawValue : HTTPHeader.multipart.rawValue
+            ]
         }
     }
     

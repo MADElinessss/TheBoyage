@@ -44,7 +44,10 @@ class EditProfileViewController: BaseViewController {
     }
     
     override func bind() {
-        let input = EditProfileViewModel.Input(imageSelected: imageSelectedSubject)
+        let input = EditProfileViewModel.Input(
+            imageSelected: imageSelectedSubject,
+            saveButtonTapped: mainView.updateButton.rx.tap,
+            withdrawTrigger: mainView.withdrawButton.rx.tap)
         let output = viewModel.transform(input)
         
         output.selectedImage
@@ -53,12 +56,39 @@ class EditProfileViewController: BaseViewController {
                 self?.updateProfileImageCell(with: image)
             })
             .disposed(by: viewModel.disposeBag)
+        
+        output.withdrawalResult
+            .drive(onNext: { [weak self] success in
+                if success {
+                    // 탈퇴 성공 알림 표시
+                    AlertManager.shared.showOkayAlert(on: self!, title: "회원탈퇴하기", message: "성공적으로 탈퇴하였습니다.")
+                } else {
+                    // 탈퇴 실패 알림 표시
+                    AlertManager.shared.showOkayAlert(on: self!, title: "회원탈퇴하기", message: "회원 탈되에 실패하였습니다.\n문제가 지속된다면 지원팀에 문의주세요.")
+                }
+            })
+            .disposed(by: viewModel.disposeBag)
+        
+        mainView.withdrawButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.confirmWithdrawal()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func updateProfileImageCell(with image: UIImage) {
         if let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileImageCell {
             cell.setImage(image)
         }
+    }
+    
+    private func confirmWithdrawal() {
+        let alert = UIAlertController(title: "회원 탈퇴", message: "진짜로 탈퇴하시겠습니까?🥹", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alert.addAction(UIAlertAction(title: "확인", style: .destructive, handler: { [weak self] _ in
+            self?.viewModel.withdraw()
+        }))
+        present(alert, animated: true)
     }
 }
 

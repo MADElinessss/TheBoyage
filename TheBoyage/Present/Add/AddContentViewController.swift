@@ -150,8 +150,6 @@ extension AddContentViewController: PHPickerViewControllerDelegate {
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         itemProviders = results.map(\.itemProvider)
-        var loadedImages = 0
-        var imageUrls: [String] = []
         
         for item in itemProviders {
             if item.canLoadObject(ofClass: UIImage.self) {
