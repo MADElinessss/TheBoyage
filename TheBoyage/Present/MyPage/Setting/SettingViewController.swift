@@ -34,8 +34,6 @@ enum SettingSection: Int, CaseIterable {
 class SettingViewController: BaseViewController {
     
     let mainView = SettingView()
-
-    let tableViewTitles = ["프로필 편집", "탈퇴"]
     
     override func loadView() {
         view = mainView

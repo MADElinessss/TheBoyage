@@ -30,10 +30,12 @@ class MyPageViewModel: ViewModelType {
         let image = loadImage(from: input.profile.profileImage)
         return Output(profile: profile, image: image)
     }
+    
     // TODO: 프로필 이미지 아직 없음
     func fetchProfile() -> Observable<MyProfileModel> {
         return MyProfileNetworkManager.fetchMyProfile()
             .asObservable()
+            .compactMap { $0 } // nil을 제거
             .do { profile in
                 print("profile: ", profile)
             } onError: { error in
@@ -41,6 +43,9 @@ class MyPageViewModel: ViewModelType {
             }
 
     }
+    /*
+     Cannot convert return expression of type 'Observable<MyProfileModel?>' to return type 'Observable<MyProfileModel>' -> compactMap
+     */
     
     private func loadImage(from imageName: String?) -> Observable<UIImage> {
         guard let imageName = imageName,

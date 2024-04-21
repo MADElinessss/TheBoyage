@@ -14,16 +14,19 @@ class EditProfileViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     struct Input {
+        let viewLoaded: ControlEvent<Void>
         let imageSelected: PublishSubject<UIImage>
         let saveButtonTapped: ControlEvent<Void>
         let withdrawTrigger: ControlEvent<Void>
     }
     
     struct Output {
+        let profileData: Driver<MyProfileModel?>
         let selectedImage: Driver<UIImage?>
         let withdrawalResult: Driver<Bool>
     }
     
+    private let profileDataSubject = BehaviorSubject<MyProfileModel?>(value: nil)
     private let selectedImageSubject = BehaviorSubject<UIImage?>(value: nil)
     private let uploadResultSubject = PublishSubject<Bool>()
     private let withdrawalResultSubject = PublishSubject<Bool>()
@@ -33,6 +36,19 @@ class EditProfileViewModel: ViewModelType {
     }
     
     func transform(_ input: Input) -> Output {
+        
+        input.viewLoaded
+            .flatMapLatest { _ in
+                MyProfileNetworkManager.fetchMyProfile()
+                    .asObservable()
+                    .catchAndReturn(nil)
+            }
+            .bind(to: profileDataSubject)
+            .disposed(by: disposeBag)
+        
+        let profileData = profileDataSubject
+            .asDriver(onErrorJustReturn: nil)
+        
         // 외부에서 받은 이미지 -> Subject
         input.imageSelected
             .bind(to: selectedImageSubject)
@@ -53,7 +69,7 @@ class EditProfileViewModel: ViewModelType {
         let withdrawalResult = withdrawalResultSubject
             .asDriver(onErrorJustReturn: false)
         
-        return Output(selectedImage: selectedImageSubject.asDriver(onErrorJustReturn: nil),
+        return Output(profileData: profileData, selectedImage: selectedImageSubject.asDriver(onErrorJustReturn: nil),
                       withdrawalResult: withdrawalResult)
         
 //        input.saveButtonTapped

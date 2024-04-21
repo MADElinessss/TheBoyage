@@ -17,6 +17,7 @@ class EditProfileViewController: BaseViewController {
     let viewModel = EditProfileViewModel()
     
     private let imageSelectedSubject = PublishSubject<UIImage>()
+    private let viewLoadedSubject = PublishSubject<Void>()
     
     override func loadView() {
         view = mainView
@@ -25,8 +26,11 @@ class EditProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewLoadedSubject.onNext(())
+        
         configureView()
         configureNavigation()
+        
         
     }
     
@@ -45,10 +49,30 @@ class EditProfileViewController: BaseViewController {
     
     override func bind() {
         let input = EditProfileViewModel.Input(
+            viewLoaded: ControlEvent(events: viewLoadedSubject),
             imageSelected: imageSelectedSubject,
             saveButtonTapped: mainView.updateButton.rx.tap,
             withdrawTrigger: mainView.withdrawButton.rx.tap)
         let output = viewModel.transform(input)
+        
+        output.profileData
+            .drive(onNext: { [weak self] profile in
+                guard let profile = profile, let self = self else { return }
+                print("프로필 편집!", profile)
+                if let nameCell = self.mainView.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? EditableTextCell {
+                    nameCell.textField.text = profile.nick
+                }
+                if let phoneCell = self.mainView.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? EditableTextCell {
+                    phoneCell.textField.text = profile.phoneNum
+                }
+                if let dateCell = self.mainView.tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? DatePickerCell {
+                    if let date = profile.birthDay {
+                        let birthday = FormatterManager.shared.formatStringToDate(date)
+                        dateCell.datePicker.setDate(birthday, animated: true)
+                    }
+                }
+            })
+            .disposed(by: viewModel.disposeBag)
         
         output.selectedImage
             .drive(onNext: { [weak self] image in

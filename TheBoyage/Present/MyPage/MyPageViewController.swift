@@ -29,6 +29,13 @@ class MyPageViewController: BaseViewController {
             .subscribe(with: self) { owner, profile in
                 self.mainView.profile.configure(profile: profile)
             }
+        
+        mainView.profile.editButton.rx.tap
+            .subscribe { _ in
+                let vc = EditProfileViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func configureNavigation() {

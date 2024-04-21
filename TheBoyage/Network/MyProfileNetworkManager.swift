@@ -10,8 +10,8 @@ import Foundation
 import RxSwift
 
 struct MyProfileNetworkManager {
-    static func fetchMyProfile() -> Single<MyProfileModel> {
-        return Single<MyProfileModel>.create { single in
+    static func fetchMyProfile() -> Single<MyProfileModel?> {
+        return Single<MyProfileModel?>.create { single in
             do {
                 let urlRequest = try MyPageRouter.profile.asURLRequest()
                 AF.request(urlRequest)
@@ -22,11 +22,11 @@ struct MyProfileNetworkManager {
                         case .success(let profile):
                             single(.success(profile))
                         case .failure(let error):
-                            single(.failure(error))
+                            single(.success(nil))
                         }
                     }
             } catch {
-                single(.failure(error))
+                single(.success(nil))
             }
             return Disposables.create()
         }

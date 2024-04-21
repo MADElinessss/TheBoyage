@@ -64,7 +64,6 @@ class ProfileView: BaseView {
     
     func configure(profile: MyProfileModel) {
         nameLabel.text = profile.nick
-        
     }
     
 }

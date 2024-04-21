@@ -19,4 +19,11 @@ class FormatterManager {
         dateFormatter.dateFormat = "yyyy.MM.dd EEEE"
         return dateFormatter.string(from: date)
     }
+    
+    func formatStringToDate(_ dateString: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        return dateFormatter.date(from: dateString) ?? Date()
+    }
 }
