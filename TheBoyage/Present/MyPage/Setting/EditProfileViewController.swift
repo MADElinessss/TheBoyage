@@ -5,19 +5,26 @@
 //  Created by Madeline on 4/21/24.
 //
 
+import SnapKit
 import UIKit
+import PhotosUI
+import RxCocoa
+import RxSwift
 
 class EditProfileViewController: BaseViewController {
     
     let mainView = EditProfileView()
+    let viewModel = EditProfileViewModel()
+    
+    private let imageSelectedSubject = PublishSubject<UIImage>()
     
     override func loadView() {
         view = mainView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureView()
         configureNavigation()
         
@@ -26,18 +33,38 @@ class EditProfileViewController: BaseViewController {
     private func configureView() {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
-        mainView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        mainView.tableView.register(ProfileImageCell.self, forCellReuseIdentifier: ProfileImageCell.identifier)
+        mainView.tableView.register(EditableTextCell.self, forCellReuseIdentifier: EditableTextCell.identifier)
+        mainView.tableView.register(DatePickerCell.self, forCellReuseIdentifier: DatePickerCell.identifier)
+        
     }
     
     private func configureNavigation() {
         configureNavigationBar(title: "EDIT PROFILE", leftBarButton: nil, rightBarButton: nil)
     }
     
+    override func bind() {
+        let input = EditProfileViewModel.Input(imageSelected: imageSelectedSubject)
+        let output = viewModel.transform(input)
+        
+        output.selectedImage
+            .drive(onNext: { [weak self] image in
+                guard let image = image else { return }
+                self?.updateProfileImageCell(with: image)
+            })
+            .disposed(by: viewModel.disposeBag)
+    }
+    
+    private func updateProfileImageCell(with image: UIImage) {
+        if let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileImageCell {
+            cell.setImage(image)
+        }
+    }
 }
 
 extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 4
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,22 +72,43 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        cell.selectionStyle = .none
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileImageCell", for: indexPath) as! ProfileImageCell
+            cell.configure()
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EditableTextCell", for: indexPath) as! EditableTextCell
+            cell.configure(placeholder: "이름")
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EditableTextCell", for: indexPath) as! EditableTextCell
+            cell.configure(placeholder: "전화번호")
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerCell", for: indexPath) as! DatePickerCell
+            cell.configure()
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            
+            presentPhotoPicker()
         } else {
             
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        
+        if indexPath.row == 0 {
+            return 150
+        } else {
+            return 44
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -72,7 +120,7 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource 
         
         let headerLabel = UILabel()
         headerLabel.text = "회원 정보"
-        headerLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        headerLabel.font = .systemFont(ofSize: 20, weight: .bold)
         headerLabel.textColor = .black
         
         let thickSeparator = UIView()
@@ -87,11 +135,51 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource 
         
         thickSeparator.snp.makeConstraints { make in
             make.top.equalTo(headerLabel.snp.bottom).offset(8)
-            make.left.right.equalToSuperview().inset(16)
-            make.height.equalTo(3)
+            make.leading.equalToSuperview().inset(4)
+            make.height.equalTo(10)
             make.bottom.equalToSuperview()
         }
         
         return headerView
+    }
+}
+
+extension EditProfileViewController: PHPickerViewControllerDelegate {
+    func presentPhotoPicker() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let result = results.first, result.itemProvider.canLoadObject(ofClass: UIImage.self) else {
+            return
+        }
+        
+        result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+            DispatchQueue.main.async {
+                if let image = image as? UIImage {
+                    self.imageSelectedSubject.onNext(image)
+                }
+            }
+        }
+    }
+}
+
+
+extension EditProfileViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
     }
 }
