@@ -1,18 +1,15 @@
 //
-//  SettingViewController.swift
+//  EditProfileViewController.swift
 //  TheBoyage
 //
 //  Created by Madeline on 4/21/24.
 //
 
-import SnapKit
 import UIKit
 
-class SettingViewController: BaseViewController {
+class EditProfileViewController: BaseViewController {
     
-    let mainView = SettingView()
-
-    let tableViewTitles = ["프로필 편집", "탈퇴"]
+    let mainView = EditProfileView()
     
     override func loadView() {
         view = mainView
@@ -23,6 +20,7 @@ class SettingViewController: BaseViewController {
 
         configureView()
         configureNavigation()
+        
     }
     
     private func configureView() {
@@ -32,17 +30,12 @@ class SettingViewController: BaseViewController {
     }
     
     private func configureNavigation() {
-        let rightButton = createBarButtonItem(imageName: "xmark", action: #selector(rightBarButtonTapped))
-        
-        configureNavigationBar(title: "SETTINGS", leftBarButton: nil, rightBarButton: rightButton)
+        configureNavigationBar(title: "EDIT PROFILE", leftBarButton: nil, rightBarButton: nil)
     }
     
-    @objc func rightBarButtonTapped() {
-        dismiss(animated: true)
-    }
 }
 
-extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
+extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
@@ -53,15 +46,14 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = tableViewTitles[indexPath.row]
+        
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let vc = EditProfileViewController()
-            navigationController?.pushViewController(vc, animated: true)
+            
         } else {
             
         }
@@ -79,7 +71,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
         
         let headerLabel = UILabel()
-        headerLabel.text = "나의 계정 정보"
+        headerLabel.text = "회원 정보"
         headerLabel.font = .systemFont(ofSize: 24, weight: .bold)
         headerLabel.textColor = .black
         
