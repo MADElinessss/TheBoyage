@@ -46,7 +46,7 @@ class MyPageView: BaseView {
         profile.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(UIScreen.main.bounds.height * 0.4)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.25)
         }
         
         myFeed.snp.makeConstraints { make in

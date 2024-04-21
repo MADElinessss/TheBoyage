@@ -7,11 +7,7 @@
 
 import UIKit
 
-class FeedView: BaseView, UICollectionViewDataSource{
-    
-    static var identifier: String {
-        return String(describing: self)
-    }
+class FeedView: BaseView, UICollectionViewDataSource {
 
     let collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
@@ -49,7 +45,7 @@ class FeedView: BaseView, UICollectionViewDataSource{
 
     static func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 300, height: 500)
+        layout.itemSize = CGSize(width: 350, height: 450)
         layout.scrollDirection = .horizontal
         return layout
     }

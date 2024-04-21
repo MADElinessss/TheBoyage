@@ -10,10 +10,6 @@ import UIKit
 import RxSwift
 
 class MagazineView: BaseView, UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    static var identifier: String {
-        return String(describing: self)
-    }
 
     var collectionView: UICollectionView!
     

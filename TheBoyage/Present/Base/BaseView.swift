@@ -8,6 +8,10 @@
 import UIKit
 
 class BaseView: UIView {
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
