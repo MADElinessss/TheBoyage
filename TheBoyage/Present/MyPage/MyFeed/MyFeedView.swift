@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import SnapKit
 import UIKit
 
 class MyFeedView: BaseView, UICollectionViewDataSource {
     
     let collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
@@ -57,6 +58,7 @@ extension MyFeedView {
         }
         
         cell.imageView.image = UIImage(named: "shark")
+        cell.clipsToBounds = true
         cell.layer.cornerRadius = 15
         return cell
     }
@@ -84,6 +86,7 @@ class MyFeedImageCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),

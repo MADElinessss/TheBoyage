@@ -70,6 +70,8 @@
 		C1754C352BD4EA6700728142 /* MyPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C342BD4EA6700728142 /* MyPageRouter.swift */; };
 		C1754C372BD4EC4100728142 /* MyProfileNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */; };
 		C1754C392BD4EC9900728142 /* MyProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C382BD4EC9900728142 /* MyProfileModel.swift */; };
+		C1754C3C2BD4FFD500728142 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C3B2BD4FFD500728142 /* SettingView.swift */; };
+		C1754C3E2BD4FFEC00728142 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C3D2BD4FFEC00728142 /* SettingViewController.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
 		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
 		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
@@ -141,6 +143,8 @@
 		C1754C342BD4EA6700728142 /* MyPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRouter.swift; sourceTree = "<group>"; };
 		C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileNetworkManager.swift; sourceTree = "<group>"; };
 		C1754C382BD4EC9900728142 /* MyProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileModel.swift; sourceTree = "<group>"; };
+		C1754C3B2BD4FFD500728142 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		C1754C3D2BD4FFEC00728142 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
@@ -406,9 +410,19 @@
 			path = MyFeed;
 			sourceTree = "<group>";
 		};
+		C1754C3A2BD4FFC600728142 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				C1754C3B2BD4FFD500728142 /* SettingView.swift */,
+				C1754C3D2BD4FFEC00728142 /* SettingViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		C178A8B92BCA47F7007F1E3F /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				C1754C3A2BD4FFC600728142 /* Setting */,
 				C1754C2D2BD420B900728142 /* MyFeed */,
 				C1754C2C2BD420B100728142 /* Profile */,
 				C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */,
@@ -536,6 +550,7 @@
 				C1754BE72BCFC3BA00728142 /* FeedView.swift in Sources */,
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
 				C1754C262BD23A8E00728142 /* FetchModel.swift in Sources */,
+				C1754C3C2BD4FFD500728142 /* SettingView.swift in Sources */,
 				C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */,
 				C178A8CB2BCAAE99007F1E3F /* NicknameViewModel.swift in Sources */,
 				C1754B7E2BCD593000728142 /* AddContentViewController.swift in Sources */,
@@ -551,6 +566,7 @@
 				C1754C222BD2381A00728142 /* MainQuery.swift in Sources */,
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
 				C1754C242BD23A5300728142 /* FetchPostsNetworkManager.swift in Sources */,
+				C1754C3E2BD4FFEC00728142 /* SettingViewController.swift in Sources */,
 				C1754C2F2BD420C300728142 /* ProfileView.swift in Sources */,
 				C178A8D02BCBE849007F1E3F /* SignUpViewModel.swift in Sources */,
 				C1754B882BCD621400728142 /* FormatterManager.swift in Sources */,

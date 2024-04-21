@@ -24,7 +24,7 @@ class ProfileView: BaseView {
     let nameLabel = {
         let view = UILabel()
         view.text = "트래블러 님"
-        view.font = .systemFont(ofSize: 24, weight: .semibold)
+        view.font = .systemFont(ofSize: 18, weight: .semibold)
         view.textColor = .white
         return view
     }()
@@ -33,6 +33,7 @@ class ProfileView: BaseView {
         let view = UIButton()
         view.setTitle("프로필 편집", for: .normal)
         view.setTitleColor(.white, for: .normal)
+        view.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         view.setImage(UIImage(systemName: "pencil"), for: .normal)
         view.tintColor = .white
         return view

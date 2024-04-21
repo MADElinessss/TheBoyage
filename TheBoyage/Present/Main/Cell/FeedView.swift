@@ -11,7 +11,7 @@ class FeedView: BaseView, UICollectionViewDataSource {
 
     let collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()

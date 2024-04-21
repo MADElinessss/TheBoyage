@@ -38,7 +38,8 @@ class MyPageViewController: BaseViewController {
     }
     
     @objc func leftBarButtonTapped() {
-        
+        let vc = SettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
