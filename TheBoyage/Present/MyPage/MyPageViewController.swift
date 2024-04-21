@@ -22,9 +22,7 @@ class MyPageViewController: BaseViewController {
         configureNavigation()
     }
     
-    
     override func bind() {
-        let input = MyPageViewModel()
         let output = viewModel.fetchProfile()
             .subscribe(with: self) { owner, profile in
                 self.mainView.profile.configure(profile: profile)

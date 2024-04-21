@@ -6,10 +6,12 @@
 //
 
 import SnapKit
+import RxSwift
 import UIKit
 
 final class AddImageTableViewCell: BaseTableViewCell {
     
+    let disposeBag = DisposeBag()
     let selectedImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "photo")
@@ -25,7 +27,15 @@ final class AddImageTableViewCell: BaseTableViewCell {
         configureView()
         
     }
-  
+    
+    func configure(with imagesObservable: Observable<[UIImage]>) {
+        imagesObservable
+            .subscribe(onNext: { [weak self] images in
+                self?.selectedImageView.image = images.first // 예시로 첫 번째 이미지만 표시
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func configureView() {
         
         addSubview(selectedImageView)

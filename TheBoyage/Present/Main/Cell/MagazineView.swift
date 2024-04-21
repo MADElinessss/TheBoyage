@@ -45,7 +45,7 @@ extension MagazineView {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MagazineCollectionViewCell.identifier, for: indexPath) as! MagazineCollectionViewCell
-        cell.backgroundColor = .orange
+        cell.backgroundColor = .white
         let post = posts[indexPath.row]
         cell.configure(with: MagazineCellViewModel(), post: post)
         return cell

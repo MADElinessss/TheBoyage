@@ -17,6 +17,10 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
     let tableView = UITableView()
     var rightButton = UIBarButtonItem()
     var imageArray : [Data] = []
+    let viewModel = AddContentViewModel()
+    let titleSubject = PublishSubject<String>()
+    let contentSubject = PublishSubject<String>()
+    let imagesSubject = PublishSubject<[UIImage]>()
     
     private var itemProviders: [NSItemProvider] = []
     private var iterator: IndexingIterator<[NSItemProvider]>?
@@ -43,12 +47,52 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         setupTableView()
         configureView()
         
+        print("Right button initially set to: \(rightButton.isEnabled)")
+        
+    }
+    
+    override func bind() {
+        
+        titleSubject.subscribe(onNext: {
+            print("Title updated: \($0)")
+        }).disposed(by: disposeBag)
+        
+        contentSubject.subscribe(onNext: {
+            print("Content updated: \($0)")
+        }).disposed(by: disposeBag)
+    
+        
+        let input = AddContentViewModel.Input(
+            title: titleSubject.asObservable(),
+            content: contentSubject.asObservable(),
+            imagesPicked: imagesSubject.asObservable(),
+            saveTrigger: rightButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        output.isSaveEnabled
+            .subscribe(onNext: { [weak self] isEnabled in
+                DispatchQueue.main.async {
+                    self?.rightButton.isEnabled = isEnabled
+                    self?.navigationItem.rightBarButtonItem = self?.rightButton
+                    print("Button enabled state now: \(isEnabled)")
+                }
+            })
+            .disposed(by: disposeBag)
+
+        
+        output.postResult
+            .subscribe(with: self) { owner, isSuccess in
+                if isSuccess {
+                    print("saved")
+                    AlertManager.shared.showOkayAlert(on: self, title: "여행기가 저장 완료", message: "여행기가 저장되었습니다.")
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setupTableView() {
-        
-        //        view.backgroundColor = .lightGray
-        //        tableView.backgroundColor = .lightGray
         
         view.addSubview(tableView)
         
@@ -60,7 +104,6 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         tableView.delegate = self
         tableView.dataSource = self
         
-        //tableView.separatorStyle = .none
         tableView.separatorStyle = .singleLine
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
@@ -76,12 +119,11 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
-        
-        let leftButton = createBarButtonItem(imageName: "chevron.left", action: #selector(leftButtonTapped))
-        rightButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(rightButtonTapped))
+
+        rightButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: nil)
         
         rightButton.tintColor = .lightGray
-        rightButton.isEnabled = false
+        // rightButton.isEnabled = false
         
         configureNavigationBar(title: "여행기 작성", rightBarButton: rightButton)
     }
@@ -94,37 +136,35 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func rightButtonTapped() {
-        // TODO: 글 POST
-        navigationController?.popViewController(animated: true)
-    }
-    
     
 }
 
 extension AddContentViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: AddImageTableViewCell.identifier, for: indexPath) as! AddImageTableViewCell
-            
+            cell.configure(with: imagesSubject)
             return cell
-        } else if indexPath.row == 1 {
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: AddTitleTableViewCell.identifier, for: indexPath) as! AddTitleTableViewCell
-            
+            cell.onTextChanged = { [weak self] text in
+                self?.titleSubject.onNext(text)
+            }
             return cell
-        } else if indexPath.row == 2 {
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: AddContentTableViewCell.identifier, for: indexPath) as! AddContentTableViewCell
             
+            cell.onTextChanged = { [weak self] text in
+                self?.contentSubject.onNext(text)
+            }
             return cell
-        } else {
+        default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "tagCell", for: indexPath)
-            cell.textLabel?.text = "관련 주제 태그하기"
-            cell.layer.cornerRadius = 15
-            cell.selectionStyle = .none
             return cell
         }
     }
@@ -138,57 +178,42 @@ extension AddContentViewController {
             return 200
         } else if indexPath.row == 1 {
             return 100
-        } else if indexPath.row == 2 {
-            return 300
         } else {
-            return 44
+            return 300
         }
     }
 }
 
 extension AddContentViewController: PHPickerViewControllerDelegate {
-    
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        itemProviders = results.map(\.itemProvider)
-        
-        for item in itemProviders {
-            if item.canLoadObject(ofClass: UIImage.self) {
-                item.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                    DispatchQueue.main.async {
-                        guard let self = self else { return }
-                        if let error = error {
-                            print("Error loading image: \(error)")
-                            return
-                        }
-                        guard let image = image as? UIImage, let imageData = image.jpegData(compressionQuality: 0.8) else {
-                            print("Failed to convert image to JPEG")
-                            return
-                        }
-                        let imageQuery = ImageUploadQuery(files: imageData)
-                        PostNetworkManager.imageUpload(query: imageQuery)
-                            .asObservable()
-                            .subscribe(with: self) { owner, image in
-                                if let image = image.files {
-                                    self.postContent(files: image)
-                                } else {
-                                    AlertManager.shared.showOkayAlert(on: self, title: "이미지 업로드 실패", message: "이미지를 불러오는 데 실패했습니다. 다시 시도해주세요.")
-                                }
-                            }
-                            .disposed(by: self.disposeBag)
-                    }
-                }
-            }
+        convertPickerResultsToImages(results) { [weak self] images in
+            self?.imagesSubject.onNext(images)
         }
         picker.dismiss(animated: true)
     }
 
-    func postContent(files: [String]) {
-        let query = PostQuery(title: "과메기 먹으러 포항 다녀왔어요", content: "운영자 글", content1: "#manager", product_id: "boyage_general", files: files)
-        PostNetworkManager.postContent(query: query)
-            .asObservable()
-            .subscribe(with: self) { owner, response in
-                print(response)
+    private func convertPickerResultsToImages(_ results: [PHPickerResult], completion: @escaping ([UIImage]) -> Void) {
+        var images: [UIImage] = []
+        let group = DispatchGroup()
+        
+        for result in results {
+            group.enter()
+            if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                    DispatchQueue.main.async {
+                        if let image = image as? UIImage {
+                            images.append(image)
+                        }
+                        group.leave()
+                    }
+                }
+            } else {
+                group.leave()
             }
-            .disposed(by: disposeBag)
+        }
+        
+        group.notify(queue: .main) {
+            completion(images)
+        }
     }
 }
