@@ -36,18 +36,18 @@ struct ProfileModel: Decodable {
     }
 }
 
-
+// 받는거
 struct EditProfileModel: Decodable {
-    let user_id: String
+    let user_id: String?
     let email: String
     let nick: String
     let phoneNum: String?
     let birthDay: String?
     let profileImage: String?
-//    let follwers: [String: String]
+    //    let follwers: [String: String]
     let posts: [String]?
     
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: String, CodingKey {
         case user_id
         case email
         case nick

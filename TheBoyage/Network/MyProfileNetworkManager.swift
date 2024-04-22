@@ -38,6 +38,8 @@ struct MyProfileNetworkManager {
                 let urlRequest = try MyPageRouter.editProfile(query: query).asURLRequest()
                 AF.request(urlRequest)
                     .responseDecodable(of: EditProfileModel.self) { response in
+                        print("status code = ", response.response?.statusCode)
+                        print("status code = ", response)
                         switch response.result {
                         case .success(let success):
                             single(.success(success))

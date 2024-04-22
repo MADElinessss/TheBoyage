@@ -23,9 +23,9 @@ extension MyPageRouter: TargetType {
         switch self {
         case .profile:
                 .get
-        case .myFeed(let id):
+        case .myFeed(_):
                 .get
-        case .editProfile(let query):
+        case .editProfile(_):
                 .put
         }
     }
@@ -36,7 +36,7 @@ extension MyPageRouter: TargetType {
             return "v1/users/me/profile"
         case .myFeed(let id):
             return "v1/posts/users/\(id)"
-        case .editProfile(query: let query):
+        case .editProfile(query: _):
             return "v1/users/me/profile"
         }
     }
@@ -48,9 +48,9 @@ extension MyPageRouter: TargetType {
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue,
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? ""
             ]
-        case .myFeed(let id):
+        case .myFeed(_):
             return [:]
-        case .editProfile(query: let query):
+        case .editProfile(query: _):
             return [
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue,
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
@@ -68,6 +68,16 @@ extension MyPageRouter: TargetType {
     }
     
     var body: Data? {
-        return nil
+        switch self {
+        case .profile:
+            return nil
+        case .myFeed(let id):
+            return nil
+        case .editProfile(let query):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            return try? encoder.encode(query)
+        }
+        
     }
 }

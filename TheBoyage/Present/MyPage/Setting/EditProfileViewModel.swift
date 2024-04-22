@@ -14,10 +14,13 @@ class EditProfileViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     struct Input {
-        let viewLoaded: ControlEvent<Void>
+        let viewLoaded: PublishSubject<Void>
         let imageSelected: PublishSubject<UIImage>
         let saveButtonTapped: ControlEvent<Void>
         let withdrawTrigger: ControlEvent<Void>
+        let name: Observable<String>
+        let phoneNumber: Observable<String>
+        let birthDate: Observable<Date>
     }
     
     struct Output {
@@ -38,7 +41,7 @@ class EditProfileViewModel: ViewModelType {
     func transform(_ input: Input) -> Output {
         
         input.viewLoaded
-            .flatMapLatest { _ in
+            .flatMapLatest { _ -> Observable<MyProfileModel?> in
                 MyProfileNetworkManager.fetchMyProfile()
                     .asObservable()
                     .catchAndReturn(nil)
@@ -58,11 +61,26 @@ class EditProfileViewModel: ViewModelType {
         let selectedImage = selectedImageSubject
             .asDriver(onErrorJustReturn: nil)
         
-        input.withdrawTrigger
-            .flatMapLatest { [weak self] _ -> Observable<Bool> in
-                guard let self = self else { return .just(false) }
-                return self.processWithdrawal()
+        input.saveButtonTapped
+            .withLatestFrom(Observable.combineLatest(input.name, input.phoneNumber, input.birthDate, input.imageSelected))
+            .flatMapLatest { name, phone, birthDate, image -> Observable<Bool> in
+                let dateString = FormatterManager.shared.formatDateWithDayToString(date: birthDate)
+                // TODO: imageData -> url upload 써
+                guard let imageData = image.jpegData(compressionQuality: 0.5) else { return Observable.just(false) }
+                let profile = EditProfileQuery(nick: name, phoneNum: phone, birthDay: dateString, profile: imageData)
+                return MyProfileNetworkManager.editMyProfile(query: profile)
+                    .asObservable()  // Single을 Observable로 변환
+                    .debug("saveButtonTapped")
+                    .map { result -> Bool in
+                        return true
+                    }
+                    .catchAndReturn(false)
             }
+            .bind(to: uploadResultSubject)
+            .disposed(by: disposeBag)
+        
+        input.withdrawTrigger
+            .flatMapLatest { self.processWithdrawal() }
             .bind(to: withdrawalResultSubject)
             .disposed(by: disposeBag)
         
@@ -71,16 +89,7 @@ class EditProfileViewModel: ViewModelType {
         
         return Output(profileData: profileData, selectedImage: selectedImageSubject.asDriver(onErrorJustReturn: nil),
                       withdrawalResult: withdrawalResult)
-        
-//        input.saveButtonTapped
-//            .withLatestFrom(selectedImageSubject)
-//            .compactMap { $0?.jpegData(compressionQuality: 0.8) }
-//            .flatMapLatest { imageData in
-//                self.uploadImageData(imageData)
-//            }
-//            .bind(to: uploadResultSubject)
-//            .disposed(by: disposeBag)
-        
+
         uploadResultSubject.subscribe(onNext: { success in
             print("Upload success: \(success)")
         }).disposed(by: disposeBag)
@@ -95,9 +104,5 @@ class EditProfileViewModel: ViewModelType {
                 true
             }
     }
-    
-//    private func uploadImageData(_ data: Data) -> Observable<Bool> {
-//        MyProfileNetworkManager.editMyProfile(query: <#T##EditProfileQuery#>)
-//        return Observable.just(true)
-//    }
+
 }

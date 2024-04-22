@@ -206,10 +206,13 @@ extension AddContentViewController: PHPickerViewControllerDelegate {
                             return
                         }
                         loadedImages.append(image)
-                        if loadedImages.count == results.count {
-                            completion(loadedImages)
-                            self.imagesSubject.onNext(loadedImages)
-                        }
+                        self.imagesSubject.onNext(loadedImages)
+//                        imageArray.append(image)
+                        
+//                        if loadedImages.count == results.count {
+//                            completion(loadedImages)
+//                            self.imagesSubject.onNext(loadedImages)
+//                        }
                     }
                 }
             }

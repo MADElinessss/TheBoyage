@@ -19,6 +19,10 @@ class EditProfileViewController: BaseViewController {
     private let imageSelectedSubject = PublishSubject<UIImage>()
     private let viewLoadedSubject = PublishSubject<Void>()
     
+    private let nameSubject = BehaviorSubject<String>(value: "")
+    private let phoneNumberSubject = BehaviorSubject<String>(value: "")
+    private let birthDateSubject = BehaviorSubject<Date>(value: Date())
+    
     override func loadView() {
         view = mainView
     }
@@ -30,8 +34,6 @@ class EditProfileViewController: BaseViewController {
         
         configureView()
         configureNavigation()
-        
-        
     }
     
     private func configureView() {
@@ -48,15 +50,41 @@ class EditProfileViewController: BaseViewController {
     }
     
     override func bind() {
+        
+        if let nameCell = mainView.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? EditableTextCell {
+            nameCell.textField.rx.text.orEmpty
+                .bind(to: nameSubject)
+                .disposed(by: disposeBag)
+        }
+        
+        if let phoneCell = mainView.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? EditableTextCell {
+            phoneCell.textField.rx.text.orEmpty
+                .bind(to: phoneNumberSubject)
+                .disposed(by: disposeBag)
+        }
+        
+        if let dateCell = mainView.tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? DatePickerCell {
+            dateCell.datePicker.rx.date
+                .bind(to: birthDateSubject)
+                .disposed(by: disposeBag)
+        }
+        
+        // ViewModel binding
         let input = EditProfileViewModel.Input(
-            viewLoaded: ControlEvent(events: viewLoadedSubject),
+            viewLoaded: viewLoadedSubject,
             imageSelected: imageSelectedSubject,
             saveButtonTapped: mainView.updateButton.rx.tap,
-            withdrawTrigger: mainView.withdrawButton.rx.tap)
+            withdrawTrigger: mainView.withdrawButton.rx.tap,
+            name: nameSubject.asObservable(),
+            phoneNumber: phoneNumberSubject.asObservable(),
+            birthDate: birthDateSubject.asObservable()
+        )
+
+        
         let output = viewModel.transform(input)
         
         output.profileData
-            .drive(onNext: { [weak self] profile in
+            .drive(onNext: { [weak self] (profile: MyProfileModel?) in
                 guard let profile = profile, let self = self else { return }
                 print("프로필 편집!", profile)
                 if let nameCell = self.mainView.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? EditableTextCell {
@@ -75,14 +103,16 @@ class EditProfileViewController: BaseViewController {
             .disposed(by: viewModel.disposeBag)
         
         output.selectedImage
-            .drive(onNext: { [weak self] image in
+            .drive(onNext: { [weak self] (image: UIImage?) in
                 guard let image = image else { return }
                 self?.updateProfileImageCell(with: image)
             })
             .disposed(by: viewModel.disposeBag)
         
+        
+        
         output.withdrawalResult
-            .drive(onNext: { [weak self] success in
+            .drive(onNext: { [weak self] (success: Bool) in
                 if success {
                     // 탈퇴 성공 알림 표시
                     AlertManager.shared.showOkayAlert(on: self!, title: "회원탈퇴하기", message: "성공적으로 탈퇴하였습니다.")
@@ -216,10 +246,11 @@ extension EditProfileViewController: PHPickerViewControllerDelegate {
         }
         
         result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+            
+            guard let image = image as? UIImage, let data = image.jpegData(compressionQuality: 0.8) else { return }
+            
             DispatchQueue.main.async {
-                if let image = image as? UIImage {
-                    self.imageSelectedSubject.onNext(image)
-                }
+                self.imageSelectedSubject.onNext(image)
             }
         }
     }

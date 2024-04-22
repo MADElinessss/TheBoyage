@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// 서버에 보내는거
 struct EditProfileQuery: Encodable {
     let nick: String
     let phoneNum: String?
