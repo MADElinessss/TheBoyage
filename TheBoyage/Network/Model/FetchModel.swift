@@ -23,8 +23,16 @@ struct Posts: Decodable {
     var likes: [String]
     var likes2: [String]
     var hashTags: [String]
-    var comments: [String]
+    var comments: [CommentModel]
 }
+
+struct CommentModel: Decodable {
+    let comment_id: String
+    let content: String
+    let createdAt: String
+    let creator: Creator
+}
+
 
 struct Creator: Decodable {
     var user_id: String
