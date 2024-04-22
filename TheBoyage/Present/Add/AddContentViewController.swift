@@ -15,8 +15,8 @@ import UIKit
 class AddContentViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource  {
     
     let tableView = UITableView()
-    var rightButton = UIBarButtonItem()
-    var imageArray : [Data] = []
+    var rightButton = UIButton()
+    var imageArray : [UIImage] = []
     let viewModel = AddContentViewModel()
     let titleSubject = PublishSubject<String>()
     let contentSubject = PublishSubject<String>()
@@ -53,15 +53,6 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
     
     override func bind() {
         
-        titleSubject.subscribe(onNext: {
-            print("Title updated: \($0)")
-        }).disposed(by: disposeBag)
-        
-        contentSubject.subscribe(onNext: {
-            print("Content updated: \($0)")
-        }).disposed(by: disposeBag)
-    
-        
         let input = AddContentViewModel.Input(
             title: titleSubject.asObservable(),
             content: contentSubject.asObservable(),
@@ -72,24 +63,29 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         let output = viewModel.transform(input)
         
         output.isSaveEnabled
-            .subscribe(onNext: { [weak self] isEnabled in
-                DispatchQueue.main.async {
-                    self?.rightButton.isEnabled = isEnabled
-                    self?.navigationItem.rightBarButtonItem = self?.rightButton
-                    print("Button enabled state now: \(isEnabled)")
-                }
+            .bind(to: rightButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        rightButton.rx.tap
+            .asObservable()
+            .subscribe(onNext: {
+                print("버튼이 눌렸습니다.")
             })
             .disposed(by: disposeBag)
 
-        
         output.postResult
-            .subscribe(with: self) { owner, isSuccess in
+            .subscribe(onNext: { isSuccess in
                 if isSuccess {
                     print("saved")
-                    AlertManager.shared.showOkayAlert(on: self, title: "여행기가 저장 완료", message: "여행기가 저장되었습니다.")
+                    AlertManager.shared.showOkayAlert(on: self, title: "여행기 저장 완료", message: "여행기가 저장되었습니다.")
+                } else {
+                    print("저장 실패")
                 }
-            }
+            }, onError: { error in
+                print("Error during save operation: \(error)")
+            })
             .disposed(by: disposeBag)
+
     }
     
     private func setupTableView() {
@@ -120,12 +116,17 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
 
-        rightButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = getRightBarButton()
         
-        rightButton.tintColor = .lightGray
-        // rightButton.isEnabled = false
+        configureNavigationBar(title: "여행기 작성", rightBarButton: nil)
+    }
+    
+    private func getRightBarButton() -> UIBarButtonItem {
         
-        configureNavigationBar(title: "여행기 작성", rightBarButton: rightButton)
+        rightButton.setTitle("저장", for: .normal)
+        rightButton.setTitleColor(.point, for: .normal)
+        
+        return UIBarButtonItem(customView: rightButton)
     }
     
     @objc func dismissKeyboard() {
@@ -135,8 +136,6 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
     @objc func leftButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-    
-    
 }
 
 extension AddContentViewController {
@@ -191,29 +190,30 @@ extension AddContentViewController: PHPickerViewControllerDelegate {
         }
         picker.dismiss(animated: true)
     }
-
+    
     private func convertPickerResultsToImages(_ results: [PHPickerResult], completion: @escaping ([UIImage]) -> Void) {
-        var images: [UIImage] = []
-        let group = DispatchGroup()
         
-        for result in results {
-            group.enter()
-            if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+        itemProviders = results.map(\.itemProvider)
+        var loadedImages: [UIImage] = []
+        
+        for item in itemProviders {
+            if item.canLoadObject(ofClass: UIImage.self) {
+                item.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                     DispatchQueue.main.async {
-                        if let image = image as? UIImage {
-                            images.append(image)
+                        guard let self = self, let image = image as? UIImage else { return }
+                        if let error = error {
+                            print("Error loading image: \(error)")
+                            return
                         }
-                        group.leave()
+                        loadedImages.append(image)
+                        if loadedImages.count == results.count {
+                            completion(loadedImages)
+                            self.imagesSubject.onNext(loadedImages)
+                        }
                     }
                 }
-            } else {
-                group.leave()
             }
-        }
-        
-        group.notify(queue: .main) {
-            completion(images)
         }
     }
 }
+
