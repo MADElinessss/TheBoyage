@@ -33,6 +33,7 @@ extension PostRouter: TargetType {
             return "v1/posts/files"
         case .postContent(query: _):
             return "v1/posts"
+        
         }
     }
     

@@ -10,6 +10,7 @@ import Foundation
 
 enum MainRouter {
     case managerPost(id: String, query: ManagerQuery)
+    case fetchPost
 }
 
 extension MainRouter: TargetType {
@@ -21,6 +22,8 @@ extension MainRouter: TargetType {
         switch self {
         case .managerPost(_,_):
                 .get
+        case .fetchPost:
+                .get
         }
     }
     
@@ -28,12 +31,19 @@ extension MainRouter: TargetType {
         switch self {
         case .managerPost(id: let id, query: _):
             return "v1/posts/users/\(id.self)"
+        case .fetchPost:
+            return "v1/posts"
         }
     }
     
     var header: [String : String] {
         switch self {
         case .managerPost(_,_):
+            return [
+                HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
+                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
+            ]
+        case .fetchPost:
             return [
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
@@ -45,6 +55,8 @@ extension MainRouter: TargetType {
         switch self {
         case .managerPost(let id, let query):
             return "limit=\(query.limit)&product_id=\(query.product_id)"
+        case .fetchPost:
+            return nil
         }
     }
     

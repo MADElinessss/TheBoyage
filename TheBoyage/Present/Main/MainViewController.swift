@@ -39,10 +39,18 @@ class MainViewController: BaseViewController {
                 self.showLoginNeededAlert()
             })
             .disposed(by: disposeBag)
+        
+        output.feed
+            .map { $0.data }
+            .subscribe(with: self, onNext: { owner, feed in
+                self.mainView.feed.feed = feed
+            })
+            .disposed(by: disposeBag)
+            
     }
     
     private func configureView() {
-        
+       
     }
     
     private func configureTableView() {

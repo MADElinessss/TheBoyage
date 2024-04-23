@@ -6,9 +6,16 @@
 //
 
 import UIKit
+import RxSwift
 
 class FeedView: BaseView, UICollectionViewDataSource {
 
+    var viewModel = MainViewModel()
+    
+    var feed: [Posts] = []
+    
+    var disposeBag = DisposeBag()
+    
     let collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
         collectionView.backgroundColor = .white
@@ -24,16 +31,16 @@ class FeedView: BaseView, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return feed.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
             return UICollectionViewCell()
         }
-//        let url = imageURLs[indexPath.row]
-//        cell.imageView.kf.setImage(with: url)
-        cell.imageView.image = UIImage(named: "shark")
+        let post = feed[indexPath.row]
+        cell.configure(with: FeedViewModel(), post: post)
+        
         return cell
     }
 
@@ -53,7 +60,13 @@ class FeedView: BaseView, UICollectionViewDataSource {
 }
 
 class ImageCollectionViewCell: UICollectionViewCell {
-    static let identifier = "ImageCollectionViewCell"
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    var viewModel: FeedViewModel?
+    private var disposeBag = DisposeBag()
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -64,14 +77,36 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        configureView()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        disposeBag = DisposeBag()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        configureView()
     }
     
-    private func setupLayout() {
+    func configure(with viewModel: FeedViewModel, post: Posts) {
+        self.viewModel = viewModel
+        bind(post: post)
+    }
+    
+    private func bind(post: Posts) {
+        let input = FeedViewModel.Input(post: post)
+        guard let output = viewModel?.transform(input) else { return }
+        
+        output.image
+            .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
+            .drive(imageView.rx.image)
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureView() {
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

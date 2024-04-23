@@ -20,11 +20,13 @@ class MainViewModel: ViewModelType {
     
     struct Output {
         let posts: Observable<FetchModel>
+        let feed: Observable<FetchModel>
     }
     
     func transform(_ input: Input) -> Output {
         let post = fetchMagazine().asObservable()
-        return Output(posts: post)
+        let feed = fetchFeed().asObservable()
+        return Output(posts: post, feed: feed)
     }
     
     func fetchMagazine() -> Observable<FetchModel> {
@@ -39,4 +41,14 @@ class MainViewModel: ViewModelType {
             })
     }
     
+    func fetchFeed() -> Observable<FetchModel> {
+        let fetchQuery = FetchPostQuery(limit: "5", product_id: "boyage_general")
+        return FetchPostsNetworkManager.fetchPost(query: fetchQuery)
+            .asObservable()
+            .do(onNext: { response in
+                print("🥹response: \(response)")
+            }, onError: { error in
+                print("🥹Error \(error)")
+            })
+    }
 }

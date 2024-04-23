@@ -43,4 +43,26 @@ struct FetchPostsNetworkManager {
             return Disposables.create()
         }
     }
+    
+    static func fetchPost(query: FetchPostQuery) -> Single<FetchModel> {
+        return Single<FetchModel>.create { single in
+            do {
+                let urlRequest = try MainRouter.fetchPost.asURLRequest()
+                AF.request(urlRequest)
+                    .responseDecodable(of: FetchModel.self) { response in
+                        print("🥹", response.response?.statusCode)
+                        print("🥹", response)
+                        switch response.result {
+                        case .success(let success):
+                            single(.success(success))
+                        case .failure(let error):
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            return Disposables.create()
+        }
+    }
 }

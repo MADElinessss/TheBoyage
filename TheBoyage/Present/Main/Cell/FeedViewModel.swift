@@ -1,50 +1,33 @@
 //
-//  MyPageViewModel.swift
+//  FeedViewModel.swift
 //  TheBoyage
 //
-//  Created by Madeline on 4/21/24.
+//  Created by Madeline on 4/23/24.
 //
 
-import Alamofire
-import RxCocoa
-import RxSwift
-import UIKit
+import Foundation
 import Kingfisher
+import RxSwift
+import RxCocoa
+import UIKit
 
-class MyPageViewModel: ViewModelType {
+
+class FeedViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
     
     struct Input {
-        let profile: MyProfileModel
+        let post: Posts
     }
     
     struct Output {
-        let profile: Observable<MyProfileModel>
         let image: Observable<UIImage>
     }
     
     func transform(_ input: Input) -> Output {
-        let profile = fetchProfile().asObservable()
-        let image = loadImage(from: input.profile.profileImage)
-        return Output(profile: profile, image: image)
+        let image = loadImage(from: input.post.files.first)
+        return Output(image: image)
     }
-    
-    // TODO: 프로필 이미지 아직 없음
-    func fetchProfile() -> Observable<MyProfileModel> {
-        return MyProfileNetworkManager.fetchMyProfile()
-            .asObservable()
-            .compactMap { $0 } // nil을 제거
-            .do { profile in
-                print("profile: ", profile)
-            } onError: { error in
-                print("profile error: ", error)
-            }
-
-    }
-    /*
-     Cannot convert return expression of type 'Observable<MyProfileModel?>' to return type 'Observable<MyProfileModel>' -> compactMap
-     */
     
     private func loadImage(from imageName: String?) -> Observable<UIImage> {
         guard let imageName = imageName,
@@ -77,5 +60,5 @@ class MyPageViewModel: ViewModelType {
             return Disposables.create()
         }
     }
-    
+
 }

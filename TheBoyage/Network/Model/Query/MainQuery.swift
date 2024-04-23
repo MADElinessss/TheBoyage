@@ -12,3 +12,8 @@ struct ManagerQuery: Encodable {
     let limit: String // 7개로 호출할 것
     let product_id: String
 }
+
+struct FetchPostQuery: Encodable {
+    let limit: String
+    let product_id: String
+}
