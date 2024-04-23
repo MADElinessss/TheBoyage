@@ -8,7 +8,7 @@
 import Foundation
 
 struct ImageUploadModel: Decodable {
-    let files: [String]?
+    let files: [String]
 }
 
 struct PostModel: Decodable {
@@ -17,9 +17,9 @@ struct PostModel: Decodable {
     let title: String
     let content: String?
     let content1: String?
-    let files: [String]?
-    let likes: [String]?
-    let likes2: [String]?
-    let hashTags: [String]?
-    let comments: [String]?
+    let files: [String]
+    let likes: [String]
+    let likes2: [String]
+    let hashTags: [String]
+    let comments: [String]
 }

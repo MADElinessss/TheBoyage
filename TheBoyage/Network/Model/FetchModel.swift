@@ -17,7 +17,7 @@ struct Posts: Decodable {
     var title: String?
     var content: String?
     var content1: String?
-    var createdAt: String?
+    var createdAt: String
     var creator: Creator
     var files: [String]
     var likes: [String]
@@ -36,4 +36,5 @@ struct CommentModel: Decodable {
 struct Creator: Decodable {
     var user_id: String
     var nick: String
+    var profileImage: String?
 }

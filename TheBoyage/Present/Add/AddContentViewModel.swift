@@ -47,7 +47,7 @@ class AddContentViewModel: ViewModelType {
                     .asObservable()
                     .flatMap { image -> Observable<String> in
                          print("🍀1", image)
-                        if let image = image.files?.first {
+                        if let image = image.files.first {
                             imageDataSbj.onNext([image])
                             print("🍀2", imageDataSbj)
                             return Observable.just(image)

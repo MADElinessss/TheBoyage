@@ -30,7 +30,7 @@ class MyPageViewModel: ViewModelType {
         return Output(profile: profile, image: image)
     }
     
-    // TODO: 프로필 이미지 아직 없음
+    // TODO: 프로필 이미지 아직 없음 -> 이제 있음
     func fetchProfile() -> Observable<MyProfileModel> {
         return MyProfileNetworkManager.fetchMyProfile()
             .asObservable()

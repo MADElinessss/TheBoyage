@@ -45,11 +45,10 @@ struct FetchPostsNetworkManager {
         return Single<FetchModel>.create { single in
             do {
                 let urlRequest = try MainRouter.fetchPost(query: query).asURLRequest()
-                print("🥹 reques: ", urlRequest)
+                print("🥹 request: ", urlRequest)
                 AF.request(urlRequest)
                     .responseDecodable(of: FetchModel.self) { response in
                         print("🥹1", response.response?.statusCode)
-                        print("🥹2", response.response)
                         switch response.result {
                         case .success(let success):
                             single(.success(success))

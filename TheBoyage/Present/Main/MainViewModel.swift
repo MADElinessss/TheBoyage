@@ -31,24 +31,24 @@ class MainViewModel: ViewModelType {
     
     func fetchMagazine() -> Observable<FetchModel> {
         
-        let managerQuery = ManagerQuery(limit: "7", product_id: "")
+        let managerQuery = ManagerQuery(limit: "5", product_id: "")
         return FetchPostsNetworkManager.fetchManagers(id: "6625465e438b876b25f8ec1e", query: managerQuery)
             .asObservable()
             .do(onNext: { response in
-                // print("response: \(response)")
+//                 print("response: \(response)")
             }, onError: { error in
                 print("Error \(error)")
             })
     }
     
     func fetchFeed() -> Observable<FetchModel> {
-        let fetchQuery = FetchPostQuery(limit: "5", product_id: "boyage_general")
+        let fetchQuery = FetchPostQuery(limit: "3", product_id: "boyage_general")
         return FetchPostsNetworkManager.fetchPost(query: fetchQuery)
             .asObservable()
             .do(onNext: { response in
                 print("🥹response: \(response)")
             }, onError: { error in
-                print("🥹Error \(error)")
+                print("🥹Error \(error.localizedDescription)")
             })
     }
 }

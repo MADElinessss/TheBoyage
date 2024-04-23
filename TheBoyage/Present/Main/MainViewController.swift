@@ -13,6 +13,8 @@ class MainViewController: BaseViewController {
     let mainView = MainView()
     let viewModel = MainViewModel()
     
+    var feed: [Posts] = []
+    
     override func loadView() {
         view = mainView
     }
@@ -42,15 +44,15 @@ class MainViewController: BaseViewController {
         
         output.feed
             .map { $0.data }
-            .subscribe(with: self, onNext: { owner, feed in
-                self.mainView.feed.feed = feed
-            })
+            .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) {row, element, cell in
+                cell.topUserNameLabel.text = element.title
+            }
             .disposed(by: disposeBag)
             
     }
     
     private func configureView() {
-       
+
     }
     
     private func configureTableView() {
@@ -92,3 +94,19 @@ class MainViewController: BaseViewController {
         self.present(signInVC, animated: true, completion: nil)
     }
 }
+
+//extension MainViewController {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return feed.count
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
+//            return UICollectionViewCell()
+//        }
+//        let post = feed[indexPath.row]
+//        cell.configure(with: FeedViewModel(), post: post)
+//        cell.backgroundColor = .yellow
+//        return cell
+//    }
+//}
