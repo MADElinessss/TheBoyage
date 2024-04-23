@@ -25,7 +25,7 @@ class NetworkInterceptor: RequestInterceptor {
             return
         }
         
-        if statusCode == 401 || statusCode == 419 {
+        if statusCode == 419 {
             refreshToken { isSuccess in
                 isSuccess ? completion(.retry) : completion(.doNotRetryWithError(error))
             }

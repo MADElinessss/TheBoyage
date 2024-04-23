@@ -20,7 +20,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .blue
+        imageView.layer.cornerRadius = 20
         return imageView
     }()
     
@@ -29,15 +30,16 @@ class ImageCollectionViewCell: UICollectionViewCell {
         view.text = "user"
         view.font = .systemFont(ofSize: 16, weight: .medium)
         view.textColor = .point
-        view.backgroundColor = .red
+        //view.backgroundColor = .red
         return view
     }()
     
     let feedImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "album")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .red
+        //imageView.backgroundColor = .red
         return imageView
     }()
     

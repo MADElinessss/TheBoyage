@@ -90,8 +90,9 @@ class MainViewController: BaseViewController {
 
     private func navigateToSignIn() {
         let signInVC = SignInViewController()
-        signInVC.modalPresentationStyle = .fullScreen
-        self.present(signInVC, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: signInVC)
+        navController.modalPresentationStyle = .fullScreen
+        self.present(navController, animated: true, completion: nil)
     }
 }
 

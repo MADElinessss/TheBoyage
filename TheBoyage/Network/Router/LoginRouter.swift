@@ -24,15 +24,9 @@ extension LoginRouter: TargetType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .login(_):
+        case .login(_), .emailValidate(query: _), .signUp(query: _):
                 .post
-        case .emailValidate(query: _):
-                .post
-        case .signUp(query: _):
-                .post
-        case .refresh:
-                .get
-        case .withdraw:
+        case .refresh, .withdraw:
                 .get
         }
     }
@@ -54,17 +48,7 @@ extension LoginRouter: TargetType {
 
     var header: [String : String] {
         switch self {
-        case .login(_):
-            return [
-                HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
-                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
-            ]
-        case .emailValidate(query: _):
-            return [
-                HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
-                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
-            ]
-        case .signUp(query: _):
+        case .login(_), .emailValidate(query: _), .signUp(query: _):
             return [
                 HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue

@@ -10,6 +10,10 @@ import Foundation
 import RxSwift
 
 struct FetchPostsNetworkManager {
+    
+    static let session = Session(interceptor: NetworkInterceptor())
+    
+    
     static func fetchManagers(id: String, query: ManagerQuery) -> Single<FetchModel> {
         return Single<FetchModel>.create { single in
             do {
@@ -41,14 +45,13 @@ struct FetchPostsNetworkManager {
         }
     }
     
-    static func fetchPost(query: FetchPostQuery) -> Single<FetchModel> {
+    // MARK: interceptor + token refresh
+    static func fetchPostWithRetry(query: FetchPostQuery) -> Single<FetchModel> {
         return Single<FetchModel>.create { single in
             do {
                 let urlRequest = try MainRouter.fetchPost(query: query).asURLRequest()
-                print("🥹 request: ", urlRequest)
-                AF.request(urlRequest)
+                session.request(urlRequest)
                     .responseDecodable(of: FetchModel.self) { response in
-                        print("🥹1", response.response?.statusCode)
                         switch response.result {
                         case .success(let success):
                             single(.success(success))
@@ -62,4 +65,5 @@ struct FetchPostsNetworkManager {
             return Disposables.create()
         }
     }
+
 }

@@ -43,7 +43,7 @@ class MainViewModel: ViewModelType {
     
     func fetchFeed() -> Observable<FetchModel> {
         let fetchQuery = FetchPostQuery(limit: "3", product_id: "boyage_general")
-        return FetchPostsNetworkManager.fetchPost(query: fetchQuery)
+        return FetchPostsNetworkManager.fetchPostWithRetry(query: fetchQuery)
             .asObservable()
             .do(onNext: { response in
                 print("🥹response: \(response)")

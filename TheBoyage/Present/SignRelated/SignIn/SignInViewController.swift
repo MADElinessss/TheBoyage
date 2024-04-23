@@ -40,11 +40,12 @@ class SignInViewController: BaseViewController {
         
         output.loginSuccessTrigger
             .drive(with: self) { owner, _ in
-                let vc = MainViewController()
-                owner.navigationController?.pushViewController(vc, animated: true)
+                if let tabBarController = UIApplication.shared.windows.first?.rootViewController as? UITabBarController {
+                    tabBarController.selectedIndex = 0
+                }
             }
             .disposed(by: disposeBag)
-            
+        
         output.signUpButtonTapped
             .subscribe(with: self, onNext: { owner, _ in
                 print("👩🏻‍🚒 view - sbt")
