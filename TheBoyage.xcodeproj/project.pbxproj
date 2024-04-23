@@ -78,6 +78,7 @@
 		C1754C462BD575A000728142 /* EditProfileQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C452BD575A000728142 /* EditProfileQuery.swift */; };
 		C1754C652BD76DB300728142 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C642BD76DB300728142 /* FeedViewModel.swift */; };
 		C1754C6F2BD7DADC00728142 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C6E2BD7DADC00728142 /* ImageCollectionViewCell.swift */; };
+		C1754C732BD817CE00728142 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C722BD817CE00728142 /* NetworkService.swift */; };
 		C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BA2BCA4821007F1E3F /* MainViewController.swift */; };
 		C178A8BD2BCA4830007F1E3F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */; };
 		C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */; };
@@ -157,6 +158,7 @@
 		C1754C452BD575A000728142 /* EditProfileQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileQuery.swift; sourceTree = "<group>"; };
 		C1754C642BD76DB300728142 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		C1754C6E2BD7DADC00728142 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		C1754C722BD817CE00728142 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		C178A8BA2BCA4821007F1E3F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C178A8BC2BCA4830007F1E3F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		C178A8BE2BCA54C8007F1E3F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				C1754C232BD23A5300728142 /* FetchPostsNetworkManager.swift */,
 				C1754C292BD412FF00728142 /* NetworkInterceptor.swift */,
 				C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */,
+				C1754C722BD817CE00728142 /* NetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -625,6 +628,7 @@
 				C1024A832BC803060082EF13 /* LoginModel.swift in Sources */,
 				C178A8C32BCA653C007F1E3F /* EmailViewController.swift in Sources */,
 				C1754BCB2BCE672500728142 /* PostNetworkManager.swift in Sources */,
+				C1754C732BD817CE00728142 /* NetworkService.swift in Sources */,
 				C1024AB62BC853020082EF13 /* SignUpViewController.swift in Sources */,
 				C1754BDE2BCFB2F600728142 /* MagazineView.swift in Sources */,
 				C1754C352BD4EA6700728142 /* MyPageRouter.swift in Sources */,

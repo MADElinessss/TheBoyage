@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 class MainViewController: BaseViewController {
     // TODO: Scrollview로 리팩토링
@@ -44,11 +45,41 @@ class MainViewController: BaseViewController {
         
         output.feed
             .map { $0.data }
-            .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) {row, element, cell in
-                cell.topUserNameLabel.text = element.title
-            }
+            .subscribe(onNext: { [unowned self] posts in
+                self.mainView.feed.collectionView.reloadData()
+            }, onError: { error in
+                guard let urlError = error as? URLError, urlError.code == .cancelled else { return }
+                self.showLoginNeededAlert()
+            })
             .disposed(by: disposeBag)
-            
+        
+        output.requireLogin
+            .filter { $0 }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.showLoginScreen()
+            })
+            .disposed(by: disposeBag)
+        
+//        output.feed
+//            .map { $0.data }
+//            .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) {row, element, cell in
+//                cell.topUserNameLabel.text = element.title
+//            }
+//            .disposed(by: disposeBag)
+//        
+//        output.requireLogin
+//            .filter { $0 }
+//            .observe(on: MainScheduler.instance)
+//            .subscribe(onNext: { [weak self] _ in
+//                self?.showLoginScreen()
+//            })
+//            .disposed(by: disposeBag)
+        
+    }
+    
+    private func dummyPosts() -> [FetchModel] {
+        return [FetchModel(data: [Posts(post_id: "1", createdAt: "1", creator: Creator(user_id: "", nick: ""), files: [], likes: [], likes2: [], hashTags: [], comments: [])])]
     }
     
     private func configureView() {
@@ -57,6 +88,12 @@ class MainViewController: BaseViewController {
     
     private func configureTableView() {
         
+    }
+    
+    private func showLoginScreen() {
+        let signInVC = SignInViewController()
+        signInVC.modalPresentationStyle = .fullScreen
+        present(signInVC, animated: true, completion: nil)
     }
     
     private func configureNavigation() {

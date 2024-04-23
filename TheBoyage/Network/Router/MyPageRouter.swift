@@ -21,9 +21,7 @@ extension MyPageRouter: TargetType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .profile:
-                .get
-        case .myFeed(_):
+        case .profile, .myFeed(_):
                 .get
         case .editProfile(_):
                 .put
@@ -69,9 +67,7 @@ extension MyPageRouter: TargetType {
     
     var body: Data? {
         switch self {
-        case .profile:
-            return nil
-        case .myFeed(let id):
+        case .profile, .myFeed(_):
             return nil
         case .editProfile(let query):
             let encoder = JSONEncoder()

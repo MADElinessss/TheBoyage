@@ -20,9 +20,7 @@ extension PostRouter: TargetType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .imageUpload(_):
-                .post
-        case .postContent(query: _):
+        case .imageUpload(_), .postContent(query: _):
                 .post
         }
     }
@@ -56,18 +54,14 @@ extension PostRouter: TargetType {
     
     var parameter: String? {
         switch self {
-        case .imageUpload(_):
-            return nil
-        case .postContent(query: _):
+        case .imageUpload(_), .postContent(query: _):
             return nil
         }
     }
     
     var queryItem: [URLQueryItem]? {
         switch self {
-        case .imageUpload(_):
-            return nil
-        case .postContent(query: _):
+        case .imageUpload(_), .postContent(query: _):
             return nil
         }
     }

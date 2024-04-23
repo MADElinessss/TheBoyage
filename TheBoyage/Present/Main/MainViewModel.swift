@@ -9,6 +9,7 @@ import Alamofire
 import Foundation
 import RxCocoa
 import RxSwift
+import UIKit
 
 class MainViewModel: ViewModelType {
     
@@ -21,12 +22,22 @@ class MainViewModel: ViewModelType {
     struct Output {
         let posts: Observable<FetchModel>
         let feed: Observable<FetchModel>
+        let requireLogin: Observable<Bool>
     }
+    
+    let loginRequired = PublishSubject<Bool>()
     
     func transform(_ input: Input) -> Output {
         let post = fetchMagazine().asObservable()
         let feed = fetchFeed().asObservable()
-        return Output(posts: post, feed: feed)
+        
+        feed.subscribe(onError: { error in
+                if let afError = error as? AFError, afError.isResponseSerializationError {
+                    self.loginRequired.onNext(true)
+                }
+            }).disposed(by: disposeBag)
+        
+        return Output(posts: post, feed: feed, requireLogin: loginRequired.asObservable())
     }
     
     func fetchMagazine() -> Observable<FetchModel> {
@@ -35,9 +46,18 @@ class MainViewModel: ViewModelType {
         return FetchPostsNetworkManager.fetchManagers(id: "6625465e438b876b25f8ec1e", query: managerQuery)
             .asObservable()
             .do(onNext: { response in
-//                 print("response: \(response)")
+                //                 print("response: \(response)")
             }, onError: { error in
-                print("Error \(error)")
+                if let afError = error as? AFError, afError.isResponseSerializationError {
+                    if let statusCode = afError.responseCode {
+                        switch statusCode {
+                        case 403, 419:
+                            self.loginRequired.onNext(true)
+                        default:
+                            break
+                        }
+                    }
+                }
             })
     }
     
@@ -47,8 +67,18 @@ class MainViewModel: ViewModelType {
             .asObservable()
             .do(onNext: { response in
                 print("🥹response: \(response)")
-            }, onError: { error in
-                print("🥹Error \(error.localizedDescription)")
+            }, onError: { [weak self] error in
+                print("🥹Error \(error.asAFError)")
+                if let afError = error as? AFError, afError.isResponseSerializationError {
+                    if let statusCode = afError.responseCode {
+                        switch statusCode {
+                        case 403, 419:  // 토큰 만료
+                            self?.loginRequired.onNext(true)
+                        default:
+                            break  // 다른 상태 코드에 대한 처리는 필요에 따라 추가
+                        }
+                    }       
+                }
             })
     }
 }
