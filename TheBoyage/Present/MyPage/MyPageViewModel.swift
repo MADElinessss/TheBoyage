@@ -51,7 +51,7 @@ class MyPageViewModel: ViewModelType {
               let url = URL(string: APIKey.baseURL.rawValue + "/v1/" + imageName) else {
             return .just(UIImage(systemName: "airplane.departure")!)
         }
-
+        
         return Observable<UIImage>.create { observer in
             let header = AnyModifier { request in
                 var request = request

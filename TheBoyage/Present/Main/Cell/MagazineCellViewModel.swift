@@ -20,7 +20,7 @@ class MagazineCellViewModel: ViewModelType {
     }
     
     struct Output {
-        let title: Observable<String>
+        let title: Observable<String?>
         let image: Observable<UIImage>
     }
     

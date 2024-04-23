@@ -54,7 +54,7 @@ class MainView: BaseView {
         
         feed.snp.makeConstraints { make in
             make.top.equalTo(magazine.snp.bottom)
-            make.width.equalTo(UIScreen.main.bounds.width * 0.9)
+//            make.width.equalTo(UIScreen.main.bounds.width * 0.7)
             make.height.equalTo(UIScreen.main.bounds.height * 0.5)
             make.horizontalEdges.bottom.equalToSuperview()
         }

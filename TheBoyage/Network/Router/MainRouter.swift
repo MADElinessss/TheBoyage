@@ -10,7 +10,7 @@ import Foundation
 
 enum MainRouter {
     case managerPost(id: String, query: ManagerQuery)
-    case fetchPost
+    case fetchPost(query: FetchPostQuery)
 }
 
 extension MainRouter: TargetType {
@@ -22,7 +22,7 @@ extension MainRouter: TargetType {
         switch self {
         case .managerPost(_,_):
                 .get
-        case .fetchPost:
+        case .fetchPost(_):
                 .get
         }
     }
@@ -31,7 +31,7 @@ extension MainRouter: TargetType {
         switch self {
         case .managerPost(id: let id, query: _):
             return "v1/posts/users/\(id.self)"
-        case .fetchPost:
+        case .fetchPost(_):
             return "v1/posts"
         }
     }
@@ -43,7 +43,7 @@ extension MainRouter: TargetType {
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
             ]
-        case .fetchPost:
+        case .fetchPost(_):
             return [
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
@@ -52,27 +52,38 @@ extension MainRouter: TargetType {
     }
     
     var parameter: String? {
-        switch self {
-        case .managerPost(let id, let query):
-            return "limit=\(query.limit)&product_id=\(query.product_id)"
-        case .fetchPost:
-            return nil
-        }
+        return nil
+//        switch self {
+//        case .managerPost(_, let query):
+//            return "limit=\(query.limit)&product_id=\(query.product_id)"
+//        case .fetchPost(let query):
+//            return "limit=\(query.limit)&product_id=\(query.product_id)"
+//        }
     }
     
     var queryItem: [URLQueryItem]? {
-        return nil
-//        switch self {
-//        case .managerPost(let id, let query):
-//            return [
-//                "limit" : query.limit,
-//                "product_id" : query.product_id
-//            ]
-//        }
+        switch self {
+        case .managerPost(let id, let query):
+            return [URLQueryItem(name: "limit", value: query.limit),
+                    URLQueryItem(name: "product_id", value: query.product_id)]
+        case .fetchPost(query: let query):
+            return [URLQueryItem(name: "limit", value: query.limit),
+                    URLQueryItem(name: "product_id", value: query.product_id)]
+        }
     }
     
     var body: Data? {
         return nil
+//        switch self {
+//        case .managerPost(let id, let query):
+//            let encoder = JSONEncoder()
+//            encoder.keyEncodingStrategy = .convertToSnakeCase
+//            return try? encoder.encode(query)
+//        case .fetchPost(let query):
+//            let encoder = JSONEncoder()
+//            encoder.keyEncodingStrategy = .convertToSnakeCase
+//            return try? encoder.encode(query)
+//        }
     }
     
     

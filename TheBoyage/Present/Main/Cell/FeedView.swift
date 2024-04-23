@@ -68,11 +68,56 @@ class ImageCollectionViewCell: UICollectionViewCell {
     var viewModel: FeedViewModel?
     private var disposeBag = DisposeBag()
     
-    let imageView: UIImageView = {
+    let profileView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    let topUserNameLabel = {
+        let view = UILabel()
+        view.text = "user"
+        view.font = .systemFont(ofSize: 16, weight: .medium)
+        view.textColor = .point
+        return view
+    }()
+    
+    let feedImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    let likeButton = {
+        let view = UIButton()
+        view.setImage(UIImage(systemName: "heart"), for: .normal)
+        view.tintColor = .point
+        return view
+    }()
+    
+    let commentButton = {
+        let view = UIButton()
+        view.setImage(UIImage(systemName: "bubble.left"), for: .normal)
+        view.tintColor = .point
+        return view
+    }()
+    
+    let bottomUserNameLabel = {
+        let view = UILabel()
+        view.text = "user"
+        view.font = .systemFont(ofSize: 16, weight: .medium)
+        view.textColor = .point
+        return view
+    }()
+    
+    let contentLabel = {
+        let view = UILabel()
+        view.text = "content"
+        view.font = .systemFont(ofSize: 16, weight: .medium)
+        view.textColor = .point
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -82,7 +127,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = nil
+        feedImageView.image = nil
         disposeBag = DisposeBag()
     }
     
@@ -102,18 +147,25 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         output.image
             .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
-            .drive(imageView.rx.image)
+            .drive(feedImageView.rx.image)
             .disposed(by: disposeBag)
     }
     
     private func configureView() {
-        addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(profileView)
+        addSubview(topUserNameLabel)
+        addSubview(feedImageView)
+        addSubview(likeButton)
+        addSubview(commentButton)
+        addSubview(bottomUserNameLabel)
+        addSubview(contentLabel)
+        
+        feedImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            feedImageView.topAnchor.constraint(equalTo: topAnchor),
+            feedImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            feedImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            feedImageView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

@@ -25,6 +25,9 @@ extension TargetType {
         urlRequest.allHTTPHeaderFields = header
         urlRequest.httpBody = parameter?.data(using: .utf8)
         urlRequest.httpBody = body
+        if let queryItem {
+            urlRequest.url?.append(queryItems: queryItem)
+        }
         return urlRequest
     }
 }

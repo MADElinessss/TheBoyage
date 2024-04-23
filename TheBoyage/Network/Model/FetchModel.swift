@@ -13,8 +13,8 @@ struct FetchModel: Decodable {
 
 struct Posts: Decodable {
     var post_id: String
-    var product_id: String
-    var title: String
+    var product_id: String?
+    var title: String?
     var content: String?
     var content1: String?
     var createdAt: String?

@@ -14,10 +14,7 @@ struct FetchPostsNetworkManager {
         return Single<FetchModel>.create { single in
             do {
                 let url = URL(string: APIKey.baseURL.rawValue + "/v1/posts/users/\(id)?limit=7&product_id=boyage_general")!
-                let parameters = [
-                    "limit" : 7,
-                    "product_id" : "boyage_general"
-                ]
+                
                 let headers: HTTPHeaders = [
                     HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                     HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
@@ -47,11 +44,12 @@ struct FetchPostsNetworkManager {
     static func fetchPost(query: FetchPostQuery) -> Single<FetchModel> {
         return Single<FetchModel>.create { single in
             do {
-                let urlRequest = try MainRouter.fetchPost.asURLRequest()
+                let urlRequest = try MainRouter.fetchPost(query: query).asURLRequest()
+                print("🥹 reques: ", urlRequest)
                 AF.request(urlRequest)
                     .responseDecodable(of: FetchModel.self) { response in
-                        print("🥹", response.response?.statusCode)
-                        print("🥹", response)
+                        print("🥹1", response.response?.statusCode)
+                        print("🥹2", response.response)
                         switch response.result {
                         case .success(let success):
                             single(.success(success))

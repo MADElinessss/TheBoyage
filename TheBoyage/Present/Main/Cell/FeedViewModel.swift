@@ -34,6 +34,7 @@ class FeedViewModel: ViewModelType {
               let url = URL(string: APIKey.baseURL.rawValue + "/v1/" + imageName) else {
             return .just(UIImage(systemName: "airplane.departure")!)
         }
+        print("🥹imageURL", url)
 
         return Observable<UIImage>.create { observer in
             let header = AnyModifier { request in
@@ -47,6 +48,7 @@ class FeedViewModel: ViewModelType {
                 with: .network(url),
                 options: [.requestModifier(header)],
                 completionHandler: { result in
+                    print("🥹image completion", result)
                     switch result {
                     case .success(let value):
                         observer.onNext(value.image)

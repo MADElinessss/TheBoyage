@@ -24,6 +24,8 @@ struct PostNetworkManager {
                         .append(query.files, withName: "files", fileName: "postImage.jpeg", mimeType: "image/jpeg")
                 }, to: url, headers: headers)
                 .responseDecodable(of: ImageUploadModel.self) { response in
+                    print("🍀", response.response?.statusCode)
+                    print("🍀", response)
                     switch response.result {
                     case .success(let success):
                         single(.success(success))

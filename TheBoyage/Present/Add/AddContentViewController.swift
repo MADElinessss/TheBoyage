@@ -46,7 +46,8 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
         
         setupTableView()
         configureView()
-        
+        rightButton.isEnabled = false
+        rightButton.tintColor = rightButton.isEnabled ? .point : .lightGray
         print("Right button initially set to: \(rightButton.isEnabled)")
         
     }
@@ -124,7 +125,7 @@ class AddContentViewController: BaseViewController, UITableViewDelegate, UITable
     private func getRightBarButton() -> UIBarButtonItem {
         
         rightButton.setTitle("저장", for: .normal)
-        rightButton.setTitleColor(.point, for: .normal)
+        rightButton.setTitleColor(.lightGray, for: .normal)
         
         return UIBarButtonItem(customView: rightButton)
     }
@@ -206,7 +207,7 @@ extension AddContentViewController: PHPickerViewControllerDelegate {
                             return
                         }
                         loadedImages.append(image)
-                        self.imagesSubject.onNext(loadedImages)
+                        self.imagesSubject.onNext(loadedImages) // imageview에 띄워
 //                        imageArray.append(image)
                         
 //                        if loadedImages.count == results.count {
