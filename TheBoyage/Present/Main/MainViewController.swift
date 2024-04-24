@@ -56,12 +56,8 @@ class MainViewController: BaseViewController {
         output.feed
             .map { $0.data }
             .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) { row, element, cell in
-                let viewModel = FeedViewModel()  // 각 셀마다 새로운 ViewModel 인스턴스 생성
-                cell.configure(with: viewModel, post: element) 
-                cell.topUserNameLabel.text = element.creator.nick
-                cell.bottomUserNameLabel.text = element.creator.nick
-                cell.contentLabel.text = element.content
-                cell.titleLabel.text = element.title
+                let viewModel = FeedViewModel()
+                cell.configure(with: viewModel, post: element)
             }
             .disposed(by: disposeBag)
         

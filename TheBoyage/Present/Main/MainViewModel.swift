@@ -46,7 +46,7 @@ class MainViewModel: ViewModelType {
         return FetchPostsNetworkManager.fetchManagers(id: "6625465e438b876b25f8ec1e", query: managerQuery)
             .asObservable()
             .do(onNext: { response in
-                //                 print("response: \(response)")
+                
             }, onError: { error in
                 print("🥹magazine Error \(error.asAFError)")
                 if let afError = error as? AFError, afError.isResponseSerializationError {

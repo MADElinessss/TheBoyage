@@ -15,6 +15,7 @@ class MainView: BaseView {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsHorizontalScrollIndicator = false
+        view.bounces = true
         return view
     }()
     
