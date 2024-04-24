@@ -100,4 +100,3 @@ class AddContentViewModel: ViewModelType {
             .debug("Network request completed")
     }
 }
-

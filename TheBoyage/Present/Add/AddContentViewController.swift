@@ -185,9 +185,10 @@ extension AddContentViewController {
 }
 
 extension AddContentViewController: PHPickerViewControllerDelegate {
+    
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         convertPickerResultsToImages(results) { [weak self] images in
-            self?.imagesSubject.onNext(images)
+            self?.imagesSubject.onNext(images) // [UIImage]로 이벤트 전달
         }
         picker.dismiss(animated: true)
     }
@@ -207,13 +208,7 @@ extension AddContentViewController: PHPickerViewControllerDelegate {
                             return
                         }
                         loadedImages.append(image)
-                        self.imagesSubject.onNext(loadedImages) // imageview에 띄워
-//                        imageArray.append(image)
-                        
-//                        if loadedImages.count == results.count {
-//                            completion(loadedImages)
-//                            self.imagesSubject.onNext(loadedImages)
-//                        }
+                        self.imagesSubject.onNext(loadedImages)
                     }
                 }
             }

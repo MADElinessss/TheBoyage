@@ -68,10 +68,19 @@ class ImageCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    let titleLabel = {
+        let view = UILabel()
+        view.text = "title"
+        view.font = .systemFont(ofSize: 16, weight: .bold)
+        view.textColor = .point
+        view.backgroundColor = .red
+        return view
+    }()
+    
     let contentLabel = {
         let view = UILabel()
         view.text = "content"
-        view.font = .systemFont(ofSize: 16, weight: .medium)
+        view.font = .systemFont(ofSize: 14, weight: .medium)
         view.textColor = .point
         view.backgroundColor = .red
         return view
@@ -130,6 +139,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(likeButton)
         contentView.addSubview(commentButton)
         contentView.addSubview(bottomUserNameLabel)
+        contentView.addSubview(titleLabel)
         contentView.addSubview(contentLabel)
         
         feedImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -168,9 +178,14 @@ class ImageCollectionViewCell: UICollectionViewCell {
             make.leading.equalToSuperview().inset(16)
         }
         
-        contentLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(bottomUserNameLabel.snp.trailing).offset(16)
             make.top.equalTo(likeButton.snp.bottom).offset(16)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.leading.equalTo(bottomUserNameLabel.snp.trailing).offset(16)
+            make.top.equalTo(titleLabel.snp.bottom).offset(16)
         }
     }
 }

@@ -57,14 +57,20 @@ class MainViewController: BaseViewController {
             .filter { $0 }
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
+                print("---------mainVC require login-----------")
                 self?.showLoginScreen()
+                print("---------mainVC showLoginScreen-----------")
             })
             .disposed(by: disposeBag)
         
         output.feed
             .map { $0.data }
-            .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) {row, element, cell in
-                cell.topUserNameLabel.text = element.title
+            .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) { row, element, cell in
+                
+                cell.topUserNameLabel.text = element.creator.nick
+                cell.bottomUserNameLabel.text = element.creator.nick
+                cell.contentLabel.text = element.content
+                cell.titleLabel.text = element.title
             }
             .disposed(by: disposeBag)
         
@@ -83,6 +89,7 @@ class MainViewController: BaseViewController {
     }
     
     private func showLoginScreen() {
+        print("---------showLoginScreen-----------")
         let signInVC = SignInViewController()
         signInVC.modalPresentationStyle = .fullScreen
         present(signInVC, animated: true, completion: nil)
@@ -95,7 +102,6 @@ class MainViewController: BaseViewController {
         let leftButton = createBarButtonItem(imageName: "bell", action: #selector(leftBarButtonTapped))
         let rightButton = createBarButtonItem(imageName: "magnifyingglass", action: #selector(rightBarButtonTapped))
         configureNavigationBar(title: title, leftBarButton: leftButton, rightBarButton: rightButton)
-        
     }
     
     @objc func leftBarButtonTapped() {

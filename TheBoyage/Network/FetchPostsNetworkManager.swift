@@ -13,7 +13,7 @@ struct FetchPostsNetworkManager {
     
     static let session = Session(interceptor: NetworkInterceptor())
     
-    
+    // MARK: interceptor + token refresh
     static func fetchManagers(id: String, query: ManagerQuery) -> Single<FetchModel> {
         return Single<FetchModel>.create { single in
             do {
@@ -23,7 +23,7 @@ struct FetchPostsNetworkManager {
                     HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                     HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
                 ]
-                AF.request(url, method: .get, headers: headers)
+                session.request(url, method: .get, headers: headers)
                     .responseDecodable(of: FetchModel.self) { response in
                         print("🐣 = ", response.response?.statusCode)
                         if let statusCode = response.response?.statusCode, statusCode == 419 {

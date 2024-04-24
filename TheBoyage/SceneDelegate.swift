@@ -46,24 +46,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = loadingViewController
         window?.makeKeyAndVisible()
     }
-    
-    private func checkLoginAndSetupUI() {
-        showLoadingScreen()
-        
-        if isUserLoggedIn() {
-            validateToken { isValid in
-                DispatchQueue.main.async {
-                    self.setupTabBarController(isLoggedIn: isValid)
-                }
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.setupTabBarController(isLoggedIn: false)
-            }
-        }
-    }
-    
+
     private func setupTabBarController(isLoggedIn: Bool) {
+        
         let tabBarController = UITabBarController()
         tabBarController.tabBar.backgroundColor = .systemGray6
         tabBarController.tabBar.tintColor = .point
@@ -83,6 +68,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let nav3 = UINavigationController(rootViewController: vc3)
         
         tabBarController.viewControllers = [nav1, nav2, nav3]
+        tabBarController.selectedIndex = isLoggedIn ? 0 : 2
         
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
@@ -97,7 +83,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 print("validateToken = success")
                 completion(true)
             case .failure(let error):
-                if let statusCode = response.response?.statusCode, statusCode == 418 || statusCode == 419 {
+                if let statusCode = response.response?.statusCode, statusCode == 418 || statusCode == 419 || statusCode == 403 {
+                    print("validateToken = failure, \(statusCode)")
                     UserDefaults.standard.removeObject(forKey: "AccessToken")
                 }
                 completion(false)

@@ -10,6 +10,7 @@ import Foundation
 
 class NetworkInterceptor: RequestInterceptor {
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        print("--------NetworkInterceptor adapt------------")
         var request = urlRequest
         if let token = UserDefaults.standard.string(forKey: "AccessToken"), let refreshToken = UserDefaults.standard.string(forKey: "RefreshToken") {
             request.setValue(token, forHTTPHeaderField: HTTPHeader.authorization.rawValue)
@@ -20,12 +21,13 @@ class NetworkInterceptor: RequestInterceptor {
     }
 
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        print("--------NetworkInterceptor retry------------")
         guard let statusCode = request.response?.statusCode else {
             completion(.doNotRetry)
             return
         }
         
-        if statusCode == 419 {
+        if statusCode == 419 || statusCode == 403 {
             refreshToken { isSuccess in
                 isSuccess ? completion(.retry) : completion(.doNotRetryWithError(error))
             }

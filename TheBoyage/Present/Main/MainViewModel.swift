@@ -48,6 +48,7 @@ class MainViewModel: ViewModelType {
             .do(onNext: { response in
                 //                 print("response: \(response)")
             }, onError: { error in
+                print("🥹magazine Error \(error.asAFError)")
                 if let afError = error as? AFError, afError.isResponseSerializationError {
                     if let statusCode = afError.responseCode {
                         switch statusCode {
@@ -68,9 +69,11 @@ class MainViewModel: ViewModelType {
             .do(onNext: { response in
                 print("🥹response: \(response)")
             }, onError: { [weak self] error in
-                print("🥹Error \(error.asAFError)")
+                print("🥹feed Error \(error.localizedDescription)")
                 if let afError = error as? AFError, afError.isResponseSerializationError {
+                    
                     if let statusCode = afError.responseCode {
+                        print("-------- error \(statusCode)------------")
                         switch statusCode {
                         case 403, 419:  // 토큰 만료
                             self?.loginRequired.onNext(true)
