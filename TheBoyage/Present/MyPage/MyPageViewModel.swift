@@ -16,30 +16,30 @@ class MyPageViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     struct Input {
-        let profile: MyProfileModel
     }
     
     struct Output {
         let profile: Observable<MyProfileModel>
-        let image: Observable<UIImage>
-        let feed: Observable<MyProfileModel>
+        let feed: Observable<[UIImage]>
     }
     
     let loginRequired = PublishSubject<Bool>()
     
     func transform(_ input: Input) -> Output {
         let profile = fetchProfile().asObservable()
-        let image = loadImage(from: input.profile.profileImage)
-        let feed = fetchFeed().asObservable()
+        let feedImages = profile
+            .flatMap { profile -> Observable<[UIImage]> in
+                let imageUrls = profile.posts ?? []
+                return self.fetchImages(from: imageUrls)
+            }
         
-        feed.subscribe(onError: { error in
-                if let afError = error as? AFError, afError.isResponseSerializationError {
-                    self.loginRequired.onNext(true)
-                }
-            }).disposed(by: disposeBag)
-        
-        
-        return Output(profile: profile, image: image, feed: feed)
+        return Output(profile: profile, feed: feedImages)
+    }
+    
+    func fetchProfile() -> Observable<MyProfileModel> {
+        return MyProfileNetworkManager.fetchMyProfile()
+            .asObservable()
+            .compactMap { $0 }
     }
     
     func fetchFeed() -> Observable<MyProfileModel> {
@@ -66,40 +66,27 @@ class MyPageViewModel: ViewModelType {
     }
     
     // TODO: 프로필 이미지 아직 없음 -> 이제 있음
-    func fetchProfile() -> Observable<MyProfileModel> {
-        return MyProfileNetworkManager.fetchMyProfile()
-            .asObservable()
-            .compactMap { $0 } // nil을 제거
-            .do { profile in
-                print("profile: ", profile)
-            } onError: { error in
-                print("profile error: ", error)
-            }
-
-    }
+//    func fetchProfile() -> Observable<MyProfileModel> {
+//        return MyProfileNetworkManager.fetchMyProfile()
+//            .asObservable()
+//            .compactMap { $0 } // nil을 제거
+//            .do { profile in
+//                print("profile: ", profile)
+//            } onError: { error in
+//                print("profile error: ", error)
+//            }
+//
+//    }
     /*
      에러
      Cannot convert return expression of type 'Observable<MyProfileModel?>' to return type 'Observable<MyProfileModel>' -> compactMap
      */
     
-    private func loadImage(from imageName: String?) -> Observable<UIImage> {
-        guard let imageName = imageName,
-              let url = URL(string: APIKey.baseURL.rawValue + "/v1/" + imageName) else {
-            return .just(UIImage(systemName: "airplane.departure")!)
-        }
-        
-        return Observable<UIImage>.create { observer in
-            let header = AnyModifier { request in
-                var request = request
-                request.setValue(UserDefaults.standard.string(forKey: "AccessToken") ?? "", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
-                request.setValue(APIKey.sesacKey.rawValue, forHTTPHeaderField: HTTPHeader.sesacKey.rawValue)
-                return request
-            }
-
-            let task = KingfisherManager.shared.retrieveImage(
-                with: .network(url),
-                options: [.requestModifier(header)],
-                completionHandler: { result in
+    func fetchImages(from urls: [String]) -> Observable<[UIImage]> {
+        let requests = urls.map { url -> Observable<UIImage> in
+            return Observable<UIImage>.create { observer in
+                let resource = ImageResource(downloadURL: URL(string: url)!, cacheKey: url)
+                KingfisherManager.shared.retrieveImage(with: resource) { result in
                     switch result {
                     case .success(let value):
                         observer.onNext(value.image)
@@ -108,12 +95,9 @@ class MyPageViewModel: ViewModelType {
                         observer.onError(error)
                     }
                 }
-            )
-            
-            return Disposables.create {
-                task?.cancel() // 다운로드 작업 취소
+                return Disposables.create()
             }
         }
+        return Observable.zip(requests)
     }
-    
 }

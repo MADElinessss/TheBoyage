@@ -89,6 +89,7 @@
 		C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8C82BCAAE7B007F1E3F /* PasswordViewModel.swift */; };
 		C178A8CB2BCAAE99007F1E3F /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8CA2BCAAE99007F1E3F /* NicknameViewModel.swift */; };
 		C178A8D02BCBE849007F1E3F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8CF2BCBE849007F1E3F /* SignUpViewModel.swift */; };
+		C17E50322BD9720800FB24B5 /* EmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50312BD9720800FB24B5 /* EmptyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,6 +170,7 @@
 		C178A8C82BCAAE7B007F1E3F /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
 		C178A8CA2BCAAE99007F1E3F /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
 		C178A8CF2BCBE849007F1E3F /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		C17E50312BD9720800FB24B5 /* EmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				C1754C302BD420C900728142 /* MyFeedView.swift */,
+				C17E50312BD9720800FB24B5 /* EmptyCollectionViewCell.swift */,
 			);
 			path = MyFeed;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				C1754C6F2BD7DADC00728142 /* ImageCollectionViewCell.swift in Sources */,
 				C178A8C72BCA654D007F1E3F /* EtcViewController.swift in Sources */,
 				C1024AA42BC81D7B0082EF13 /* BaseTableViewCell.swift in Sources */,
+				C17E50322BD9720800FB24B5 /* EmptyCollectionViewCell.swift in Sources */,
 				C1024A7D2BC797A60082EF13 /* APIKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
