@@ -46,8 +46,6 @@ class FeedView: BaseView {
         layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16)
         layout.scrollDirection = .vertical
         
-        
-//        layout.itemSize = CGSize(width: 200, height: 300)
         return layout
     }
 

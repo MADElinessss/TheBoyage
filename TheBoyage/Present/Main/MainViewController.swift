@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 
 class MainViewController: BaseViewController {
-    // TODO: Scrollview로 리팩토링
+    
     let mainView = MainView()
     let viewModel = MainViewModel()
     
@@ -61,20 +61,12 @@ class MainViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-//        output.feed
-//            .map { $0.data }
-//            .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) {row, element, cell in
-//                cell.topUserNameLabel.text = element.title
-//            }
-//            .disposed(by: disposeBag)
-//        
-//        output.requireLogin
-//            .filter { $0 }
-//            .observe(on: MainScheduler.instance)
-//            .subscribe(onNext: { [weak self] _ in
-//                self?.showLoginScreen()
-//            })
-//            .disposed(by: disposeBag)
+        output.feed
+            .map { $0.data }
+            .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) {row, element, cell in
+                cell.topUserNameLabel.text = element.title
+            }
+            .disposed(by: disposeBag)
         
     }
     

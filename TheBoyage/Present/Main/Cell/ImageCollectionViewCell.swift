@@ -36,7 +36,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     let feedImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "album")
+        imageView.image = UIImage(systemName: "photo.artframe")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         //imageView.backgroundColor = .red
@@ -124,7 +124,6 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureView() {
-        contentView.backgroundColor = .red
         contentView.addSubview(profileView)
         contentView.addSubview(topUserNameLabel)
         contentView.addSubview(feedImageView)
@@ -149,6 +148,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         feedImageView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(profileView.snp.bottom).offset(16)
+            make.size.equalTo(165)
         }
         
         likeButton.snp.makeConstraints { make in
@@ -165,7 +165,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         bottomUserNameLabel.snp.makeConstraints { make in
             make.top.equalTo(likeButton.snp.bottom).offset(16)
-            make.leading.equalTo(likeButton.snp.trailing).offset(8)
+            make.leading.equalToSuperview().inset(16)
         }
         
         contentLabel.snp.makeConstraints { make in
