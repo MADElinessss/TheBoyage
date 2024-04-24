@@ -22,12 +22,47 @@ class MyPageViewModel: ViewModelType {
     struct Output {
         let profile: Observable<MyProfileModel>
         let image: Observable<UIImage>
+        let feed: Observable<MyProfileModel>
     }
+    
+    let loginRequired = PublishSubject<Bool>()
     
     func transform(_ input: Input) -> Output {
         let profile = fetchProfile().asObservable()
         let image = loadImage(from: input.profile.profileImage)
-        return Output(profile: profile, image: image)
+        let feed = fetchFeed().asObservable()
+        
+        feed.subscribe(onError: { error in
+                if let afError = error as? AFError, afError.isResponseSerializationError {
+                    self.loginRequired.onNext(true)
+                }
+            }).disposed(by: disposeBag)
+        
+        
+        return Output(profile: profile, image: image, feed: feed)
+    }
+    
+    func fetchFeed() -> Observable<MyProfileModel> {
+        
+        return MyProfileNetworkManager.fetchMyProfile()
+            .asObservable()
+            .do(onNext: { response in
+                print("🥹response: \(response)")
+            }, onError: { [weak self] error in
+                print("🥹feed Error \(error.localizedDescription)")
+                if let afError = error as? AFError, afError.isResponseSerializationError {
+                    
+                    if let statusCode = afError.responseCode {
+                        print("-------- error \(statusCode)------------")
+                        switch statusCode {
+                        case 403, 419:  // 토큰 만료
+                            self?.loginRequired.onNext(true)
+                        default:
+                            break  // 다른 상태 코드에 대한 처리는 필요에 따라 추가
+                        }
+                    }
+                }
+            })
     }
     
     // TODO: 프로필 이미지 아직 없음 -> 이제 있음
@@ -43,6 +78,7 @@ class MyPageViewModel: ViewModelType {
 
     }
     /*
+     에러
      Cannot convert return expression of type 'Observable<MyProfileModel?>' to return type 'Observable<MyProfileModel>' -> compactMap
      */
     
@@ -60,7 +96,7 @@ class MyPageViewModel: ViewModelType {
                 return request
             }
 
-            KingfisherManager.shared.retrieveImage(
+            let task = KingfisherManager.shared.retrieveImage(
                 with: .network(url),
                 options: [.requestModifier(header)],
                 completionHandler: { result in
@@ -73,8 +109,10 @@ class MyPageViewModel: ViewModelType {
                     }
                 }
             )
-
-            return Disposables.create()
+            
+            return Disposables.create {
+                task?.cancel() // 다운로드 작업 취소
+            }
         }
     }
     

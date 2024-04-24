@@ -23,6 +23,9 @@ class MyPageViewController: BaseViewController {
     }
     
     override func bind() {
+        
+        // TODO: input, output 다시 지정
+        
         let output = viewModel.fetchProfile()
             .subscribe(with: self) { owner, profile in
                 self.mainView.profile.configure(profile: profile)
@@ -34,6 +37,7 @@ class MyPageViewController: BaseViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
     }
     
     private func configureNavigation() {
