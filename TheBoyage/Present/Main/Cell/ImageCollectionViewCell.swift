@@ -134,47 +134,48 @@ class ImageCollectionViewCell: UICollectionViewCell {
         feedImageView.translatesAutoresizingMaskIntoConstraints = false
         
         profileView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
-            make.size.equalTo(35)
             make.top.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().inset(16)
+            make.size.equalTo(40)
         }
         
         topUserNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(profileView.snp.trailing).offset(8)
             make.top.equalToSuperview().inset(24)
+            make.leading.equalTo(profileView.snp.trailing).offset(8)
         }
         
         menuButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(24)
             make.top.equalToSuperview().inset(24)
+            make.trailing.equalToSuperview().inset(24)
         }
         
         feedImageView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(profileView.snp.bottom).offset(16)
-            make.size.equalTo(165)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.width.equalTo(165)
+            make.height.equalTo(300)
         }
         
         likeButton.snp.makeConstraints { make in
-            make.top.equalTo(feedImageView.snp.bottom).offset(16)
+            make.top.equalTo(feedImageView.snp.bottom).offset(8)
             make.leading.equalToSuperview().inset(16)
             make.size.equalTo(35)
         }
         
         commentButton.snp.makeConstraints { make in
-            make.top.equalTo(feedImageView.snp.bottom).offset(16)
+            make.top.equalTo(feedImageView.snp.bottom).offset(8)
             make.leading.equalTo(likeButton.snp.trailing).offset(8)
             make.size.equalTo(35)
         }
         
         titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(likeButton.snp.bottom).offset(8)
             make.leading.equalToSuperview().inset(16)
-            make.top.equalTo(likeButton.snp.bottom).offset(16)
         }
         
         contentLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.leading.equalToSuperview().inset(16)
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
         }
     }
     

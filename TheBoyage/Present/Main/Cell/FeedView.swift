@@ -24,9 +24,6 @@ class FeedView: BaseView {
         addSubview(collectionView)
         
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
-        
-        
-        collectionView.backgroundColor = .lightGray
     }
     
     override func configureHierarchy() {
@@ -40,7 +37,7 @@ class FeedView: BaseView {
         let layout = UICollectionViewFlowLayout()
         
         let width = (UIScreen.main.bounds.width - 48)
-        layout.itemSize = CGSize(width: width, height: width)
+        layout.itemSize = CGSize(width: width, height: width*1.5)
         layout.minimumLineSpacing = 8
 //        layout.minimumInteritemSpacing = 8
         layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16)
