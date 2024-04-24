@@ -9,11 +9,11 @@ import SnapKit
 import UIKit
 
 class MyPageView: BaseView {
-    let scrollView = {
-        let view = UIScrollView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.showsHorizontalScrollIndicator = false
-        return view
+    
+    let collectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+        collectionView.showsHorizontalScrollIndicator = true
+        return collectionView
     }()
     
     let contentView = {
@@ -22,38 +22,33 @@ class MyPageView: BaseView {
         return view
     }()
     
-    let profile = ProfileView()
+    let profile = ProfileCollectionViewCell()
     let myFeed = MyFeedView()
     
     override func configureView() {
-        addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(profile)
-        contentView.addSubview(myFeed)
-        
-        profile.backgroundColor = .black
+
+        addSubview(collectionView)
     }
     
     override func configureHierarchy() {
-        scrollView.snp.makeConstraints { make in
+        
+        collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView)
-            make.width.equalTo(scrollView)
-        }
+    }
+    
+    static func layout() -> UICollectionViewFlowLayout {
         
-        profile.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(UIScreen.main.bounds.height * 0.25)
-        }
+        let layout = UICollectionViewFlowLayout()
         
-        myFeed.snp.makeConstraints { make in
-            make.top.equalTo(profile.snp.bottom)
-            make.width.equalTo(UIScreen.main.bounds.width * 0.9)
-            make.height.equalTo(UIScreen.main.bounds.height * 0.5)
-            make.horizontalEdges.bottom.equalToSuperview()
-        }
+        let width = (UIScreen.main.bounds.width * 0.9)
+        let height = (UIScreen.main.bounds.height * 0.9)
+        layout.itemSize = CGSize(width: width, height:height)
+        layout.minimumLineSpacing = 8
+//        layout.minimumInteritemSpacing = 8
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16)
+        layout.scrollDirection = .vertical
+        
+        return layout
     }
 }

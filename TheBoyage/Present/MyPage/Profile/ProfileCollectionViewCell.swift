@@ -7,8 +7,14 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
-class ProfileView: BaseView {
+class ProfileCollectionViewCell: UICollectionViewCell {
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     let profileImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "person.fill")
@@ -39,14 +45,33 @@ class ProfileView: BaseView {
         return view
     }()
     
-    override func configureView() {
+    private var disposeBag = DisposeBag()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureView()
+        configureHierarchy()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureView()
+    }
+    
+    func configureView() {
         backgroundColor = .point
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(editButton)
     }
     
-    override func configureHierarchy() {
+    func configureHierarchy() {
         profileImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(44)
             make.leading.equalToSuperview().inset(24)

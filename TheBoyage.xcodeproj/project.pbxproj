@@ -64,7 +64,7 @@
 		C1754C262BD23A8E00728142 /* FetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C252BD23A8E00728142 /* FetchModel.swift */; };
 		C1754C282BD3E41E00728142 /* MagazineCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C272BD3E41E00728142 /* MagazineCellViewModel.swift */; };
 		C1754C2A2BD412FF00728142 /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C292BD412FF00728142 /* NetworkInterceptor.swift */; };
-		C1754C2F2BD420C300728142 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C2E2BD420C300728142 /* ProfileView.swift */; };
+		C1754C2F2BD420C300728142 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C2E2BD420C300728142 /* ProfileCollectionViewCell.swift */; };
 		C1754C312BD420C900728142 /* MyFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C302BD420C900728142 /* MyFeedView.swift */; };
 		C1754C332BD4214A00728142 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C322BD4214A00728142 /* MyPageViewModel.swift */; };
 		C1754C352BD4EA6700728142 /* MyPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1754C342BD4EA6700728142 /* MyPageRouter.swift */; };
@@ -144,7 +144,7 @@
 		C1754C252BD23A8E00728142 /* FetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchModel.swift; sourceTree = "<group>"; };
 		C1754C272BD3E41E00728142 /* MagazineCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCellViewModel.swift; sourceTree = "<group>"; };
 		C1754C292BD412FF00728142 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
-		C1754C2E2BD420C300728142 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C1754C2E2BD420C300728142 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		C1754C302BD420C900728142 /* MyFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeedView.swift; sourceTree = "<group>"; };
 		C1754C322BD4214A00728142 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		C1754C342BD4EA6700728142 /* MyPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRouter.swift; sourceTree = "<group>"; };
@@ -415,7 +415,7 @@
 		C1754C2C2BD420B100728142 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				C1754C2E2BD420C300728142 /* ProfileView.swift */,
+				C1754C2E2BD420C300728142 /* ProfileCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -589,7 +589,7 @@
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
 				C1754C242BD23A5300728142 /* FetchPostsNetworkManager.swift in Sources */,
 				C1754C3E2BD4FFEC00728142 /* SettingViewController.swift in Sources */,
-				C1754C2F2BD420C300728142 /* ProfileView.swift in Sources */,
+				C1754C2F2BD420C300728142 /* ProfileCollectionViewCell.swift in Sources */,
 				C178A8D02BCBE849007F1E3F /* SignUpViewModel.swift in Sources */,
 				C1754B882BCD621400728142 /* FormatterManager.swift in Sources */,
 				C113D5342BCD25B30067094A /* MyPageView.swift in Sources */,

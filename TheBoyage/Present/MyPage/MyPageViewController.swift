@@ -18,8 +18,13 @@ class MyPageViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureView()
         configureNavigation()
+    }
+    
+    private func configureView() {
+        mainView.collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.identifier)
+        mainView.collectionView.register(MyFeedImageCollectionViewCell.self, forCellWithReuseIdentifier: MyFeedImageCollectionViewCell.identifier)
     }
     
     override func bind() {
@@ -51,4 +56,27 @@ class MyPageViewController: BaseViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+}
+
+extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.identifier, for: indexPath) as! ProfileCollectionViewCell
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyFeedImageCollectionViewCell.identifier, for: indexPath) as! MyFeedImageCollectionViewCell
+            
+            return cell
+        }
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
 }

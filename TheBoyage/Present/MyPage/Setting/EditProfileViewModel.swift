@@ -41,10 +41,10 @@ class EditProfileViewModel: ViewModelType {
     func transform(_ input: Input) -> Output {
         
         input.viewLoaded
-            .flatMapLatest { _ -> Observable<MyProfileModel?> in
+            .flatMapLatest { _ -> Observable<MyProfileModel> in
                 MyProfileNetworkManager.fetchMyProfile()
                     .asObservable()
-                    .catchAndReturn(nil)
+                    //.catchAndReturn(nil)
             }
             .bind(to: profileDataSubject)
             .disposed(by: disposeBag)
