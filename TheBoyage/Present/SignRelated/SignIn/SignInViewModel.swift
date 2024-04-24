@@ -52,7 +52,7 @@ class SignInViewModel: ViewModelType {
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .flatMapLatest { loginQuery in
                 return LoginNetworkManager.createLogin(query: loginQuery)
-                    .asDriver(onErrorJustReturn: LoginModel(accessToken: "", refreshToken: ""))
+                    .asDriver(onErrorJustReturn: LoginModel(accessToken: "", refreshToken: "", user_id: ""))
             }
             .subscribe(with: self) { owner, loginModel in
                 if !loginModel.accessToken.isEmpty {

@@ -117,7 +117,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         contentLabel.text = post.content
         
         // TODO: 내 글이냐 아니냐 <- 닉네임으로 해야되나?
-        configureMenuButton(currentUserId: "1", postOwnerId: "1")
+        configureMenuButton(currentUserId: UserDefaults.standard.string(forKey: "UserId") ?? "", postOwnerId: post.creator.user_id)
+        print("---------내 글이냐? 나는: \(UserDefaults.standard.string(forKey: "UserId") ?? "") 이 글은: \(post.creator.user_id)-------------")
     }
     
     private func configureView() {

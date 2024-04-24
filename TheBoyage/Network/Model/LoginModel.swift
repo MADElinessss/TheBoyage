@@ -11,6 +11,7 @@ import Foundation
 struct LoginModel: Decodable {
     let accessToken: String
     let refreshToken: String
+    let user_id: String
 }
 
 struct EmailValidationModel: Decodable {
