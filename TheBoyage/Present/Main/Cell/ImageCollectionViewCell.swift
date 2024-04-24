@@ -107,29 +107,23 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     func configure(with viewModel: FeedViewModel, post: Posts) {
         self.viewModel = viewModel
-        bind(post: post)
-    }
-    
-    private func bind(post: Posts) {
         let input = FeedViewModel.Input(post: post)
-        
-        print("input = ", post)
-        guard let output = viewModel?.transform(input) else { return }
-        
+        let output = viewModel.transform(input)
+
         output.feedImage
             .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
             .drive(feedImageView.rx.image)
             .disposed(by: disposeBag)
-        
+
         output.profileImage
             .asDriver(onErrorJustReturn: UIImage(systemName: "person.fill")!)
             .drive(profileView.rx.image)
             .disposed(by: disposeBag)
-        
+
         topUserNameLabel.text = post.creator.nick
         bottomUserNameLabel.text = post.creator.nick
+        titleLabel.text = post.title
         contentLabel.text = post.content
-        
     }
     
     private func configureView() {
