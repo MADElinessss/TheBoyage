@@ -83,6 +83,11 @@ class MyFeedImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
     private func setupLayout() {
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false

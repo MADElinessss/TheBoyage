@@ -43,7 +43,7 @@ class MainViewModel: ViewModelType {
     func fetchMagazine() -> Observable<FetchModel> {
         
         let managerQuery = ManagerQuery(limit: "5", product_id: "")
-        return FetchPostsNetworkManager.fetchManagers(id: "6625465e438b876b25f8ec1e", query: managerQuery)
+        return FetchPostsNetworkManager.fetchSpecificUser(id: "6625465e438b876b25f8ec1e", query: managerQuery)
             .asObservable()
             .do(onNext: { response in
                 

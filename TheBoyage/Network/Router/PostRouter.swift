@@ -11,6 +11,7 @@ import Foundation
 enum PostRouter {
     case imageUpload(query: ImageUploadQuery)
     case postContent(query: PostQuery)
+    case fetchOnePost(id: String)
 }
 
 extension PostRouter: TargetType {
@@ -22,6 +23,8 @@ extension PostRouter: TargetType {
         switch self {
         case .imageUpload(_), .postContent(query: _):
                 .post
+        case .fetchOnePost:
+                .get
         }
     }
     
@@ -31,7 +34,8 @@ extension PostRouter: TargetType {
             return "v1/posts/files"
         case .postContent(query: _):
             return "v1/posts"
-        
+        case .fetchOnePost(id: let id):
+            return "v1/posts/\(id)"
         }
     }
     
@@ -49,12 +53,17 @@ extension PostRouter: TargetType {
                 HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
             ]
+        case .fetchOnePost(id: let id):
+            return [
+                HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
+                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
+            ]
         }
     }
     
     var parameter: String? {
         switch self {
-        case .imageUpload(_), .postContent(query: _):
+        case .imageUpload(_), .postContent(query: _), .fetchOnePost(_):
             return nil
         }
     }
@@ -62,6 +71,8 @@ extension PostRouter: TargetType {
     var queryItem: [URLQueryItem]? {
         switch self {
         case .imageUpload(_), .postContent(query: _):
+            return nil
+        case .fetchOnePost(id: let id):
             return nil
         }
     }
@@ -76,6 +87,9 @@ extension PostRouter: TargetType {
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
+        case .fetchOnePost(id: let id):
+            return nil
         }
     }
 }
+

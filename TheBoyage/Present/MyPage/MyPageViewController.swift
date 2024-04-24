@@ -51,12 +51,12 @@ class MyPageViewController: BaseViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(
                 onNext: { [weak self] images in
+                    print("Loaded \(images.count) images")
                     self?.feedImages = images
                     self?.mainView.collectionView.reloadData()
                 },
                 onError: { error in
                     print("Image loading error: \(error)")
-                    
                 }
             )
             .disposed(by: viewModel.disposeBag)

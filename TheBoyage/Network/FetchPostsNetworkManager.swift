@@ -14,16 +14,19 @@ struct FetchPostsNetworkManager {
     static let session = Session(interceptor: NetworkInterceptor())
     
     // MARK: interceptor + token refresh
-    static func fetchManagers(id: String, query: ManagerQuery) -> Single<FetchModel> {
+    static func fetchSpecificUser(id: String, query: ManagerQuery) -> Single<FetchModel> {
         return Single<FetchModel>.create { single in
             do {
-                let url = URL(string: APIKey.baseURL.rawValue + "/v1/posts/users/\(id)?limit=7&product_id=boyage_general")!
                 
-                let headers: HTTPHeaders = [
-                    HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
-                    HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
-                ]
-                session.request(url, method: .get, headers: headers)
+                let urlRequest = try MainRouter.managerPost(id: id, query: query).asURLRequest()
+                
+//                let url = URL(string: APIKey.baseURL.rawValue + "/v1/posts/users/\(id)?limit=7&product_id=boyage_general")!
+//                
+//                let headers: HTTPHeaders = [
+//                    HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
+//                    HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
+//                ]
+                session.request(urlRequest)
                     .responseDecodable(of: FetchModel.self) { response in
                         print("🐣 = ", response.response?.statusCode)
                         if let statusCode = response.response?.statusCode, statusCode == 419 {
@@ -66,4 +69,24 @@ struct FetchPostsNetworkManager {
         }
     }
 
+    static func fetchSpecificPost(id: String) -> Single<Posts> {
+        return Single<Posts>.create { single in
+            do {
+                let urlRequest = try PostRouter.fetchOnePost(id: id).asURLRequest()
+                session.request(urlRequest)
+                    .responseDecodable(of: Posts.self) { response in
+                        switch response.result {
+                        case .success(let success):
+                            single(.success(success))
+                        case .failure(let error):
+                            single(.failure(error))
+                        }
+                    }
+            } catch {
+                single(.failure(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
 }
