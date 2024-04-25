@@ -59,4 +59,35 @@ struct PostNetworkManager {
             return Disposables.create()
         }
     }
+    
+    static func deleteContent(postId: String) -> Single<Void> {
+        return Single<Void>.create { single in
+            let urlRequest: URLRequest
+            do {
+                urlRequest = try PostRouter.deletePost(id: postId).asURLRequest()
+            } catch {
+                single(.failure(error))
+                return Disposables.create()
+            }
+            
+            AF.request(urlRequest)
+                .response { response in
+                    print("Delete statusCode: \(response.response?.statusCode ?? 0)")
+                    switch response.result {
+                    case .success:
+                        if let statusCode = response.response?.statusCode, statusCode == 200 {
+                            single(.success(()))
+                        } else {
+                            print("Delete error: \(response.response?.statusCode)")
+                            single(.failure(response.result as! Error))
+                        }
+                    case .failure(let error):
+                        single(.failure(error))
+                    }
+                }
+            return Disposables.create()
+        }
+    }
+    
+    
 }

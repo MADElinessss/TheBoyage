@@ -12,6 +12,7 @@ enum PostRouter {
     case imageUpload(query: ImageUploadQuery)
     case postContent(query: PostQuery)
     case fetchOnePost(id: String)
+    case deletePost(id: String)
 }
 
 extension PostRouter: TargetType {
@@ -25,6 +26,8 @@ extension PostRouter: TargetType {
                 .post
         case .fetchOnePost:
                 .get
+        case .deletePost(_):
+                .delete
         }
     }
     
@@ -35,6 +38,8 @@ extension PostRouter: TargetType {
         case .postContent(query: _):
             return "v1/posts"
         case .fetchOnePost(id: let id):
+            return "v1/posts/\(id)"
+        case .deletePost(id: let id):
             return "v1/posts/\(id)"
         }
     }
@@ -58,21 +63,24 @@ extension PostRouter: TargetType {
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
             ]
+        case .deletePost(id: let id):
+            return [
+                HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
+                HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
+            ]
         }
     }
     
     var parameter: String? {
         switch self {
-        case .imageUpload(_), .postContent(query: _), .fetchOnePost(_):
+        case .imageUpload(_), .postContent(query: _), .fetchOnePost(_), .deletePost(_):
             return nil
         }
     }
     
     var queryItem: [URLQueryItem]? {
         switch self {
-        case .imageUpload(_), .postContent(query: _):
-            return nil
-        case .fetchOnePost(id: let id):
+        case .imageUpload(_), .postContent(query: _), .fetchOnePost(_), .deletePost(_):
             return nil
         }
     }
@@ -88,6 +96,8 @@ extension PostRouter: TargetType {
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
         case .fetchOnePost(id: let id):
+            return nil
+        case .deletePost(id: let id):
             return nil
         }
     }

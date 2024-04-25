@@ -102,6 +102,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let input = FeedViewModel.Input(post: post)
         let output = viewModel.transform(input)
         
+        print("Configuring cell with post ID: \(post.post_id)")
+        
         output.feedImage
             .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
             .drive(feedImageView.rx.image)
@@ -117,8 +119,10 @@ class ImageCollectionViewCell: UICollectionViewCell {
         contentLabel.text = post.content
         
         // TODO: 내 글이냐 아니냐 <- 닉네임으로 해야되나?
-        configureMenuButton(currentUserId: UserDefaults.standard.string(forKey: "UserId") ?? "", postOwnerId: post.creator.user_id)
+        configureMenuButton(postId: post.post_id, currentUserId: UserDefaults.standard.string(forKey: "UserId") ?? "", postOwnerId: post.creator.user_id)
         print("---------내 글이냐? 나는: \(UserDefaults.standard.string(forKey: "UserId") ?? "") 이 글은: \(post.creator.user_id)-------------")
+        
+        
     }
     
     private func configureView() {
@@ -146,7 +150,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         menuButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(24)
-            make.trailing.equalToSuperview().inset(24)
+            make.trailing.equalToSuperview().inset(16)
         }
         
         feedImageView.snp.makeConstraints { make in
@@ -179,11 +183,12 @@ class ImageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func configureMenuButton(currentUserId: String, postOwnerId: String) {
+    private func configureMenuButton(postId: String, currentUserId: String, postOwnerId: String) {
         let isMyPost = (currentUserId == postOwnerId)
         
         let saveAction = UIAction(title: "저장") { action in
             // 저장 로직
+            
         }
         
         var actions: [UIAction] = [saveAction]
@@ -193,7 +198,18 @@ class ImageCollectionViewCell: UICollectionViewCell {
                 // 수정 로직
             }
             let deleteAction = UIAction(title: "삭제", attributes: .destructive) { action in
-                // 삭제 로직
+                self.viewModel?.deletePost(postId: postId)
+                    .subscribe(
+                        onError: { error in
+                            print("삭제 error: \(error)")
+                        }, onCompleted: {
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "삭제 완료", message: "게시물이 삭제되었습니다.", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "확인", style: .default))
+                                self.window?.rootViewController?.present(alert, animated: true)
+                            }
+                        }
+                    ).disposed(by: self.disposeBag)
             }
             actions.append(contentsOf: [editAction, deleteAction])
         }

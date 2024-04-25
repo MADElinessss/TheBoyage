@@ -16,9 +16,14 @@ class FeedViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
     
+    var post: Posts?
+    
     struct Input {
         let post: Posts
+        
     }
+    
+    let postDeleted = PublishSubject<Void>()
     
     struct Output {
         let feedImage: Observable<UIImage>
@@ -65,6 +70,16 @@ class FeedViewModel: ViewModelType {
                 task?.cancel() // 다운로드 작업 취소
             }
         }
+    }
+    
+    func deletePost(postId: String) -> Observable<Void> {
+        return PostNetworkManager.deleteContent(postId: postId)
+            .asObservable()
+            .do(onNext: { [weak self] _ in
+                self?.postDeleted.onNext(())
+            }, onError: { error in
+                print("Deletion error: \(error)")
+            })
     }
 
 }
