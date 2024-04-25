@@ -70,12 +70,11 @@ class MainViewController: BaseViewController {
                 print("---------mainVC showLoginScreen-----------")
             })
             .disposed(by: disposeBag)
+        
+        // TODO: Mainview -> CollectionView로 리팩토링 후 .modelSelected -> Detail로 연결
+        
     }
-    
-    private func dummyPosts() -> [FetchModel] {
-        return [FetchModel(data: [Posts(post_id: "1", createdAt: "1", creator: Creator(user_id: "", nick: ""), files: [], likes: [], likes2: [], hashTags: [], comments: [])])]
-    }
-    
+
     private func configureView() {
 
     }

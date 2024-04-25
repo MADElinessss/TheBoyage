@@ -92,6 +92,7 @@
 		C17E50322BD9720800FB24B5 /* EmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50312BD9720800FB24B5 /* EmptyCollectionViewCell.swift */; };
 		C17E50352BDA356D00FB24B5 /* DetailPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50342BDA356D00FB24B5 /* DetailPostView.swift */; };
 		C17E50372BDA357900FB24B5 /* DetailPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50362BDA357900FB24B5 /* DetailPostViewController.swift */; };
+		C17E50392BDA41C000FB24B5 /* DetailPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50382BDA41C000FB24B5 /* DetailPostCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -175,6 +176,7 @@
 		C17E50312BD9720800FB24B5 /* EmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		C17E50342BDA356D00FB24B5 /* DetailPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostView.swift; sourceTree = "<group>"; };
 		C17E50362BDA357900FB24B5 /* DetailPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostViewController.swift; sourceTree = "<group>"; };
+		C17E50382BDA41C000FB24B5 /* DetailPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -493,6 +495,7 @@
 			children = (
 				C17E50342BDA356D00FB24B5 /* DetailPostView.swift */,
 				C17E50362BDA357900FB24B5 /* DetailPostViewController.swift */,
+				C17E50382BDA41C000FB24B5 /* DetailPostCollectionViewCell.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				C1754C392BD4EC9900728142 /* MyProfileModel.swift in Sources */,
 				C1754C2A2BD412FF00728142 /* NetworkInterceptor.swift in Sources */,
 				C1754C222BD2381A00728142 /* MainQuery.swift in Sources */,
+				C17E50392BDA41C000FB24B5 /* DetailPostCollectionViewCell.swift in Sources */,
 				C1024A962BC803B70082EF13 /* ProfileModel.swift in Sources */,
 				C1754C242BD23A5300728142 /* FetchPostsNetworkManager.swift in Sources */,
 				C1754C3E2BD4FFEC00728142 /* SettingViewController.swift in Sources */,

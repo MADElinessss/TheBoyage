@@ -8,10 +8,19 @@
 import UIKit
 
 class DetailPostViewController: BaseViewController {
+    
+    let mainView = DetailPostView()
+    
+    override func loadView() {
+        view = mainView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
     
+    override func bind() {
+        
+    }
 }
