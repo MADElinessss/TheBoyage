@@ -60,6 +60,8 @@ class MyPageViewController: BaseViewController {
                 }
             )
             .disposed(by: viewModel.disposeBag)
+        
+        
     }
     
     private func configureNavigation() {
@@ -89,6 +91,10 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.identifier, for: indexPath) as! ProfileCollectionViewCell
             cell.backgroundColor = .point
+            cell.editButtonTapped = {
+                let vc = EditProfileViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
             return cell
         } else {
             if feedImages.isEmpty {

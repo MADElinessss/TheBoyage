@@ -11,6 +11,8 @@ import RxSwift
 
 class ProfileCollectionViewCell: UICollectionViewCell {
     
+    var editButtonTapped: (() -> Void) = {}
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -89,6 +91,11 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     func configure(profile: MyProfileModel) {
         nameLabel.text = profile.nick
+        
+        editButton.addTarget(self, action: #selector(editTapped), for: .touchUpInside)
     }
     
+    @objc func editTapped() {
+        editButtonTapped()
+    }
 }
