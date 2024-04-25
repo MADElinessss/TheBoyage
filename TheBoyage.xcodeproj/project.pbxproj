@@ -90,6 +90,8 @@
 		C178A8CB2BCAAE99007F1E3F /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8CA2BCAAE99007F1E3F /* NicknameViewModel.swift */; };
 		C178A8D02BCBE849007F1E3F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178A8CF2BCBE849007F1E3F /* SignUpViewModel.swift */; };
 		C17E50322BD9720800FB24B5 /* EmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50312BD9720800FB24B5 /* EmptyCollectionViewCell.swift */; };
+		C17E50352BDA356D00FB24B5 /* DetailPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50342BDA356D00FB24B5 /* DetailPostView.swift */; };
+		C17E50372BDA357900FB24B5 /* DetailPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50362BDA357900FB24B5 /* DetailPostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +173,8 @@
 		C178A8CA2BCAAE99007F1E3F /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
 		C178A8CF2BCBE849007F1E3F /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		C17E50312BD9720800FB24B5 /* EmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewCell.swift; sourceTree = "<group>"; };
+		C17E50342BDA356D00FB24B5 /* DetailPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostView.swift; sourceTree = "<group>"; };
+		C17E50362BDA357900FB24B5 /* DetailPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +267,7 @@
 		C1024A992BC8040A0082EF13 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				C17E50332BDA355600FB24B5 /* Detail */,
 				C1754C2B2BD4209800728142 /* SignRelated */,
 				C178A8B92BCA47F7007F1E3F /* MyPage */,
 				C1024AB12BC8452E0082EF13 /* Add */,
@@ -483,6 +488,15 @@
 			path = Etc;
 			sourceTree = "<group>";
 		};
+		C17E50332BDA355600FB24B5 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				C17E50342BDA356D00FB24B5 /* DetailPostView.swift */,
+				C17E50362BDA357900FB24B5 /* DetailPostViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -606,11 +620,13 @@
 				C178A8C92BCAAE7B007F1E3F /* PasswordViewModel.swift in Sources */,
 				C1754BC72BCE655000728142 /* PostRouter.swift in Sources */,
 				C1754C312BD420C900728142 /* MyFeedView.swift in Sources */,
+				C17E50372BDA357900FB24B5 /* DetailPostViewController.swift in Sources */,
 				C1754C202BD237A600728142 /* MainRouter.swift in Sources */,
 				C1754BD92BCFA10D00728142 /* AlertManager.swift in Sources */,
 				C1024A982BC803DA0082EF13 /* LoginNetworkManager.swift in Sources */,
 				C1754C422BD5088200728142 /* EditProfileView.swift in Sources */,
 				C1754BDB2BCFAFE300728142 /* MainView.swift in Sources */,
+				C17E50352BDA356D00FB24B5 /* DetailPostView.swift in Sources */,
 				C1754B8A2BCD655400728142 /* AddTitleTableViewCell.swift in Sources */,
 				C1754B852BCD61D200728142 /* AddContentTableViewCell.swift in Sources */,
 				C178A8BF2BCA54C8007F1E3F /* EmailViewModel.swift in Sources */,

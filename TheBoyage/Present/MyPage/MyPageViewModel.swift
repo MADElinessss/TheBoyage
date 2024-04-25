@@ -20,6 +20,7 @@ class MyPageViewModel: ViewModelType {
     
     struct Output {
         let profile: Observable<MyProfileModel>
+        let profileImage: Observable<UIImage>
         let feed: Observable<[UIImage]>
     }
     
@@ -34,8 +35,14 @@ class MyPageViewModel: ViewModelType {
                 }
                 return self.fetchImages(from: ids)
             }
-        
-        return Output(profile: profile, feed: feedImages)
+        let profileImage = profile
+            .flatMapLatest { profile -> Observable<UIImage> in
+                guard let ids = profile.profileImage else {
+                    return Observable.just(UIImage(systemName: "person")!)
+                }
+                return self.loadImage(from: ids)
+            }
+        return Output(profile: profile, profileImage: profileImage, feed: feedImages)
     }
     
     func fetchProfile() -> Observable<MyProfileModel> {

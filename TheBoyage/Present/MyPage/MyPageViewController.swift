@@ -35,9 +35,10 @@ class MyPageViewController: BaseViewController {
     }
     
     private func bindViewModel() {
-        let input = MyPageViewModel.Input()
+        let input = MyPageViewModel.Input() // viewWillAppear
         let output = viewModel.transform(input)
         
+        // TODO: CombineLatest/zip으로 묶어
         output.profile
             .observe(on: MainScheduler.instance)
             .bind { [weak self] profile in
@@ -47,6 +48,16 @@ class MyPageViewController: BaseViewController {
             }
             .disposed(by: viewModel.disposeBag)
         
+        output.profileImage
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] profile in
+                if let cell = self?.mainView.collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ProfileCollectionViewCell {
+                    cell.profileImageView.image = profile
+                }
+            }
+            .disposed(by: viewModel.disposeBag)
+        
+        // ------------
         output.feed
             .observe(on: MainScheduler.instance)
             .subscribe(
@@ -91,6 +102,7 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.identifier, for: indexPath) as! ProfileCollectionViewCell
             cell.backgroundColor = .point
+            
             cell.editButtonTapped = {
                 let vc = EditProfileViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -103,7 +115,6 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyFeedImageCollectionViewCell.identifier, for: indexPath) as! MyFeedImageCollectionViewCell
                 cell.imageView.image = feedImages[indexPath.row]
-                cell.backgroundColor = .yellow
                 return cell
             }
         }
@@ -124,12 +135,17 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
             if feedImages.isEmpty {
                 return CGSize(width: width, height: 100)
             } else {
-                return CGSize(width: width, height: 150)
+                return CGSize(width: 150, height: 150)
             }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        if indexPath.section == 0 {
+//            
+//        } else {
+//            
+//        }
         return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
     }
     
