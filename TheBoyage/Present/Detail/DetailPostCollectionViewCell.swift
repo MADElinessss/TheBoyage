@@ -16,11 +16,13 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         return String(describing: self)
     }
     
+    let toolbar = UIView()
+    
     let profileView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .blue
+        imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 20
         return imageView
     }()
@@ -28,7 +30,7 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
     let topUserNameLabel = {
         let view = UILabel()
         view.text = "user"
-        view.font = .systemFont(ofSize: 16, weight: .medium)
+        view.font = .systemFont(ofSize: 15, weight: .medium)
         view.textColor = .point
         return view
     }()
@@ -36,8 +38,8 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
     let createdAtLabel = {
         let view = UILabel()
         view.text = "2024.03.08"
-        view.font = .systemFont(ofSize: 14, weight: .regular)
-        view.textColor = .point
+        view.font = .systemFont(ofSize: 13, weight: .regular)
+        view.textColor = .gray
         return view
     }()
     
@@ -73,7 +75,7 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
     let titleLabel = {
         let view = UILabel()
         view.text = "title"
-        view.font = .systemFont(ofSize: 16, weight: .bold)
+        view.font = .systemFont(ofSize: 18, weight: .bold)
         view.textColor = .point
         return view
     }()
@@ -101,6 +103,35 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         disposeBag = DisposeBag()
     }
     
+    func bind(post: Posts) {
+        titleLabel.text = post.title
+        
+        updateContentLabel(text: post.content ?? "")
+        contentLabel.text = post.content
+        
+        if let imageURL = URL(string: post.files.first ?? "") {
+            feedImageView.kf.setImage(with: imageURL)
+        }
+        
+        // 유저 정보 설정
+        topUserNameLabel.text = post.creator.nick
+        let date = FormatterManager.shared.formatDateType(post.createdAt)
+        createdAtLabel.text = date
+        
+        
+    }
+    
+    func updateContentLabel(text: String) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: text.count))
+
+        contentLabel.attributedText = attributedString
+    }
+
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureView()
@@ -114,12 +145,9 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(contentLabel)
         contentView.addSubview(menuButton)
-        // toolbar 머시기
-        contentView.addSubview(likeButton)
-        contentView.addSubview(commentButton)
-        
+
         feedImageView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
             make.leading.equalToSuperview().inset(16)
@@ -142,7 +170,7 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         }
         
         menuButton.snp.makeConstraints { make in
-            make.top.equalTo(topUserNameLabel.snp.bottom).offset(8)
+            make.top.equalTo(topUserNameLabel.snp.top)
             make.trailing.equalToSuperview().inset(24)
         }
         
@@ -156,20 +184,6 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         contentLabel.snp.makeConstraints { make in
             make.top.equalTo(feedImageView.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(16)
-        }
-        
-        
-        // ToolBar Bottom 머시기에 추가
-        likeButton.snp.makeConstraints { make in
-            make.top.equalTo(feedImageView.snp.bottom).offset(8)
-            make.leading.equalToSuperview().inset(16)
-            make.size.equalTo(35)
-        }
-        
-        commentButton.snp.makeConstraints { make in
-            make.top.equalTo(feedImageView.snp.bottom).offset(8)
-            make.leading.equalTo(likeButton.snp.trailing).offset(8)
-            make.size.equalTo(35)
         }
     }
     

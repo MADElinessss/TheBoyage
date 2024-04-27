@@ -25,7 +25,6 @@ class MainViewController: BaseViewController {
 
         configureView()
         configureNavigation()
-        configureTableView()
     }
     
     override func bind() {
@@ -55,6 +54,9 @@ class MainViewController: BaseViewController {
         
         output.feed
             .map { $0.data }
+            .do(onNext: { [weak self] posts in
+                self?.feed = posts // feed 배열을 갱신
+            })
             .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) { row, element, cell in
                 let viewModel = FeedViewModel()
                 cell.configure(with: viewModel, post: element)
@@ -72,15 +74,30 @@ class MainViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         // TODO: Mainview -> CollectionView로 리팩토링 후 .modelSelected -> Detail로 연결
+        mainView.feed.collectionView.rx.modelSelected(Posts.self)
+            .subscribe(onNext: { [weak self] post in
+                guard let self = self else { return }
+                let detailVC = DetailPostViewController()
+                detailVC.post = post
+                self.navigationController?.pushViewController(detailVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.magazine.collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                if indexPath.section == 0 {
+                    let post = self.feed[indexPath.item]
+                    let detailVC = DetailPostViewController()
+                    detailVC.post = post
+                    self.navigationController?.pushViewController(detailVC, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
         
     }
 
     private func configureView() {
-
-    }
-    
-    private func configureTableView() {
-        
     }
     
     private func showLoginScreen() {
@@ -125,19 +142,3 @@ class MainViewController: BaseViewController {
         self.present(navController, animated: true, completion: nil)
     }
 }
-
-//extension MainViewController {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return feed.count
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
-//            return UICollectionViewCell()
-//        }
-//        let post = feed[indexPath.row]
-//        cell.configure(with: FeedViewModel(), post: post)
-//        cell.backgroundColor = .yellow
-//        return cell
-//    }
-//}

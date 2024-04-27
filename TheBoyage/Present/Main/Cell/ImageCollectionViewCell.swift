@@ -89,6 +89,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         feedImageView.image = nil
+        profileView.image = nil
         disposeBag = DisposeBag()
     }
     
@@ -107,9 +108,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
             .drive(feedImageView.rx.image)
             .disposed(by: disposeBag)
         
-        viewModel.imageLoadedCallback = { [weak self] image in
-            self?.profileView.image = image
-        }
+//        viewModel.imageLoadedCallback = { [weak self] image in
+//            self?.profileView.image = image
+//        }
         
         output.profileImage
             .asDriver(onErrorJustReturn: UIImage(systemName: "person.fill")!)

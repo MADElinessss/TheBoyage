@@ -26,4 +26,18 @@ class FormatterManager {
         dateFormatter.locale = Locale(identifier: "ko_KR")
         return dateFormatter.date(from: dateString) ?? Date()
     }
+    
+    func formatDateType(_ serverDateType: String) -> String {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
+        if let date = isoFormatter.date(from: serverDateType) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "ko_KR")
+            dateFormatter.dateFormat = "yyyy.MM.dd EEEE"
+            return dateFormatter.string(from: date)
+        } else {
+            return "날짜 변환 실패"
+        }
+    }
 }
