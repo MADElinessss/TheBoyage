@@ -38,26 +38,16 @@ class MyPageViewController: BaseViewController {
         let input = MyPageViewModel.Input() // viewWillAppear
         let output = viewModel.transform(input)
         
-        // TODO: CombineLatest/zip으로 묶어
-        output.profile
+        Observable.combineLatest(output.profile, output.profileImage)
             .observe(on: MainScheduler.instance)
-            .bind { [weak self] profile in
+            .bind { [weak self] (profile, image) in
                 if let cell = self?.mainView.collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ProfileCollectionViewCell {
                     cell.configure(profile: profile)
+                    cell.profileImageView.image = image
                 }
             }
             .disposed(by: viewModel.disposeBag)
         
-        output.profileImage
-            .observe(on: MainScheduler.instance)
-            .bind { [weak self] profile in
-                if let cell = self?.mainView.collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ProfileCollectionViewCell {
-                    cell.profileImageView.image = profile
-                }
-            }
-            .disposed(by: viewModel.disposeBag)
-        
-        // ------------
         output.feed
             .observe(on: MainScheduler.instance)
             .subscribe(
@@ -68,6 +58,7 @@ class MyPageViewController: BaseViewController {
                 },
                 onError: { error in
                     print("Image loading error: \(error)")
+                    AlertManager.shared.showOkayAlert(on: self, title: "데이터 불러오기 실패", message: "이미지 로징에 실패했습니다. 다시 시도해주세요.")
                 }
             )
             .disposed(by: viewModel.disposeBag)
