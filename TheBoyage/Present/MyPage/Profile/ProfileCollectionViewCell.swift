@@ -40,7 +40,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     let editButton = {
         let view = UIButton()
-        view.setTitle("프로필 편집", for: .normal)
+        view.setTitle("  프로필 편집", for: .normal)
         view.setTitleColor(.white, for: .normal)
         view.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         view.setImage(UIImage(systemName: "pencil"), for: .normal)
@@ -91,7 +91,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(profile: MyProfileModel) {
-        nameLabel.text = profile.nick
+        nameLabel.text = "\(profile.nick) 님"
         profileImageView
         editButton.addTarget(self, action: #selector(editTapped), for: .touchUpInside)
     }

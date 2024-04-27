@@ -86,7 +86,8 @@ class EditProfileViewController: BaseViewController {
         output.profileData
             .drive(onNext: { [weak self] (profile: MyProfileModel?) in
                 guard let profile = profile, let self = self else { return }
-                print("프로필 편집!", profile)
+                
+                self.updateProfileImageCell(with: profile.profileImage)
                 if let nameCell = self.mainView.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? EditableTextCell {
                     nameCell.textField.text = profile.nick
                 }
@@ -102,15 +103,16 @@ class EditProfileViewController: BaseViewController {
             })
             .disposed(by: viewModel.disposeBag)
         
-        output.selectedImage
-            .drive(onNext: { [weak self] (image: UIImage?) in
-                guard let image = image else { return }
-                self?.updateProfileImageCell(with: image)
+        viewModel.uploadResultSubject
+            .subscribe(onNext: { [weak self] success in
+                if success {
+                    self?.navigationController?.popViewController(animated: true)
+                } else {
+                    AlertManager.shared.showOkayAlert(on: self!, title: "프로필 업데이트", message: "업데이트에 실패하였습니다.\n다시 시도해주세요.")
+                }
             })
-            .disposed(by: viewModel.disposeBag)
-        
-        
-        
+            .disposed(by: disposeBag)
+      
         output.withdrawalResult
             .drive(onNext: { [weak self] (success: Bool) in
                 if success {
@@ -122,6 +124,7 @@ class EditProfileViewController: BaseViewController {
                 }
             })
             .disposed(by: viewModel.disposeBag)
+    
         
         mainView.withdrawButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -130,10 +133,29 @@ class EditProfileViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
-    private func updateProfileImageCell(with image: UIImage) {
-        if let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileImageCell {
-            cell.setImage(image)
+    func updateProfileImageCell(with imageName: String?) {
+        guard let imageName = imageName else {
+            // 기본 이미지 설정
+            let defaultImage = UIImage(systemName: "person.fill")
+            setImageToCell(image: defaultImage)
+            return
         }
+        
+        viewModel.loadImage(from: imageName)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] image in
+                self?.setImageToCell(image: image)
+            }, onError: { error in
+                // 에러 처리: 로딩 실패 시 기본 이미지 사용
+                let defaultImage = UIImage(systemName: "person.fill")
+                self.setImageToCell(image: defaultImage)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func setImageToCell(image: UIImage?) {
+        guard let image = image, let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileImageCell else { return }
+        cell.setImage(image)
     }
     
     private func confirmWithdrawal() {
@@ -141,6 +163,7 @@ class EditProfileViewController: BaseViewController {
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         alert.addAction(UIAlertAction(title: "확인", style: .destructive, handler: { [weak self] _ in
             self?.viewModel.withdraw()
+            self?.navigationController?.popViewController(animated: true)
         }))
         present(alert, animated: true)
     }

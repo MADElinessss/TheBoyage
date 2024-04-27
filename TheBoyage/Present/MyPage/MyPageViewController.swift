@@ -130,23 +130,19 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         if indexPath.section == 0 {
-            return CGSize(width: width, height: 200)
+            return CGSize(width: width, height: 170)
         } else {
             if feedImages.isEmpty {
                 return CGSize(width: width, height: 100)
             } else {
-                return CGSize(width: 150, height: 150)
+                return CGSize(width: 170, height: 170)
             }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        if indexPath.section == 0 {
-//            
-//        } else {
-//            
-//        }
-        return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+
+        return UIEdgeInsets(top: 10, left: 24, bottom: 10, right: 24)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -154,6 +150,6 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 0
     }
 }

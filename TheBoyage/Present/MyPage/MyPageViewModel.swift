@@ -50,30 +50,7 @@ class MyPageViewModel: ViewModelType {
             .asObservable()
             .compactMap { $0 }
     }
-//    
-//    func fetchFeed() -> Observable<MyProfileModel> {
-//        
-//        return MyProfileNetworkManager.fetchMyProfile()
-//            .asObservable()
-//            .do(onNext: { response in
-//                print("🥹response: \(response)")
-//            }, onError: { [weak self] error in
-//                print("🥹feed Error \(error.localizedDescription)")
-//                if let afError = error as? AFError, afError.isResponseSerializationError {
-//                    
-//                    if let statusCode = afError.responseCode {
-//                        print("-------- error \(statusCode)------------")
-//                        switch statusCode {
-//                        case 403, 419:  // 토큰 만료
-//                            self?.loginRequired.onNext(true)
-//                        default:
-//                            break  // 다른 상태 코드에 대한 처리는 필요에 따라 추가
-//                        }
-//                    }
-//                }
-//            })
-//    }
-//    
+
     func fetchFeed(id: String) -> Observable<Posts> {
         return FetchPostsNetworkManager.fetchSpecificPost(id: id)
             .asObservable()
@@ -100,7 +77,7 @@ class MyPageViewModel: ViewModelType {
     private func loadImage(from imageName: String?) -> Observable<UIImage> {
         guard let imageName = imageName,
               let url = URL(string: APIKey.baseURL.rawValue + "/v1/" + imageName) else {
-            return .just(UIImage(systemName: "airplane.departure")!)  // 기본 이미지로 대체
+            return .just(UIImage(systemName: "airplane.departure")!)
         }
         
         return Observable<UIImage>.create { observer in

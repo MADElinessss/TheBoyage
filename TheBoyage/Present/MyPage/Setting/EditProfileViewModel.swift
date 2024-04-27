@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import PhotosUI
+import Kingfisher
 
 class EditProfileViewModel: ViewModelType {
     var disposeBag = DisposeBag()
@@ -31,9 +32,9 @@ class EditProfileViewModel: ViewModelType {
     
     private let profileDataSubject = BehaviorSubject<MyProfileModel?>(value: nil)
     private let selectedImageSubject = BehaviorSubject<UIImage?>(value: nil)
-    private let uploadResultSubject = PublishSubject<Bool>()
+    let uploadResultSubject = PublishSubject<Bool>()
     private let withdrawalResultSubject = PublishSubject<Bool>()
-    
+ 
     func withdraw() {
         withdrawalResultSubject.onNext(true)
     }
@@ -41,11 +42,12 @@ class EditProfileViewModel: ViewModelType {
     func transform(_ input: Input) -> Output {
         
         input.viewLoaded
-            .flatMapLatest { _ -> Observable<MyProfileModel> in
+            .flatMapLatest { profile -> Observable<MyProfileModel> in
                 MyProfileNetworkManager.fetchMyProfile()
                     .asObservable()
                     //.catchAndReturn(nil)
             }
+            
             .bind(to: profileDataSubject)
             .disposed(by: disposeBag)
         
@@ -65,9 +67,9 @@ class EditProfileViewModel: ViewModelType {
             .withLatestFrom(Observable.combineLatest(input.name, input.phoneNumber, input.birthDate, input.imageSelected))
             .flatMapLatest { name, phone, birthDate, image -> Observable<Bool> in
                 let dateString = FormatterManager.shared.formatDateWithDayToString(date: birthDate)
-                // TODO: imageData -> url upload 써
                 guard let imageData = image.jpegData(compressionQuality: 0.5) else { return Observable.just(false) }
                 let profile = EditProfileQuery(nick: name, phoneNum: phone, birthDay: dateString, profile: imageData)
+                print("profile status: ", phone, dateString)
                 return MyProfileNetworkManager.editMyProfile(query: profile)
                     .asObservable()  // Single을 Observable로 변환
                     .debug("saveButtonTapped")
@@ -103,6 +105,40 @@ class EditProfileViewModel: ViewModelType {
             .map { withdrawalModel -> Bool in
                 true
             }
+    }
+    
+    func loadImage(from imageName: String?) -> Observable<UIImage> {
+        guard let imageName = imageName,
+              let url = URL(string: APIKey.baseURL.rawValue + "/v1/" + imageName) else {
+            return .just(UIImage())
+        }
+        
+        return Observable<UIImage>.create { observer in
+            let header = AnyModifier { request in
+                var request = request
+                request.setValue(UserDefaults.standard.string(forKey: "AccessToken") ?? "", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+                request.setValue(APIKey.sesacKey.rawValue, forHTTPHeaderField: HTTPHeader.sesacKey.rawValue)
+                return request
+            }
+            
+            let task = KingfisherManager.shared.retrieveImage(
+                with: .network(url),
+                options: [.requestModifier(header)],
+                completionHandler: { result in
+                    switch result {
+                    case .success(let value):
+                        observer.onNext(value.image)
+                        observer.onCompleted()
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                }
+            )
+            
+            return Disposables.create {
+                task?.cancel() // 다운로드 작업 취소
+            }
+        }
     }
 
 }
