@@ -62,8 +62,6 @@ class MyPageViewController: BaseViewController {
                 }
             )
             .disposed(by: viewModel.disposeBag)
-        
-        
     }
     
     private func configureNavigation() {

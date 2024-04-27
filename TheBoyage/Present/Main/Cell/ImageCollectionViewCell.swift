@@ -18,9 +18,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     let profileView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .blue
+        imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 20
         return imageView
     }()
@@ -102,15 +102,18 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let input = FeedViewModel.Input(post: post)
         let output = viewModel.transform(input)
         
-        print("Configuring cell with post ID: \(post.post_id)")
-        
         output.feedImage
             .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
             .drive(feedImageView.rx.image)
             .disposed(by: disposeBag)
         
+        viewModel.imageLoadedCallback = { [weak self] image in
+            self?.profileView.image = image
+        }
+        
         output.profileImage
             .asDriver(onErrorJustReturn: UIImage(systemName: "person.fill")!)
+            .debug("🚨")
             .drive(profileView.rx.image)
             .disposed(by: disposeBag)
         
@@ -118,11 +121,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         titleLabel.text = post.title
         contentLabel.text = post.content
         
-        // TODO: 내 글이냐 아니냐 <- 닉네임으로 해야되나?
         configureMenuButton(postId: post.post_id, currentUserId: UserDefaults.standard.string(forKey: "UserId") ?? "", postOwnerId: post.creator.user_id)
-        print("---------내 글이냐? 나는: \(UserDefaults.standard.string(forKey: "UserId") ?? "") 이 글은: \(post.creator.user_id)-------------")
-        
-        
     }
     
     private func configureView() {

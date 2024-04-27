@@ -17,6 +17,7 @@ class FeedViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     var post: Posts?
+    var imageLoadedCallback: ((UIImage) -> Void)?
     
     struct Input {
         let post: Posts
@@ -40,10 +41,11 @@ class FeedViewModel: ViewModelType {
     private func loadImage(from imageName: String?) -> Observable<UIImage> {
         
         guard let imageName = imageName,
-              let url = URL(string: APIKey.baseURL.rawValue + "/v1/" + imageName) else {
-            return .just(UIImage(systemName: "airplane.departure")!)
+              let url = URL(string: APIKey.baseURL.rawValue + "/v1/" + imageName)
+        else {
+            return .just(UIImage(systemName: "person.fill")!)
         }
-
+        
         return Observable<UIImage>.create { observer in
             let header = AnyModifier { request in
                 var request = request
@@ -58,17 +60,17 @@ class FeedViewModel: ViewModelType {
                 completionHandler: { result in
                     switch result {
                     case .success(let value):
+                        print("🚨🚨", value)
                         observer.onNext(value.image)
                         observer.onCompleted()
+                        self.imageLoadedCallback?(value.image)
                     case .failure(let error):
                         observer.onError(error)
                     }
                 }
             )
             
-            return Disposables.create {
-                task?.cancel() // 다운로드 작업 취소
-            }
+            return Disposables.create()
         }
     }
     
