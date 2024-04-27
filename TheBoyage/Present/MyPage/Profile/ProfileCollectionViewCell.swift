@@ -26,6 +26,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         view.layer.borderWidth = 0.5
         view.clipsToBounds = true
         view.layer.cornerRadius = 50
+        view.contentMode = .scaleAspectFit
         return view
     }()
     

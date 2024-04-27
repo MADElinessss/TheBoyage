@@ -105,31 +105,7 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
         configureView()
     }
-    
-//    func configure(with viewModel: FeedViewModel, post: Posts) {
-//        self.viewModel = viewModel
-//        let input = FeedViewModel.Input(post: post)
-//        let output = viewModel.transform(input)
-//        
-//        output.feedImage
-//            .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
-//            .drive(feedImageView.rx.image)
-//            .disposed(by: disposeBag)
-//        
-//        output.profileImage
-//            .asDriver(onErrorJustReturn: UIImage(systemName: "person.fill")!)
-//            .drive(profileView.rx.image)
-//            .disposed(by: disposeBag)
-//        
-//        topUserNameLabel.text = post.creator.nick
-//        titleLabel.text = post.title
-//        contentLabel.text = post.content
-//        
-//        // TODO: 내 글이냐 아니냐 <- 닉네임으로 해야되나?
-//        configureMenuButton(currentUserId: UserDefaults.standard.string(forKey: "UserId") ?? "", postOwnerId: post.creator.user_id)
-//        print("---------내 글이냐? 나는: \(UserDefaults.standard.string(forKey: "UserId") ?? "") 이 글은: \(post.creator.user_id)-------------")
-//    }
-    
+   
     private func configureView() {
         contentView.addSubview(profileView)
         contentView.addSubview(topUserNameLabel)

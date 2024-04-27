@@ -36,17 +36,20 @@ struct MyProfileNetworkManager {
         return Single<EditProfileModel>.create { single in
             do {
                 let urlRequest = try MyPageRouter.editProfile(query: query).asURLRequest()
-                AF.request(urlRequest)
-                    .responseDecodable(of: EditProfileModel.self) { response in
-                        print("status code = ", response.response?.statusCode)
-                        print("status code = ", response)
-                        switch response.result {
-                        case .success(let success):
-                            single(.success(success))
-                        case .failure(let error):
-                            single(.failure(error))
-                        }
+                
+                // upload
+                AF.upload(multipartFormData: { multipartFormData in
+                    multipartFormData
+                        .append(query.profile!, withName: "profile", fileName: "profileImage.jpeg", mimeType: "image/jpeg")
+                }, with: urlRequest)
+                .responseDecodable(of: EditProfileModel.self) { response in
+                    switch response.result {
+                    case .success(let success):
+                        single(.success(success))
+                    case .failure(let error):
+                        single(.failure(error))
                     }
+                }
             } catch {
                 single(.failure(error))
             }
