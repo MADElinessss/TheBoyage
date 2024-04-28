@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class DetailPostView: BaseView {
+class DetailPostView: BaseView, UITextFieldDelegate {
 
     var disposeBag = DisposeBag()
     
@@ -40,10 +40,19 @@ class DetailPostView: BaseView {
         return button
     }()
     
+    let textField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "댓글을 입력하세요..."
+        textField.returnKeyType = .done
+        textField.borderStyle = .roundedRect
+        return textField
+    }()
+
     override func configureView() {
         
         addSubview(collectionView)
         addSubview(toolbar)
+        addSubview(textField)
         
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
         
@@ -54,14 +63,25 @@ class DetailPostView: BaseView {
         toolbar.setItems([flexSpace, likeItem, flexSpace, commentItem, flexSpace], animated: false)
         
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        
+        // MARK: Comment Related
+        textField.isHidden = true
+        textField.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
     
     @objc private func likeButtonTapped() {
-        // Like button action
+        likeButton.isSelected.toggle()
+        let imageName = likeButton.isSelected ? "heart.fill" : "heart" 
+        likeButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
 
     @objc private func commentButtonTapped() {
-        // Comment button action
+        textField.isHidden = false
+        textField.becomeFirstResponder()
     }
     
     override func configureHierarchy() {
@@ -75,7 +95,42 @@ class DetailPostView: BaseView {
             make.height.equalTo(50)
         }
     }
-
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            UIView.animate(withDuration: 0.3) {
+                self.toolbar.snp.remakeConstraints { make in
+                    make.left.right.equalToSuperview()
+                    make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(keyboardSize.height + 16)
+                    make.height.equalTo(50)
+                }
+                self.textField.snp.remakeConstraints { make in
+                    make.left.right.equalToSuperview()
+                    make.top.equalTo(self.toolbar.snp.bottom)
+                    make.height.equalTo(50)
+                }
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        UIView.animate(withDuration: 0.3) {
+            self.toolbar.snp.remakeConstraints { make in
+                make.left.right.equalToSuperview()
+                make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(16)
+                make.height.equalTo(50)
+            }
+            self.textField.isHidden = true
+            self.layoutIfNeeded()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     static func layout() -> UICollectionViewFlowLayout {
         
         let layout = UICollectionViewFlowLayout()
