@@ -140,8 +140,7 @@ class EditProfileViewController: BaseViewController {
             setImageToCell(image: defaultImage)
             return
         }
-        
-        viewModel.loadImage(from: imageName)
+        ImageService.shared.loadImage(from: imageName)
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] image in
                 self?.setImageToCell(image: image)
