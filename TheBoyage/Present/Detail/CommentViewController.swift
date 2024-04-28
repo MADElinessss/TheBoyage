@@ -10,7 +10,7 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
-class CommentViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource {
+class CommentViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var comments: [CommentModel] = []
     
@@ -28,14 +28,18 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
     
     var viewModel = CommentViewModel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
         setupKeyboardNotifications()
         textField.becomeFirstResponder()
-        tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "CommentCell")
-        
+        setupGesture()
     }
     
     override func bind() {
@@ -57,7 +61,9 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
         view.addSubview(tableView)
         view.addSubview(textField)
         
+        tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.identifier)
         
         configureTextField()
     }
@@ -65,7 +71,7 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
     private func setupConstraints() {
         textField.snp.makeConstraints { make in
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(10)
-            //make.bottom.equalTo(view.safeAreaLayoutGuide).inset(200)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(200)
             make.height.equalTo(50)
         }
         
@@ -92,7 +98,6 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
     
     private func configureTextField() {
         
-        textField.isHidden = true
         textField.delegate = self
         textField.borderStyle = .roundedRect
         
@@ -119,23 +124,24 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
     }
     
     @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            textField.snp.remakeConstraints { make in
-                make.bottom.equalToSuperview().inset(keyboardSize.height + 10)
-                make.left.right.equalTo(view.safeAreaLayoutGuide).inset(10)
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        UIView.animate(withDuration: 0.3) {
+            self.textField.snp.remakeConstraints { make in
+                make.left.right.equalTo(self.view.safeAreaLayoutGuide).inset(10)
+                make.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(keyboardSize.height)
                 make.height.equalTo(50)
             }
-        }
-        UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
     }
-    
+
     @objc func keyboardWillHide(notification: Notification) {
-        textField.snp.remakeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
-        }
         UIView.animate(withDuration: 0.3) {
+            self.textField.snp.remakeConstraints { make in
+                make.left.right.equalTo(self.view.safeAreaLayoutGuide).inset(10)
+                make.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(10)
+                make.height.equalTo(50)
+            }
             self.view.layoutIfNeeded()
         }
     }
@@ -145,6 +151,20 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
         return true
     }
     
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    
+    private func configureNavigation() {
+        configureNavigationBar(title: "여행기 댓글", leftBarButton: nil, rightBarButton: nil)
+    }
 }
 
 extension CommentViewController {
@@ -153,12 +173,22 @@ extension CommentViewController {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as? CommentTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier, for: indexPath) as? CommentTableViewCell else {
             return UITableViewCell()
         }
         
         let comment = comments[indexPath.row]
         cell.configure(with: comment)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let comment = comments[indexPath.row]
+        let approximateWidthOfContent = tableView.frame.width - 20
+        let size = CGSize(width: approximateWidthOfContent, height: 1000)
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        let estimatedFrame = NSString(string: comment.content).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        
+        return max(100, estimatedFrame.height + 20)
     }
 }

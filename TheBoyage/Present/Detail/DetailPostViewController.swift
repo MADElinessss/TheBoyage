@@ -9,16 +9,18 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class DetailPostViewController: BaseViewController {
+class DetailPostViewController: UIViewController {
     
     let mainView = DetailPostView()
     var post: Posts?
     let viewModel = DetailViewModel()
+    var disposeBag = DisposeBag()
     
     override func loadView() {
         view = mainView
     }
     
+    // MARK: TabBar 숨기기
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
@@ -31,13 +33,15 @@ class DetailPostViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configureView()
         mainView.collectionView.dataSource = nil
-
         bind()
     }
     
-    override func bind() {
+    func bind() {
+        // 화면 전환 2번될 때 <- 가방 재할당
+        disposeBag = DisposeBag()
         guard let post = post else { return }
 
         mainView.collectionView.visibleCells.forEach {
@@ -60,27 +64,21 @@ class DetailPostViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         mainView.commentButtonTap
-                .subscribe(onNext: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.showCommentViewController()
-                })
-                .disposed(by: disposeBag)
-    }
-    
-    private func showCommentViewController() {
-        guard let post = post else { return }
-        let commentVC = CommentViewController()
-        commentVC.comments = post.comments
-        navigationController?.pushViewController(commentVC, animated: true)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self, let post = self.post else { return }
+                let commentVC = CommentViewController()
+                commentVC.comments = post.comments
+                self.navigationController?.pushViewController(commentVC, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 
     func configureView() {
         configureNavigation()
         mainView.collectionView.register(DetailPostCollectionViewCell.self, forCellWithReuseIdentifier: DetailPostCollectionViewCell.identifier)
-            
     }
     
     private func configureNavigation() {
-        configureNavigationBar(title: "Travel Feed", leftBarButton: nil, rightBarButton: nil)
+        self.navigationItem.title = "Travel Feed"
     }
 }

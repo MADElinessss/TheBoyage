@@ -75,9 +75,6 @@ class DetailPostView: BaseView, UITextFieldDelegate {
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
     
         // MARK: ToolBar Related
-        
-        
-        
         let likeItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(likeButtonTapped))
         let commentItem = UIBarButtonItem(image: UIImage(systemName: "bubble.left"), style: .plain, target: self, action: #selector(commentButtonTapped))
         let shareItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonTapped))
@@ -90,11 +87,9 @@ class DetailPostView: BaseView, UITextFieldDelegate {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         toolbar.setItems([likeItem, likeCountItem, paddingItem, commentItem, commentCountItem, flexSpace, flexSpace, shareItem], animated: false)
-        
     }
     
     @objc private func commentButtonTapped() {
-        
         commentButtonTap.onNext(())
     }
     

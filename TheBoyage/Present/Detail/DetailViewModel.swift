@@ -45,5 +45,4 @@ class DetailViewModel: ViewModelType {
             print("Error: \(error)")
         }).disposed(by: disposeBag)
     }
-
 }

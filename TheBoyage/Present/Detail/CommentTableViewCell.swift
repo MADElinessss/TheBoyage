@@ -25,7 +25,7 @@ class CommentTableViewCell: BaseTableViewCell {
         let view = UILabel()
         view.text = "트래블러 님"
         view.font = .systemFont(ofSize: 18, weight: .semibold)
-        view.textColor = .white
+        view.textColor = .point
         return view
     }()
     
@@ -60,15 +60,35 @@ class CommentTableViewCell: BaseTableViewCell {
         contentView.addSubview(createdAtLabel)
         contentView.addSubview(contentLabel)
         
+        profileView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().inset(16)
+            make.size.equalTo(30)
+        }
         
-        //        let date = FormatterManager.shared.formatDateType(post.createdAt)
-        //        createdAtLabel.text = date
+        userNmaeLabel.snp.makeConstraints { make in make.top.equalToSuperview().inset(20)
+            make.leading.equalTo(profileView.snp.trailing).offset(8)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(profileView.snp.bottom).offset(8)
+        }
+        
+        createdAtLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(contentLabel.snp.bottom).offset(8)
+        }
+        
+        contentLabel.numberOfLines = 0
+        
     }
     
     func configure(with comment: CommentModel) {
         contentLabel.text = comment.content
         userNmaeLabel.text = comment.creator.nick
-        createdAtLabel.text = comment.createdAt
+        let date = FormatterManager.shared.formatDateType(comment.createdAt)
+        createdAtLabel.text = date
         loadProfileImage(imageName: comment.creator.profileImage)
     }
     
@@ -78,6 +98,7 @@ class CommentTableViewCell: BaseTableViewCell {
                 self?.profileView.image = image
             }, onError: { error in
                 print("Failed to load image: \(error)")
+                self.profileView.image = UIImage(systemName: "person.fill")
             })
             .disposed(by: disposeBag)
     }
