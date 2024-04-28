@@ -12,8 +12,10 @@ class CommentViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     let commentSubmitted = PublishSubject<(String, String)>() // (Post ID, Comment Content)
+    let commentsUpdated = PublishSubject<Void>()
     
     struct Input {
+        let postId: String
         let commentText: Observable<String>
         let submitComment: Observable<Void>
     }
@@ -26,9 +28,8 @@ class CommentViewModel: ViewModelType {
         let result = input.submitComment
             .withLatestFrom(input.commentText)
             .flatMapLatest { [weak self] commentText -> Observable<String> in
-                guard let self = self else { return .just("Failure") }
-                let postId = "123" // This should be dynamically set based on the context
-                return self.submitComment(postId: postId, commentText: commentText)
+                guard let self = self else { return .just("error") }
+                return self.submitComment(postId: input.postId, commentText: commentText)
             }
         
         return Output(result: result)
@@ -39,9 +40,12 @@ class CommentViewModel: ViewModelType {
         
         return PostInteractionNetworkManager.postComment(id: postId, query: commentQuery)
             .map { response -> String in
+                self.commentsUpdated.onNext(())
                 return "Success: \(response)"
             }
-            .catchAndReturn("Failed to post comment")
+            .catch { error in
+                    .just("Failed to post comment: \(error.localizedDescription)")
+            }
             .asObservable()
     }
 }

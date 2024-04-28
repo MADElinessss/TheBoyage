@@ -106,6 +106,18 @@ class DetailPostView: BaseView, UITextFieldDelegate {
     
     @objc private func shareButtonTapped() {
         // TODO: 공유 기능
+        // Example data to share
+        let textToShare = "Check out this post!"
+        let items: [Any] = [textToShare]
+        
+        // Create the activity view controller
+        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        
+        // Present the activity view controller
+        if let topController = UIApplication.shared.windows.first?.rootViewController {
+            activityViewController.popoverPresentationController?.sourceView = topController.view // so that iPads won't crash
+            topController.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
     override func configureHierarchy() {

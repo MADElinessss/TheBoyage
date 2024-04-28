@@ -14,6 +14,8 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
     
     var comments: [CommentModel] = []
     
+    var postId: String!
+    
     private let tableView = UITableView()
     
     let textField: UITextField = {
@@ -43,7 +45,9 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
     }
     
     override func bind() {
+        guard let postId = postId else { return }
         let input = CommentViewModel.Input(
+            postId: postId,
             commentText: textField.rx.text.orEmpty.asObservable(),
             submitComment: actionButton.rx.tap.asObservable()
         )
@@ -51,6 +55,7 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
         let output = viewModel.transform(input)
         
         output.result
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { result in
                 print(result) // 결과 로깅
             })
@@ -81,21 +86,6 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
         }
     }
     
-    //    override func bind() {
-    //
-    //        let commentTextObservable = textField.rx.text.orEmpty.asObservable()
-    //
-    //        actionButton.rx.tap
-    //            .withLatestFrom(commentTextObservable)
-    //            .subscribe(onNext: { [weak self] commentText in
-    //                guard let self = self else { return }
-    //                self.viewModel.commentSubmitted.onNext((post.post_id, commentText))
-    //                self.viewModel.postComment()
-    //                textField.resignFirstResponder()
-    //            })
-    //            .disposed(by: disposeBag)
-    //    }
-    
     private func configureTextField() {
         
         textField.delegate = self
@@ -114,7 +104,6 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
     }
     
     @objc func sendComment() {
-        // 댓글 전송 로직
         textField.resignFirstResponder()
     }
     
@@ -128,7 +117,7 @@ class CommentViewController: BaseViewController, UITextFieldDelegate, UITableVie
         UIView.animate(withDuration: 0.3) {
             self.textField.snp.remakeConstraints { make in
                 make.left.right.equalTo(self.view.safeAreaLayoutGuide).inset(10)
-                make.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(keyboardSize.height)
+                make.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(keyboardSize.height - 10)
                 make.height.equalTo(50)
             }
             self.view.layoutIfNeeded()

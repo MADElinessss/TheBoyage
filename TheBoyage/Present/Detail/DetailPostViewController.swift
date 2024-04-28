@@ -68,6 +68,7 @@ class DetailPostViewController: UIViewController {
                 guard let self = self, let post = self.post else { return }
                 let commentVC = CommentViewController()
                 commentVC.comments = post.comments
+                commentVC.postId = post.post_id
                 self.navigationController?.pushViewController(commentVC, animated: true)
             })
             .disposed(by: disposeBag)
