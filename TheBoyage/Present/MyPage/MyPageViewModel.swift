@@ -68,7 +68,8 @@ class MyPageViewModel: ViewModelType {
             fetchFeed(id: postID)
                 .flatMap { post -> Observable<[UIImage]> in
                     let imageLoadObservables = post.files.map { fileName in
-                        self.loadImage(from: fileName)
+                        // self.loadImage(from: fileName)
+                        ImageService.shared.loadImage(from: fileName)
                     }
                     return Observable.zip(imageLoadObservables)
                 }

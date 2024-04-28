@@ -96,6 +96,7 @@
 		C17E50412BDCF44F00FB24B5 /* BMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50402BDCF44F00FB24B5 /* BMainViewController.swift */; };
 		C17E50432BDCF47700FB24B5 /* BMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50422BDCF47700FB24B5 /* BMainView.swift */; };
 		C17E50452BDCFA5400FB24B5 /* BMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50442BDCFA5400FB24B5 /* BMainViewModel.swift */; };
+		C17E50482BDE0F3D00FB24B5 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50472BDE0F3D00FB24B5 /* ImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,6 +184,7 @@
 		C17E50402BDCF44F00FB24B5 /* BMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMainViewController.swift; sourceTree = "<group>"; };
 		C17E50422BDCF47700FB24B5 /* BMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMainView.swift; sourceTree = "<group>"; };
 		C17E50442BDCFA5400FB24B5 /* BMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMainViewModel.swift; sourceTree = "<group>"; };
+		C17E50472BDE0F3D00FB24B5 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +245,7 @@
 		C1024A792BC7963C0082EF13 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C17E50462BDE0F2D00FB24B5 /* Service */,
 				C1754C1E2BD2378500728142 /* Router */,
 				C1024A942BC803800082EF13 /* Model */,
 				C1024A7C2BC797A60082EF13 /* APIKey.swift */,
@@ -253,7 +256,6 @@
 				C1754C232BD23A5300728142 /* FetchPostsNetworkManager.swift */,
 				C1754C292BD412FF00728142 /* NetworkInterceptor.swift */,
 				C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */,
-				C1754C722BD817CE00728142 /* NetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -509,6 +511,15 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
+		C17E50462BDE0F2D00FB24B5 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C1754C722BD817CE00728142 /* NetworkService.swift */,
+				C17E50472BDE0F3D00FB24B5 /* ImageService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -598,6 +609,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1754BE72BCFC3BA00728142 /* FeedView.swift in Sources */,
+				C17E50482BDE0F3D00FB24B5 /* ImageService.swift in Sources */,
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
 				C1754C262BD23A8E00728142 /* FetchModel.swift in Sources */,
 				C1754C3C2BD4FFD500728142 /* SettingView.swift in Sources */,

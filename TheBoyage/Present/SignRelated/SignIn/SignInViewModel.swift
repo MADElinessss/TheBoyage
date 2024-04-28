@@ -34,7 +34,8 @@ class SignInViewModel: ViewModelType {
         let signInObservable = Observable
             .combineLatest(input.emailText, input.passwordText)
             .map { email, password in
-                return LoginQuery(email: email, password: password)
+                // 공백 없애주기
+                return LoginQuery(email: email.trimmingCharacters(in: .whitespacesAndNewlines), password: password)
             }
            
         signInObservable
@@ -49,14 +50,19 @@ class SignInViewModel: ViewModelType {
         
         input.signInButtonTapped
             .withLatestFrom(signInObservable)
-            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .debug("2")
+            //.debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .debug("3")
             .flatMapLatest { loginQuery in
                 return LoginNetworkManager.createLogin(query: loginQuery)
                     .asDriver(onErrorJustReturn: LoginModel(accessToken: "", refreshToken: "", user_id: ""))
             }
+            .debug("4")
             .subscribe(with: self) { owner, loginModel in
                 if !loginModel.accessToken.isEmpty {
                     signInSuccess.accept(())
+                } else {
+                    print("Login failed: No access token")
                 }
                 // signInSuccess.accept(())
             } onError: { owner, error in

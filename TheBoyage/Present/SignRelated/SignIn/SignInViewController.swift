@@ -51,7 +51,17 @@ class SignInViewController: BaseViewController {
                 print("👩🏻‍🚒 view - sbt")
                 let vc = SignUpViewController()
                 owner.navigationController?.pushViewController(vc, animated: true)
-            }).disposed(by: disposeBag)
+            }, onError: { _,_ in
+                AlertManager.shared.showOkayAlert(on: self, title: "로그인에 실패하였습니다.", message: "아이디나 비밀번호를 다시 확인해주세요.") {
+                    
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        output.signInValidation
+            .drive(mainView.signInButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+
         
     }
     
