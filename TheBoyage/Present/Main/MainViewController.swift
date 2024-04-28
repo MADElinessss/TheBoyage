@@ -58,6 +58,7 @@ class MainViewController: BaseViewController {
             .map { $0.data }
             .do(onNext: { [weak self] posts in
                 self?.feed = posts // feed 배열을 갱신
+                self?.mainView.feed.collectionView.reloadData()
             })
             .bind(to: mainView.feed.collectionView.rx.items(cellIdentifier: ImageCollectionViewCell.identifier, cellType: ImageCollectionViewCell.self)) { row, element, cell in
                 let viewModel = FeedViewModel()

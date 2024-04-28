@@ -105,6 +105,8 @@
 		C17E50552BDE48D600FB24B5 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50542BDE48D600FB24B5 /* CommentViewController.swift */; };
 		C17E50572BDE4A2300FB24B5 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50562BDE4A2300FB24B5 /* CommentTableViewCell.swift */; };
 		C17E50592BDE957500FB24B5 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50582BDE957500FB24B5 /* CommentViewModel.swift */; };
+		C17E505B2BDEBE5000FB24B5 /* HashTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E505A2BDEBE5000FB24B5 /* HashTagCollectionViewCell.swift */; };
+		C17E505D2BDEBEC400FB24B5 /* HashTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E505C2BDEBEC400FB24B5 /* HashTagView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -201,6 +203,8 @@
 		C17E50542BDE48D600FB24B5 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		C17E50562BDE4A2300FB24B5 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		C17E50582BDE957500FB24B5 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		C17E505A2BDEBE5000FB24B5 /* HashTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		C17E505C2BDEBEC400FB24B5 /* HashTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +426,8 @@
 				C1754C272BD3E41E00728142 /* MagazineCellViewModel.swift */,
 				C1754C642BD76DB300728142 /* FeedViewModel.swift */,
 				C1754C6E2BD7DADC00728142 /* ImageCollectionViewCell.swift */,
+				C17E505A2BDEBE5000FB24B5 /* HashTagCollectionViewCell.swift */,
+				C17E505C2BDEBEC400FB24B5 /* HashTagView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -641,7 +647,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1754BE72BCFC3BA00728142 /* FeedView.swift in Sources */,
+				C17E505B2BDEBE5000FB24B5 /* HashTagCollectionViewCell.swift in Sources */,
 				C17E50482BDE0F3D00FB24B5 /* ImageService.swift in Sources */,
+				C17E505D2BDEBEC400FB24B5 /* HashTagView.swift in Sources */,
 				C17E50512BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift in Sources */,
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
 				C17E50532BDE2BDC00FB24B5 /* PostInteractionModel.swift in Sources */,
