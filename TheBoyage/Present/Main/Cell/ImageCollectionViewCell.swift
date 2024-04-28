@@ -67,6 +67,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         view.text = "title"
         view.font = .systemFont(ofSize: 16, weight: .bold)
         view.textColor = .point
+        view.numberOfLines = 2
         return view
     }()
     
@@ -75,6 +76,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         view.text = "content"
         view.font = .systemFont(ofSize: 14, weight: .medium)
         view.textColor = .point
+        view.numberOfLines = 3
         return view
     }()
     
@@ -135,7 +137,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         profileView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
-            make.leading.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().inset(8)
             make.size.equalTo(40)
         }
         
@@ -146,19 +148,19 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         menuButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(24)
-            make.trailing.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(8)
         }
         
         feedImageView.snp.makeConstraints { make in
             make.top.equalTo(profileView.snp.bottom).offset(16)
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview()
             make.width.equalTo(165)
             make.height.equalTo(300)
         }
         
         likeButton.snp.makeConstraints { make in
             make.top.equalTo(feedImageView.snp.bottom).offset(8)
-            make.leading.equalToSuperview().inset(16)
+            make.leading.equalToSuperview()
             make.size.equalTo(35)
         }
         
@@ -170,12 +172,12 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(likeButton.snp.bottom).offset(8)
-            make.leading.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(8)
         }
         
         contentLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(8)
         }
     }
     

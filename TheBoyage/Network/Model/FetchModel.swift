@@ -9,6 +9,7 @@ import Foundation
 
 struct FetchModel: Decodable {
     var data: [Posts]
+    var next_cursor: String?
 }
 
 struct Posts: Decodable {

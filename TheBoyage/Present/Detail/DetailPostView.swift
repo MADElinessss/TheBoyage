@@ -17,6 +17,7 @@ class DetailPostView: BaseView, UITextFieldDelegate {
     let collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
         collectionView.showsHorizontalScrollIndicator = true
+        collectionView.isScrollEnabled = true
         return collectionView
     }()
     
@@ -119,7 +120,10 @@ class DetailPostView: BaseView, UITextFieldDelegate {
     
     override func configureHierarchy() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+//            make.edges.equalToSuperview()
+            make.top.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(toolbar.snp.top)
         }
         
         toolbar.snp.makeConstraints { make in
@@ -134,7 +138,7 @@ class DetailPostView: BaseView, UITextFieldDelegate {
         let layout = UICollectionViewFlowLayout()
         
         let width = (UIScreen.main.bounds.width - 36)
-        layout.itemSize = CGSize(width: width, height: width*1.5)
+        layout.itemSize = CGSize(width: width, height: UIScreen.main.bounds.height)
         layout.minimumLineSpacing = 8
         layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 16, right: 0)
         layout.scrollDirection = .vertical

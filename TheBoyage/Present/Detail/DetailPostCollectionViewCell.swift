@@ -77,6 +77,7 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         view.text = "title"
         view.font = .systemFont(ofSize: 18, weight: .bold)
         view.textColor = .point
+        view.numberOfLines = 2
         return view
     }()
     
@@ -165,7 +166,7 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
 
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
-            make.leading.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
         }
         
         profileView.snp.makeConstraints { make in
@@ -197,7 +198,7 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         }
         
         contentLabel.snp.makeConstraints { make in
-            make.top.equalTo(feedImageView.snp.bottom).offset(8)
+            make.top.equalTo(feedImageView.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
         }
     }

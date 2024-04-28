@@ -14,6 +14,7 @@ import UIKit
 class MainViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
+    let nextCursor = BehaviorSubject<String?>(value: nil)
     
     struct Input {
         
@@ -63,11 +64,18 @@ class MainViewModel: ViewModelType {
     }
     
     func fetchFeed() -> Observable<FetchModel> {
-        let fetchQuery = FetchPostQuery(limit: "3", product_id: "boyage_general")
+        let fetchQuery = FetchPostQuery(limit: "3", product_id: "boyage_general", next: nil)
         return FetchPostsNetworkManager.fetchPostWithRetry(query: fetchQuery)
             .asObservable()
             .do(onNext: { response in
                 print("🥹response: \(response)")
+                if let newCursor = response.next_cursor {
+                    self.nextCursor.onNext(newCursor)
+                    print("다음 값 있음")
+                } else {
+                    self.nextCursor.onNext(nil)
+                    print("다음 값 없음")
+                }
             }, onError: { [weak self] error in
                 print("🥹feed Error \(error.localizedDescription)")
                 if let afError = error as? AFError, afError.isResponseSerializationError {
@@ -78,7 +86,7 @@ class MainViewModel: ViewModelType {
                         case 403, 419:  // 토큰 만료
                             self?.loginRequired.onNext(true)
                         default:
-                            break  // 다른 상태 코드에 대한 처리는 필요에 따라 추가
+                            break
                         }
                     }       
                 }

@@ -14,6 +14,7 @@ class MainViewController: BaseViewController {
     let mainView = MainView()
     let viewModel = MainViewModel()
     
+    var magazine: [Posts] = []
     var feed: [Posts] = []
     
     override func loadView() {
@@ -34,6 +35,7 @@ class MainViewController: BaseViewController {
         output.posts
             .map { $0.data }
             .subscribe(onNext: { [weak self] posts in
+                self?.magazine = posts
                 self?.mainView.magazine.posts = posts
                 self?.mainView.magazine.collectionView.reloadData()
             }, onError: { [weak self] error in
@@ -87,7 +89,7 @@ class MainViewController: BaseViewController {
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 if indexPath.section == 0 {
-                    let post = self.feed[indexPath.item]
+                    let post = self.magazine[indexPath.row]
                     let detailVC = DetailPostViewController()
                     detailVC.post = post
                     self.navigationController?.pushViewController(detailVC, animated: true)
