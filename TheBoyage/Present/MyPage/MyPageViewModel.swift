@@ -14,6 +14,7 @@ import Kingfisher
 class MyPageViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
+    var postIds: [String] = []
     
     struct Input {
     }
@@ -62,6 +63,7 @@ class MyPageViewModel: ViewModelType {
     }
     
     func fetchImages(from postIDs: [String]) -> Observable<[UIImage]> {
+        postIds = postIDs
         let imageObservables = postIDs.map { postID in
             fetchFeed(id: postID)
                 .flatMap { post -> Observable<[UIImage]> in
@@ -102,9 +104,8 @@ class MyPageViewModel: ViewModelType {
                 }
             )
             
-            return Disposables.create {
-                task?.cancel() // 다운로드 작업 취소
-            }
+            return Disposables.create()
         }
     }
+
 }

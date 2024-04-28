@@ -19,13 +19,7 @@ struct FetchPostsNetworkManager {
             do {
                 
                 let urlRequest = try MainRouter.managerPost(id: id, query: query).asURLRequest()
-                
-//                let url = URL(string: APIKey.baseURL.rawValue + "/v1/posts/users/\(id)?limit=7&product_id=boyage_general")!
-//                
-//                let headers: HTTPHeaders = [
-//                    HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
-//                    HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
-//                ]
+
                 session.request(urlRequest)
                     .responseDecodable(of: FetchModel.self) { response in
                         print("🐣 = ", response.response?.statusCode)
