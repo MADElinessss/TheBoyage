@@ -13,6 +13,7 @@ class DetailPostViewController: BaseViewController {
     
     let mainView = DetailPostView()
     var post: Posts?
+    let viewModel = DetailViewModel()
     
     override func loadView() {
         view = mainView
@@ -32,6 +33,8 @@ class DetailPostViewController: BaseViewController {
         super.viewDidLoad()
         configureView()
         mainView.collectionView.dataSource = nil
+//        mainView.collectionView.rx.setDelegate(self)
+//        mainView.collectionView.rx.setDataSource(self)
         bind()
     }
     
@@ -49,6 +52,19 @@ class DetailPostViewController: BaseViewController {
                 cell.bind(post: post)
             }
             .disposed(by: disposeBag)
+        
+//        let input = DetailViewModel.Input(post: post)
+//        let output = viewModel.transform(input)
+//        
+//        Observable.just([post])
+//            .bind(to: mainView.collectionView.rx.items(cellIdentifier: DetailPostCollectionViewCell.identifier, cellType: DetailPostCollectionViewCell.self)) { row, post, cell in
+//                cell.bind(post: post)
+//                output.image
+//                    .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
+//                    .drive(cell.feedImageView.rx.image)
+//                    .disposed(by: self.disposeBag)
+//            }
+//            .disposed(by: disposeBag)
     }
     
     func configureView() {

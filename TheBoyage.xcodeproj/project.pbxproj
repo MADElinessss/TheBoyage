@@ -97,6 +97,7 @@
 		C17E50432BDCF47700FB24B5 /* BMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50422BDCF47700FB24B5 /* BMainView.swift */; };
 		C17E50452BDCFA5400FB24B5 /* BMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50442BDCFA5400FB24B5 /* BMainViewModel.swift */; };
 		C17E50482BDE0F3D00FB24B5 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50472BDE0F3D00FB24B5 /* ImageService.swift */; };
+		C17E504A2BDE1EEC00FB24B5 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50492BDE1EEC00FB24B5 /* DetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -185,6 +186,7 @@
 		C17E50422BDCF47700FB24B5 /* BMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMainView.swift; sourceTree = "<group>"; };
 		C17E50442BDCFA5400FB24B5 /* BMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMainViewModel.swift; sourceTree = "<group>"; };
 		C17E50472BDE0F3D00FB24B5 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		C17E50492BDE1EEC00FB24B5 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -507,6 +509,7 @@
 				C17E50342BDA356D00FB24B5 /* DetailPostView.swift */,
 				C17E50362BDA357900FB24B5 /* DetailPostViewController.swift */,
 				C17E50382BDA41C000FB24B5 /* DetailPostCollectionViewCell.swift */,
+				C17E50492BDE1EEC00FB24B5 /* DetailViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				C17E50412BDCF44F00FB24B5 /* BMainViewController.swift in Sources */,
 				C1754C462BD575A000728142 /* EditProfileQuery.swift in Sources */,
 				C1754B832BCD612100728142 /* Extension+UINavigationController.swift in Sources */,
+				C17E504A2BDE1EEC00FB24B5 /* DetailViewModel.swift in Sources */,
 				C1024A832BC803060082EF13 /* LoginModel.swift in Sources */,
 				C178A8C32BCA653C007F1E3F /* EmailViewController.swift in Sources */,
 				C1754BCB2BCE672500728142 /* PostNetworkManager.swift in Sources */,

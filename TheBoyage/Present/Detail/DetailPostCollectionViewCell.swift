@@ -109,16 +109,31 @@ class DetailPostCollectionViewCell: UICollectionViewCell {
         updateContentLabel(text: post.content ?? "")
         contentLabel.text = post.content
         
-        if let imageURL = URL(string: post.files.first ?? "") {
-            feedImageView.kf.setImage(with: imageURL)
+        if let imageName = post.files.first {
+            ImageService.shared.loadImage(from: imageName)
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [weak self] image in
+                    self?.feedImageView.image = image
+                }, onError: { error in
+                    print("Error loading image: \(error)")
+                })
+                .disposed(by: disposeBag)
         }
         
-        // 유저 정보 설정
+        if let imageName = post.creator.profileImage {
+            ImageService.shared.loadImage(from: imageName)
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [weak self] image in
+                    self?.profileView.image = image
+                }, onError: { error in
+                    print("Error loading image: \(error)")
+                })
+                .disposed(by: disposeBag)
+        }
+    
         topUserNameLabel.text = post.creator.nick
         let date = FormatterManager.shared.formatDateType(post.createdAt)
         createdAtLabel.text = date
-        
-        
     }
     
     func updateContentLabel(text: String) {

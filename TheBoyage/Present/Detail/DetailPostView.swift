@@ -66,8 +66,9 @@ class DetailPostView: BaseView {
     
     override func configureHierarchy() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(16)
+            make.edges.equalToSuperview()
         }
+        
         toolbar.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview().inset(16)
