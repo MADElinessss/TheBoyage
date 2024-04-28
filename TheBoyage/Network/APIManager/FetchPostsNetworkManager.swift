@@ -22,7 +22,7 @@ struct FetchPostsNetworkManager {
 
                 session.request(urlRequest)
                     .responseDecodable(of: FetchModel.self) { response in
-                        print("🐣 = ", response.response?.statusCode)
+                        print("🐣 = ", response.response?.statusCode ?? "")
                         if let statusCode = response.response?.statusCode, statusCode == 419 {
                             single(.failure(URLError(.cancelled)))
                             // 419 상태 코드를 URLError.cancelled로 매핑

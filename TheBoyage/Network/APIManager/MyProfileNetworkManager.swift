@@ -16,8 +16,6 @@ struct MyProfileNetworkManager {
                 let urlRequest = try MyPageRouter.profile.asURLRequest()
                 AF.request(urlRequest)
                     .responseDecodable(of: MyProfileModel.self) { response in
-                        print("🍀 myprofile manager", response.response?.statusCode)
-                        print(response)
                         switch response.result {
                         case .success(let profile):
                             single(.success(profile))

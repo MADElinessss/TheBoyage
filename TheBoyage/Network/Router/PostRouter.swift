@@ -58,12 +58,12 @@ extension PostRouter: TargetType {
                 HTTPHeader.contentType.rawValue : HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
             ]
-        case .fetchOnePost(id: let id):
+        case .fetchOnePost(_):
             return [
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue
             ]
-        case .deletePost(id: let id):
+        case .deletePost(_):
             return [
                 HTTPHeader.authorization.rawValue : UserDefaults.standard.string(forKey: "AccessToken") ?? "",
                 HTTPHeader.sesacKey.rawValue : APIKey.sesacKey.rawValue

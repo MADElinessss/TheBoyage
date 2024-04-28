@@ -24,8 +24,6 @@ struct PostNetworkManager {
                         .append(query.files, withName: "files", fileName: "postImage.jpeg", mimeType: "image/jpeg")
                 }, to: url, headers: headers)
                 .responseDecodable(of: ImageUploadModel.self) { response in
-                    print("🍀", response.response?.statusCode)
-                    print("🍀", response)
                     switch response.result {
                     case .success(let success):
                         single(.success(success))
@@ -78,7 +76,7 @@ struct PostNetworkManager {
                         if let statusCode = response.response?.statusCode, statusCode == 200 {
                             single(.success(()))
                         } else {
-                            print("Delete error: \(response.response?.statusCode)")
+                            print("Delete error: \(String(describing: response.response?.statusCode))")
                             single(.failure(response.result as! Error))
                         }
                     case .failure(let error):

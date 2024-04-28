@@ -30,7 +30,7 @@ class ImageService {
                 return request
             }
             
-            let task = KingfisherManager.shared.retrieveImage(
+            KingfisherManager.shared.retrieveImage(
                 with: .network(url),
                 options: [.requestModifier(header)],
                 completionHandler: { result in

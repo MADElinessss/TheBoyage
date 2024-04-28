@@ -36,11 +36,7 @@ class MyFeedView: BaseView, UICollectionViewDataSource {
     static func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         
-        let width = (UIScreen.main.bounds.width - 48) / 2
         layout.itemSize = CGSize(width: 100, height: 100)
-//        layout.minimumLineSpacing = 8
-//        layout.minimumInteritemSpacing = 8
-//        layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16)
         layout.scrollDirection = .vertical
         
         return layout

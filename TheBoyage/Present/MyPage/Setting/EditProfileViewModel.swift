@@ -59,10 +59,6 @@ class EditProfileViewModel: ViewModelType {
             .bind(to: selectedImageSubject)
             .disposed(by: disposeBag)
         
-        // BehaviorSubject -> Driver
-        let selectedImage = selectedImageSubject
-            .asDriver(onErrorJustReturn: nil)
-        
         input.saveButtonTapped
             .withLatestFrom(Observable.combineLatest(input.name, input.phoneNumber, input.birthDate, input.imageSelected))
             .flatMapLatest { name, phone, birthDate, image -> Observable<Bool> in

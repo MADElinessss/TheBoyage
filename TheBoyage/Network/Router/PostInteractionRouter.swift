@@ -57,7 +57,6 @@ extension PostInteractionRouter: TargetType {
             encoder.keyEncodingStrategy = .convertToSnakeCase
             do {
                 let jsonData = try encoder.encode(query)
-                let jsonString = String(data: jsonData, encoding: .utf8)
                 return jsonData
             } catch {
                 return nil

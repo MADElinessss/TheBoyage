@@ -48,7 +48,7 @@ class MainViewModel: ViewModelType {
             .do(onNext: { response in
                 
             }, onError: { error in
-                print("🥹magazine Error \(error.asAFError)")
+                print("🥹magazine Error \(String(describing: error.asAFError))")
                 if let afError = error as? AFError, afError.isResponseSerializationError {
                     if let statusCode = afError.responseCode {
                         switch statusCode {

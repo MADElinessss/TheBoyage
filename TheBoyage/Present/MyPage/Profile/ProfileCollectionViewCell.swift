@@ -92,7 +92,6 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     func configure(profile: MyProfileModel) {
         nameLabel.text = "\(profile.nick) 님"
-        profileImageView
         editButton.addTarget(self, action: #selector(editTapped), for: .touchUpInside)
     }
     

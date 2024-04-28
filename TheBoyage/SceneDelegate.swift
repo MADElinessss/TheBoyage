@@ -82,7 +82,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 // 토큰 유효성 검증 성공
                 print("validateToken = success")
                 completion(true)
-            case .failure(let error):
+            case .failure(_):
                 if let statusCode = response.response?.statusCode, statusCode == 418 || statusCode == 419 || statusCode == 403 {
                     print("validateToken = failure, \(statusCode)")
                     UserDefaults.standard.removeObject(forKey: "AccessToken")
