@@ -107,11 +107,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
             .asDriver(onErrorJustReturn: UIImage(systemName: "airplane.departure")!)
             .drive(feedImageView.rx.image)
             .disposed(by: disposeBag)
-        
-//        viewModel.imageLoadedCallback = { [weak self] image in
-//            self?.profileView.image = image
-//        }
-        
+
         output.profileImage
             .asDriver(onErrorJustReturn: UIImage(systemName: "person.fill")!)
             .debug("🚨")
@@ -179,7 +175,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         contentLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.leading.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
         }
     }
     
