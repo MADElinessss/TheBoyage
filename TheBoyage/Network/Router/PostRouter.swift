@@ -95,9 +95,9 @@ extension PostRouter: TargetType {
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             return try? encoder.encode(query)
-        case .fetchOnePost(id: let id):
+        case .fetchOnePost(id: _):
             return nil
-        case .deletePost(id: let id):
+        case .deletePost(id: _):
             return nil
         }
     }

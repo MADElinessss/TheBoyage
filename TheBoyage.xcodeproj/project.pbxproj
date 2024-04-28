@@ -98,6 +98,10 @@
 		C17E50452BDCFA5400FB24B5 /* BMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50442BDCFA5400FB24B5 /* BMainViewModel.swift */; };
 		C17E50482BDE0F3D00FB24B5 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50472BDE0F3D00FB24B5 /* ImageService.swift */; };
 		C17E504A2BDE1EEC00FB24B5 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50492BDE1EEC00FB24B5 /* DetailViewModel.swift */; };
+		C17E504D2BDE289E00FB24B5 /* PostInteractionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E504C2BDE289E00FB24B5 /* PostInteractionRouter.swift */; };
+		C17E504F2BDE2AE800FB24B5 /* PostInteractionQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E504E2BDE2AE800FB24B5 /* PostInteractionQuery.swift */; };
+		C17E50512BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50502BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift */; };
+		C17E50532BDE2BDC00FB24B5 /* PostInteractionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50522BDE2BDC00FB24B5 /* PostInteractionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -187,6 +191,10 @@
 		C17E50442BDCFA5400FB24B5 /* BMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMainViewModel.swift; sourceTree = "<group>"; };
 		C17E50472BDE0F3D00FB24B5 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		C17E50492BDE1EEC00FB24B5 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		C17E504C2BDE289E00FB24B5 /* PostInteractionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInteractionRouter.swift; sourceTree = "<group>"; };
+		C17E504E2BDE2AE800FB24B5 /* PostInteractionQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInteractionQuery.swift; sourceTree = "<group>"; };
+		C17E50502BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInteractionNetworkManager.swift; sourceTree = "<group>"; };
+		C17E50522BDE2BDC00FB24B5 /* PostInteractionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInteractionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,17 +255,13 @@
 		C1024A792BC7963C0082EF13 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C17E504B2BDE27CA00FB24B5 /* APIManager */,
 				C17E50462BDE0F2D00FB24B5 /* Service */,
 				C1754C1E2BD2378500728142 /* Router */,
 				C1024A942BC803800082EF13 /* Model */,
 				C1024A7C2BC797A60082EF13 /* APIKey.swift */,
 				C1024A7E2BC802BC0082EF13 /* HTTPHeader.swift */,
-				C1024A972BC803DA0082EF13 /* LoginNetworkManager.swift */,
 				C1024A9C2BC804560082EF13 /* TargetType.swift */,
-				C1754BCA2BCE672500728142 /* PostNetworkManager.swift */,
-				C1754C232BD23A5300728142 /* FetchPostsNetworkManager.swift */,
-				C1754C292BD412FF00728142 /* NetworkInterceptor.swift */,
-				C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -272,6 +276,7 @@
 				C1754BCE2BCE677D00728142 /* PostModel.swift */,
 				C1754C252BD23A8E00728142 /* FetchModel.swift */,
 				C1754C382BD4EC9900728142 /* MyProfileModel.swift */,
+				C17E50522BDE2BDC00FB24B5 /* PostInteractionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -397,6 +402,7 @@
 				C1024A802BC802E30082EF13 /* LoginQuery.swift */,
 				C1754C212BD2381A00728142 /* MainQuery.swift */,
 				C1754C452BD575A000728142 /* EditProfileQuery.swift */,
+				C17E504E2BDE2AE800FB24B5 /* PostInteractionQuery.swift */,
 			);
 			path = Query;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				C1754BC62BCE655000728142 /* PostRouter.swift */,
 				C1754C1F2BD237A600728142 /* MainRouter.swift */,
 				C1754C342BD4EA6700728142 /* MyPageRouter.swift */,
+				C17E504C2BDE289E00FB24B5 /* PostInteractionRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -523,6 +530,19 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		C17E504B2BDE27CA00FB24B5 /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				C1754BCA2BCE672500728142 /* PostNetworkManager.swift */,
+				C1754C292BD412FF00728142 /* NetworkInterceptor.swift */,
+				C1754C232BD23A5300728142 /* FetchPostsNetworkManager.swift */,
+				C1754C362BD4EC4100728142 /* MyProfileNetworkManager.swift */,
+				C1024A972BC803DA0082EF13 /* LoginNetworkManager.swift */,
+				C17E50502BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift */,
+			);
+			path = APIManager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -613,7 +633,9 @@
 			files = (
 				C1754BE72BCFC3BA00728142 /* FeedView.swift in Sources */,
 				C17E50482BDE0F3D00FB24B5 /* ImageService.swift in Sources */,
+				C17E50512BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift in Sources */,
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
+				C17E50532BDE2BDC00FB24B5 /* PostInteractionModel.swift in Sources */,
 				C1754C262BD23A8E00728142 /* FetchModel.swift in Sources */,
 				C1754C3C2BD4FFD500728142 /* SettingView.swift in Sources */,
 				C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */,
@@ -652,6 +674,7 @@
 				C17E50372BDA357900FB24B5 /* DetailPostViewController.swift in Sources */,
 				C1754C202BD237A600728142 /* MainRouter.swift in Sources */,
 				C1754BD92BCFA10D00728142 /* AlertManager.swift in Sources */,
+				C17E504F2BDE2AE800FB24B5 /* PostInteractionQuery.swift in Sources */,
 				C1024A982BC803DA0082EF13 /* LoginNetworkManager.swift in Sources */,
 				C1754C422BD5088200728142 /* EditProfileView.swift in Sources */,
 				C1754BDB2BCFAFE300728142 /* MainView.swift in Sources */,
@@ -663,6 +686,7 @@
 				C1024A7B2BC797180082EF13 /* RefreshToken.swift in Sources */,
 				C178A8C12BCA64A4007F1E3F /* ProgressView.swift in Sources */,
 				C1754B8C2BCD67A400728142 /* AddImageTableViewCell.swift in Sources */,
+				C17E504D2BDE289E00FB24B5 /* PostInteractionRouter.swift in Sources */,
 				C1754B802BCD599100728142 /* AddContentView.swift in Sources */,
 				C1024AAA2BC81E010082EF13 /* SignInViewController.swift in Sources */,
 				C1024A652BC6BEE50082EF13 /* ViewController.swift in Sources */,

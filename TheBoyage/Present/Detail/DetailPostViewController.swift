@@ -51,6 +51,13 @@ class DetailPostViewController: BaseViewController {
                 cell.bind(post: post)
             }
             .disposed(by: disposeBag)
+        
+        Observable.just(post)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] post in
+                self?.mainView.bind(post: post)
+            })
+            .disposed(by: disposeBag)
     }
     
     func configureView() {
