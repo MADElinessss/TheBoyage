@@ -102,6 +102,9 @@
 		C17E504F2BDE2AE800FB24B5 /* PostInteractionQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E504E2BDE2AE800FB24B5 /* PostInteractionQuery.swift */; };
 		C17E50512BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50502BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift */; };
 		C17E50532BDE2BDC00FB24B5 /* PostInteractionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50522BDE2BDC00FB24B5 /* PostInteractionModel.swift */; };
+		C17E50552BDE48D600FB24B5 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50542BDE48D600FB24B5 /* CommentViewController.swift */; };
+		C17E50572BDE4A2300FB24B5 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50562BDE4A2300FB24B5 /* CommentTableViewCell.swift */; };
+		C17E50592BDE957500FB24B5 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E50582BDE957500FB24B5 /* CommentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -195,6 +198,9 @@
 		C17E504E2BDE2AE800FB24B5 /* PostInteractionQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInteractionQuery.swift; sourceTree = "<group>"; };
 		C17E50502BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInteractionNetworkManager.swift; sourceTree = "<group>"; };
 		C17E50522BDE2BDC00FB24B5 /* PostInteractionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInteractionModel.swift; sourceTree = "<group>"; };
+		C17E50542BDE48D600FB24B5 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		C17E50562BDE4A2300FB24B5 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		C17E50582BDE957500FB24B5 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -517,6 +523,9 @@
 				C17E50362BDA357900FB24B5 /* DetailPostViewController.swift */,
 				C17E50382BDA41C000FB24B5 /* DetailPostCollectionViewCell.swift */,
 				C17E50492BDE1EEC00FB24B5 /* DetailViewModel.swift */,
+				C17E50542BDE48D600FB24B5 /* CommentViewController.swift */,
+				C17E50562BDE4A2300FB24B5 /* CommentTableViewCell.swift */,
+				C17E50582BDE957500FB24B5 /* CommentViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -636,6 +645,8 @@
 				C17E50512BDE2BA500FB24B5 /* PostInteractionNetworkManager.swift in Sources */,
 				C1024AAC2BC81E190082EF13 /* SignInView.swift in Sources */,
 				C17E50532BDE2BDC00FB24B5 /* PostInteractionModel.swift in Sources */,
+				C17E50552BDE48D600FB24B5 /* CommentViewController.swift in Sources */,
+				C17E50592BDE957500FB24B5 /* CommentViewModel.swift in Sources */,
 				C1754C262BD23A8E00728142 /* FetchModel.swift in Sources */,
 				C1754C3C2BD4FFD500728142 /* SettingView.swift in Sources */,
 				C178A8BB2BCA4821007F1E3F /* MainViewController.swift in Sources */,
@@ -705,6 +716,7 @@
 				C1754C732BD817CE00728142 /* NetworkService.swift in Sources */,
 				C1024AB62BC853020082EF13 /* SignUpViewController.swift in Sources */,
 				C1754BDE2BCFB2F600728142 /* MagazineView.swift in Sources */,
+				C17E50572BDE4A2300FB24B5 /* CommentTableViewCell.swift in Sources */,
 				C1754C352BD4EA6700728142 /* MyPageRouter.swift in Sources */,
 				C1024AA22BC81D630082EF13 /* BaseView.swift in Sources */,
 				C1024AA72BC81DB00082EF13 /* ViewModelType.swift in Sources */,

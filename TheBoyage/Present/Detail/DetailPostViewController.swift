@@ -58,8 +58,22 @@ class DetailPostViewController: BaseViewController {
                 self?.mainView.bind(post: post)
             })
             .disposed(by: disposeBag)
+        
+        mainView.commentButtonTap
+                .subscribe(onNext: { [weak self] _ in
+                    guard let self = self else { return }
+                    self.showCommentViewController()
+                })
+                .disposed(by: disposeBag)
     }
     
+    private func showCommentViewController() {
+        guard let post = post else { return }
+        let commentVC = CommentViewController()
+        commentVC.comments = post.comments
+        navigationController?.pushViewController(commentVC, animated: true)
+    }
+
     func configureView() {
         configureNavigation()
         mainView.collectionView.register(DetailPostCollectionViewCell.self, forCellWithReuseIdentifier: DetailPostCollectionViewCell.identifier)
